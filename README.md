@@ -2,6 +2,7 @@
 Josh Mccoy, jdm1502, JDMCCOY, jdmccoy3187@gmail.com
 James Fairley, jf1812, Jamesalot20, jf1812@msstate.edu
 William Emmich,wbe41, William-Emmich,wbe41@msstate.edu
+Tyler Wilson, taw501, and tylerwilson0429@gmail.com
 
 Plan to use Javascript,Nodejs,MongoDb, and React. TechTonic is an E-commerce store that sells different computer parts. The goal is for the software to support: 
 - Users  with  different  roles  (Buyer,  Seller,  Admin)  should  be  able  to  login  into  their 
