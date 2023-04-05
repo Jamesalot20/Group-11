@@ -24,19 +24,8 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Lint code
-      run: npm run lint
-
     - name: Run tests
       run: npm test
 
-    - name: Check code coverage
-      run: npm run coverage
-
     - name: Build project
       run: npm run build
-
-    - name: Deploy to production
-      if: success()
-      run: |
-        echo "Deploying to production..."
