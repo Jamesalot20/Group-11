@@ -12,9 +12,5 @@
     "url": "Group-11"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "webpack": "^5.77.0",
-    "webpack-cli": "^5.0.1"
-  }
+  "license": "ISC"
 }
