@@ -1,17 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const usersController = require('../controllers/usersController');
 
-// Add your routes here
-router.post('/register', (req, res) => {
-  // Registration logic
-});
-
-router.post('/login', (req, res) => {
-  // Login logic
-});
-
-router.get('/logout', (req, res) => {
-  // Logout logic
-});
+router.post('/register', usersController.registerUser);
+router.post('/login', usersController.loginUser);
+router.get('/logout', usersController.logoutUser);
 
 module.exports = router;
