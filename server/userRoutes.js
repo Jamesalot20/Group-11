@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const connectToDB = require('./db.js');
 
-// Define your route handlers here, e.g., for user login:
-router.post('/login', async (req, res) => {
-  const db = await connectToDB();
+// Add your routes here
+router.post('/register', (req, res) => {
+  // Registration logic
+});
 
-  // Interact with your database to authenticate the user,
-  // then send an appropriate response
+router.post('/login', (req, res) => {
+  // Login logic
+});
+
+router.get('/logout', (req, res) => {
+  // Logout logic
 });
 
 module.exports = router;
