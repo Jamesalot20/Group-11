@@ -6,12 +6,13 @@ app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
 // In your main server file, e.g., server.js
-const userRoutes = require('./userRoutes.js');
-const productRoutes = require('./productRoutes.js');
+const userRoutes = require('./routes/users');
+
+app.use('/api/users', userRoutes);
 
 // Use the routes as middleware
 app.use('/users', userRoutes);
-app.use('/products', productRoutes);
+//app.use('/products', productRoutes);
 // In your main server file
 const bodyParser = require('body-parser');
 
