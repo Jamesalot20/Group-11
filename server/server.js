@@ -12,3 +12,8 @@ const productRoutes = require('./productRoutes.js');
 // Use the routes as middleware
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
+// In your main server file
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
