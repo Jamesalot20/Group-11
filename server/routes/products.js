@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const productsController = require('../controllers/productsController');
+const authenticate = require('./middlewares/authenticate');
+const authorize = require('./middlewares/authorize');
 
 // Get all products
 router.get('/', productsController.getAllProducts);
@@ -10,6 +12,7 @@ router.get('/:productId', productsController.getProductById);
 
 // Add a new product (assuming the user is a seller)
 router.post('/', productsController.addProduct);
+router.post('/products', authenticate, authorize(['Seller', 'Admin']), productsController.createProduct);
 
 // Update an existing product (assuming the user is the product owner)
 router.put('/:productId', productsController.updateProduct);
