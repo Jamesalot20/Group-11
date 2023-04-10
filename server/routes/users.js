@@ -8,4 +8,6 @@ router.get('/logout', usersController.logoutUser);
 router.post('/searchItems', usersController.searchItems);
 router.post('/createProduct', usersController.createProduct);
 
+router.get('/protected', authMiddleware.authenticate, authMiddleware.authorize(['admin', 'seller']), userController.protectedRoute);
+
 module.exports = router;
