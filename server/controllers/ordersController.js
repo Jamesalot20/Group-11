@@ -1,6 +1,6 @@
 const Order = require('../models/order');
 
-exports.getOrders = async (req, res) => {
+exports.getOrdersByUser = async (req, res) => {
   try {
     const orders = await Order.find();
     res.status(200).json(orders);
