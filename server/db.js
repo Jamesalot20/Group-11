@@ -1,13 +1,10 @@
-const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://James:xxixQtTzY70iUVtP@ttdatabase.khylsrk.mongodb.net/test";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const mongoose = require('mongoose');
+const uri = "mongodb+srv://James:xxixQtTzY70iUVtP@ttdatabase.khylsrk.mongodb.net/TechTonic";
 
 async function connect() {
   try {
-    await client.connect();
+    await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log("Connected to MongoDB");
-    const db = client.db("TechTonic");
-    return db;
   } catch (err) {
     console.error("Failed to connect to MongoDB", err);
   }
