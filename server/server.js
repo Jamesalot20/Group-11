@@ -30,9 +30,10 @@ app.use(errorMiddleware.errorHandler);
 
 // Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+connectToDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 }).catch((error) => {
   console.error('Failed to connect to the database:', error);
 });
