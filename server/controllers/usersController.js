@@ -30,6 +30,8 @@ exports.registerUser = async (req, res) => {
 exports.getUserByEmail = async (req, res) => {
   try {
     console.log('Email parameter:', req.params.email);
+    const allUsers = await User.find({});
+    console.log('All users:', allUsers);
     const user = await User.findOne({ email: req.params.email });
     console.log('User found:', user);
 
