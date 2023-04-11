@@ -92,3 +92,6 @@ exports.createProduct = async (req, res) => {
     res.status(500).json({ message: 'Server error.' });
   }
 };
+exports.protectedRoute = (req, res) => {
+  res.status(200).json({ message: 'This is a protected route.' });
+};
