@@ -27,10 +27,12 @@ exports.registerUser = async (req, res) => {
     res.status(500).json({ message: 'Server error.' });
   }
 };
-exports.getUserByEmail = async (req, res) => {
+router.get('/userByEmail/:email', async (req, res) => {
   try {
-    console.log('Fetching user by email:', req.params.email);
+    console.log('Email parameter:', req.params.email);
     const user = await User.findOne({ email: req.params.email });
+    console.log('User found:', user);
+    
     if (!user) {
       res.status(404).json({ message: 'User not found' });
     } else {
@@ -40,7 +42,7 @@ exports.getUserByEmail = async (req, res) => {
     console.error('Error fetching user:', error);
     res.status(500).json({ error: 'An error occurred while fetching the user.' });
   }
-};
+});
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
