@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 exports.authenticate = (req, res, next) => {
-  const token = req.headers['TechTonic'];
+  const token = req.headers('TechTonic');
   if (!token) {
     return res.status(401).json({ message: 'No token provided, access denied.' });
   }
