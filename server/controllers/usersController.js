@@ -27,7 +27,18 @@ exports.registerUser = async (req, res) => {
     res.status(500).json({ message: 'Server error.' });
   }
 };
-
+exports.getUserByEmail = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+    } else {
+      res.status(200).json(user);
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching the user.' });
+  }
+};
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
