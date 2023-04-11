@@ -4,7 +4,7 @@ const productsController = require('../controllers/productsController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 // Get all products
-router.get('/', productsController.getAllProducts);
+router.get('/', productsController.getProducts);
 
 // Get a single product by ID
 router.get('/:productId', productsController.getProductById);
