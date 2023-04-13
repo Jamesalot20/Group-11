@@ -30,6 +30,7 @@ describe('Product Tests', () => {
         .delete(`/api/products/${productId}`)
         .set('Authorization', `Bearer ${sellerToken}`)
         .end((err, res) => {
+         console.log('Response body:', res.body);
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('message').eql('Product deleted successfully.');
