@@ -16,6 +16,6 @@ router.post('/createProduct', authMiddleware.authenticate, authMiddleware.author
 router.put('/:productId', productsController.updateProduct);
 
 // Delete a product (assuming the user is the product owner or an admin)
-router.delete('/:productId', productsController.deleteProduct);
+
 
 module.exports = router;
