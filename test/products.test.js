@@ -24,7 +24,7 @@ describe('Product Tests', () => {
 
   describe('Delete Product', () => {
     it('should delete a product by a seller', (done) => {
-      const productId = '643886309545b9fda39f31ef'; // Replace this with an actual product ID
+      const productId = '64388d3cd3761fde196484b9'; // Replace this with an actual product ID
 
       chai.request(server)
         .delete(`/api/products/${productId}`)
