@@ -1,6 +1,6 @@
 const supertest = require('supertest');
 const chai = require('chai');
-const app = require('server/server.js'); // Import your server or app instance
+const app = require('..server/server.js'); // Import your server or app instance
 const request = supertest(app);
 const { expect } = chai;
 
