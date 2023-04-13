@@ -46,20 +46,20 @@ describe('Auth Tests', () => {
     const response = await request.post('/api/users/logout').set('Authorization', `Bearer ${buyerToken}`);
 
     expect(response.status).to.equal(200);
-    expect(response.body.message).to.equal('Logout successful');
+    expect(response.body.message).to.equal('Logout successful.');
   });
 
   it('Seller logout', async () => {
     const response = await request.post('/api/users/logout').set('Authorization', `Bearer ${sellerToken}`);
 
     expect(response.status).to.equal(200);
-    expect(response.body.message).to.equal('Logout successful');
+    expect(response.body.message).to.equal('Logout successful.');
   });
 
   it('Admin logout', async () => {
     const response = await request.post('/api/users/logout').set('Authorization', `Bearer ${adminToken}`);
 
     expect(response.status).to.equal(200);
-    expect(response.body.message).to.equal('Logout successful');
+    expect(response.body.message).to.equal('Logout successful.');
   });
 });
