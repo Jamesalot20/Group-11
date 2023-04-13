@@ -43,21 +43,21 @@ describe('Auth Tests', () => {
   // Write test cases for different user roles performing actions
 
   it('Buyer logout', async () => {
-    const response = await request.post('/api/auth/logout').set('Authorization', `Bearer ${buyerToken}`);
+    const response = await request.post('/api/users/logout').set('Authorization', `Bearer ${buyerToken}`);
 
     expect(response.status).to.equal(200);
     expect(response.body.message).to.equal('Logged out successfully');
   });
 
   it('Seller logout', async () => {
-    const response = await request.post('/api/auth/logout').set('Authorization', `Bearer ${sellerToken}`);
+    const response = await request.post('/api/users/logout').set('Authorization', `Bearer ${sellerToken}`);
 
     expect(response.status).to.equal(200);
     expect(response.body.message).to.equal('Logged out successfully');
   });
 
   it('Admin logout', async () => {
-    const response = await request.post('/api/auth/logout').set('Authorization', `Bearer ${adminToken}`);
+    const response = await request.post('/api/users/logout').set('Authorization', `Bearer ${adminToken}`);
 
     expect(response.status).to.equal(200);
     expect(response.body.message).to.equal('Logged out successfully');
