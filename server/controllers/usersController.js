@@ -87,29 +87,3 @@ exports.searchItems = async (req, res) => {
     res.status(500).json({ message: 'Server error.' });
   }
 };
-
-exports.createProduct = async (req, res) => {
-  const user = req.user;
-  
-  if (user.role !== 'seller' && user.role !== 'admin') {
-    res.status(403).json({ message: 'You do not have permission to create a product' });
-    return;
-  }
-  
-  try {
-    const { name, description, price, quantity } = req.body;
-    const newProduct = new Product({
-      name,
-      description,
-      price,
-      quantity,
-    });
-    await newProduct.save();
-    res.status(201).json({ message: 'Product created successfully.' });
-  } catch (error) {
-    res.status(500).json({ message: 'Server error.' });
-  }
-};
-exports.protectedRoute = (req, res) => {
-  res.status(200).json({ message: 'This is a protected route.' });
-};
