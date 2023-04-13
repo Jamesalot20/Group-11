@@ -24,13 +24,16 @@ exports.getProductById = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   const user = req.user;
-console.log('User:', user);
+  console.log('User:', user);
   if (user.role !== 'seller' && user.role !== 'admin') {
     res.status(403).json({ message: 'You do not have permission to create a product' });
     return;
   }
   try {
-    const product = new Product(req.body);
+    const product = new Product({
+      ...req.body,
+      seller: user.userId, // Add this line to set the seller field from the user object
+    });
     await product.save();
     res.status(201).json(product);
   } catch (error) {
@@ -38,6 +41,7 @@ console.log('User:', user);
     res.status(500).json({ error: 'An error occurred while creating the product.' });
   }
 };
+
 
 exports.updateProduct = async (req, res) => {
   try {
