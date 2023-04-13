@@ -6,6 +6,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 router.post('/register', usersController.registerUser);
 router.post('/login', usersController.loginUser);
+router.post('/createProduct', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.createProduct);
 router.get('/logout', usersController.logoutUser);
 //router.post('/searchItems', usersController.searchItems);
 
