@@ -23,6 +23,12 @@ exports.getProductById = async (req, res) => {
 };
 
 exports.createProduct = async (req, res) => {
+  const user = req.user;
+
+  if (user.role !== 'seller' && user.role !== 'admin') {
+    res.status(403).json({ message: 'You do not have permission to create a product' });
+    return;
+  }
   try {
     const product = new Product(req.body);
     await product.save();
