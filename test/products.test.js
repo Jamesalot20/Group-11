@@ -11,8 +11,8 @@ describe('Product Tests', () => {
   before(async () => {
     // Login as a seller to obtain the authorization token
     const sellerCredentials = {
-      email: 'jf1812@msstate.edu',
-      password: 'Qwerre123'
+      email: 'deleteproduct@example.com',
+      password: 'qwerre'
     };
 
     const res = await chai.request(server)
@@ -24,7 +24,7 @@ describe('Product Tests', () => {
 
   describe('Delete Product', () => {
     it('should delete a product by a seller', (done) => {
-      const productId = '64387bd7c54a9c45b738eba3'; // Replace this with an actual product ID
+      const productId = '643886309545b9fda39f31ef'; // Replace this with an actual product ID
 
       chai.request(server)
         .delete(`/api/products/${productId}`)
