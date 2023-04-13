@@ -8,7 +8,7 @@ router.post('/register', usersController.registerUser);
 router.post('/login', usersController.loginUser);
 router.get('/logout', usersController.logoutUser);
 router.post('/searchItems', usersController.searchItems);
-router.post('/createProduct', usersController.createProduct);
+router.post('/createProduct', authMiddleware.authenticate, usersController.createProduct);
 
 router.get('/protected', authMiddleware.authenticate, authMiddleware.authorize(['admin', 'seller']), usersController.protectedRoute);
 router.get('/userByEmail/:email', usersController.getUserByEmail);
