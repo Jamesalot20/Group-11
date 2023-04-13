@@ -11,8 +11,8 @@ describe('Product Tests', () => {
   before(async () => {
     // Login as a seller to obtain the authorization token
     const sellerCredentials = {
-      email: 'seller@example.com',
-      password: 'sellerpassword'
+      email: 'jf1812@msstate.edu',
+      password: 'Qwerre123'
     };
 
     const res = await chai.request(server)
