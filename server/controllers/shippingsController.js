@@ -16,6 +16,7 @@ exports.createShipping = async (req, res) => {
     res.status(201).json({ message: 'Shipping address created successfully.', newShipping });
 
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Server error.' });
   }
 };
