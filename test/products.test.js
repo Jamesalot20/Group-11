@@ -22,19 +22,19 @@ describe('Product Tests', () => {
     sellerToken = res.body.token;
   });
 
-describe('Delete Product', () => {
-  it('should delete a product by a seller', (done) => {
-    chai
-      .request(server)
-      .delete('/api/products/' + productId) // Assuming 'productId' is the variable holding the ID of the product you want to delete.
-      .set('Authorization', `Bearer ${sellerToken}`) // Assuming 'sellerToken' is the token for the seller's account.
-      .end((err, res) => {
-        console.log('Product ID:', productId);
-        console.log('Response:', res.body);
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Product successfully deleted.');
-        done();
-      });
-  });
+  describe('Delete Product', () => {
+    it('should delete a product by a seller', (done) => {
+      const productId = '64388d3cd3761fde196484b9'; // Replace this with an actual product ID
+
+      chai.request(server)
+        .delete(`/api/users/${productId}`)
+        .set('Authorization', `Bearer ${sellerToken}`)
+        .end((err, res) => {
+         console.log('Response body:', res.body);
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message').eql('Product deleted successfully.');
+          done();
+        });
+    });
 });
