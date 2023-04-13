@@ -8,7 +8,7 @@ describe('Auth Tests', () => {
   let buyerToken, sellerToken, adminToken;
 
   it('Buyer login', async () => {
-    const response = await request.post('/api/auth/login').send({
+    const response = await request.post('/api/users/login').send({
       email: 'test@example.com',
       password: 'password123',
     });
@@ -19,7 +19,7 @@ describe('Auth Tests', () => {
   });
 
   it('Seller login', async () => {
-    const response = await request.post('/api/auth/login').send({
+    const response = await request.post('/api/users/login').send({
       email: 'sellertest@example.com',
       password: 'password123',
     });
@@ -30,7 +30,7 @@ describe('Auth Tests', () => {
   });
 
   it('Admin login', async () => {
-    const response = await request.post('/api/auth/login').send({
+    const response = await request.post('/api/users/login').send({
       email: 'jf1812@msstate.edu',
       password: 'Qwerre123',
     });
