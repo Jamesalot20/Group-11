@@ -58,11 +58,9 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   try {
- console.log("Product ID to delete:", req.params.productId);
     const product = await Product.findByIdAndRemove(req.params.id);
     if (!product) {
-      console.error('Product not found:', req.params.productId);
-      console.error('Product not found:', error);
+      console.error('Product not found:', req.params.id); // Update this line
       res.status(404).json({ error: 'Product not found.' });
     } else {
       res.status(200).json({ message: 'Product successfully deleted.' });
