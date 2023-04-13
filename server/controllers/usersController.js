@@ -17,15 +17,14 @@ exports.registerUser = async (req, res) => {
     const newUser = new User({
       email,
       password: hashedPassword,
-      role,
+      role: role || 'buyer', // Set role from request body, default to 'buyer'
     });
 
     await newUser.save();
     res.status(201).json({ message: 'User successfully registered.' });
 
   } catch (error) {
-  console.error("Error in registerUser:", error);
-  res.status(500).json({ message: 'Server error.', error });
+    res.status(500).json({ message: 'Server error.' });
   }
 };
 exports.getUserByEmail = async (req, res) => {
