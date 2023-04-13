@@ -2,14 +2,16 @@ const Shipping = require('../models/Shipping');
 
 exports.createShipping = async (req, res) => {
   try {
-    const { address, city, state, zip } = req.body;
+    const { user, fullName, addressLine1, city, state, postalCode, country } = req.body;
 
     const newShipping = new Shipping({
-      user: req.user._id,
-      address,
+      user,
+      fullName,
+      addressLine1,
       city,
       state,
-      zip,
+      postalCode,
+      country,
     });
 
     await newShipping.save();
@@ -17,7 +19,7 @@ exports.createShipping = async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error.' });
+    res.status(500).json({ message: 'Server error.', error: error.message });
   }
 };
 
