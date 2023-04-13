@@ -43,21 +43,21 @@ describe('Auth Tests', () => {
   // Write test cases for different user roles performing actions
 
   it('Buyer logout', async () => {
-    const response = await request.post('/api/auth/logout').set('Authorization', `Bearer ${eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDM4NGFjNTczNGZmYjkyMjJlOGE5ODkiLCJyb2xlIjoiYnV5ZXIiLCJpYXQiOjE2ODE0MTIwNjcsImV4cCI6MTY4MTQxNTY2N30.5DQQZjTLPPSpoyiUpP6DUFxa2R4aKUsz2Rfsa6AIC4M}`);
+    const response = await request.post('/api/auth/logout').set('Authorization', `Bearer ${buyerToken}`);
 
     expect(response.status).to.equal(200);
     expect(response.body.message).to.equal('Logged out successfully');
   });
 
   it('Seller logout', async () => {
-    const response = await request.post('/api/auth/logout').set('Authorization', `Bearer ${eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDM4NGFlOTczNGZmYjkyMjJlOGE5OGMiLCJyb2xlIjoic2VsbGVyIiwiaWF0IjoxNjgxNDEyMDMxLCJleHAiOjE2ODE0MTU2MzF9.zgt2FrHn6madv1MxY-QW9grZ9gv-BJD5OTlV61AP_TA}`);
+    const response = await request.post('/api/auth/logout').set('Authorization', `Bearer ${sellerToken}`);
 
     expect(response.status).to.equal(200);
     expect(response.body.message).to.equal('Logged out successfully');
   });
 
   it('Admin logout', async () => {
-    const response = await request.post('/api/auth/logout').set('Authorization', `Bearer ${eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDM3N2FiNTE0MWE2M2FlMTc3ZDc0YzAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2ODE0MTIwOTUsImV4cCI6MTY4MTQxNTY5NX0.FSuTw-l06H5mYUq3l0yg29nkJuCbADEhPEdAb7qqcXE}`);
+    const response = await request.post('/api/auth/logout').set('Authorization', `Bearer ${adminToken}`);
 
     expect(response.status).to.equal(200);
     expect(response.body.message).to.equal('Logged out successfully');
