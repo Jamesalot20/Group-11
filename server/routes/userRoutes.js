@@ -9,6 +9,7 @@ router.post('/login', usersController.loginUser);
 router.post('/createProduct', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.createProduct);
 router.post('/logout', authMiddleware.authenticate, usersController.logoutUser);
 router.post('/searchItems', usersController.searchItems);
+router.delete('/:productId', productsController.deleteProduct);
 
 router.get('/protected', authMiddleware.authenticate, authMiddleware.authorize(['admin', 'seller']), usersController.protectedRoute);
 router.get('/userByEmail/:email', usersController.getUserByEmail);
