@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectToDB = require('./db');
+const authMiddleware = require('./middlewares/authMiddleware');
 
 // Import routes
 const userRoutes = require('./routes/userRoutes');
@@ -23,6 +24,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(authMiddleware.authenticate);
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
