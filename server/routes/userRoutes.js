@@ -10,6 +10,7 @@ router.post('/createProduct', authMiddleware.authenticate, authMiddleware.author
 router.post('/logout', authMiddleware.authenticate, usersController.logoutUser);
 router.post('/searchItems', usersController.searchItems);
 router.delete('/:productId', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.deleteProduct);
+router.delete('/deleteUser/:email', authMiddleware.authenticate, authMiddleware.authorize(['admin']), usersController.deleteUser);
 
 router.get('/protected', authMiddleware.authenticate, authMiddleware.authorize(['admin', 'seller']), usersController.protectedRoute);
 router.get('/userByEmail/:email', usersController.getUserByEmail);
