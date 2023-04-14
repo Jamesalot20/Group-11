@@ -5,37 +5,36 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Product Tests', () => {
-  let sellerToken;
+describe('Delete Product', () => {
+  let productId;
 
   before(async () => {
-    // Login as a seller to obtain the authorization token
-    const sellerCredentials = {
-      email: 'deleteproduct@example.com',
-      password: 'qwerre'
+    // Create a new product
+    const newProduct = {
+      name: 'Test Product',
+      description: 'Test Product Description',
+      price: 10,
+      category: 'Test Category',
+      seller: '64377ab5141a63ae177d74c0', // Replace this with an actual seller ID
     };
 
-    const res = await chai.request(server)
-      .post('/api/users/login')
-      .send(sellerCredentials);
-      
-    sellerToken = res.body.token;
+    const createRes = await chai.request(server)
+      .post('/api/products/createProduct')
+      .set('Authorization', `Bearer ${sellerToken}`)
+      .send(newProduct);
+
+    productId = createRes.body._id;
   });
 
-  describe('Delete Product', () => {
-    it('should delete a product by a seller', (done) => {
-      const productId = '64388d3cd3761fde196484b9'; // Replace this with an actual product ID
-
-      chai.request(server)
-        .delete(`/api/users/${productId}`)
-        .set('Authorization', `Bearer ${sellerToken}`)
-        .end((err, res) => {
-         console.log('Response body:', res.body);
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('Product deleted successfully.');
-          done();
-        });
-    });
+  it('should delete a product by a seller', (done) => {
+    chai.request(server)
+      .delete(`/api/users/${productId}`)
+      .set('Authorization', `Bearer ${sellerToken}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('Product deleted successfully.');
+        done();
+      });
   });
 });
