@@ -99,7 +99,7 @@ describe('Cart Tests', () => {
       };
 
       chai.request(server)
-        .post('/api/carts/addProduct')
+        .post('/api/carts/add')
         .set('Authorization', `Bearer ${buyerToken}`)
         .send(addProductToCart)
         .end((err, res) => {
