@@ -27,7 +27,7 @@ describe('Products', () => {
               description: 'Product Description',
               price: 9.99,
               category: 'Temp',
-              seller: ''
+              seller: '643885909545b9fda39f31ec'
             })
             .end((err, res) => {
               res.should.have.status(201);
