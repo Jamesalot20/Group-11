@@ -90,3 +90,20 @@ exports.searchItems = async (req, res) => {
 exports.protectedRoute = (req, res) => {
   res.status(200).json({ message: 'This is a protected route.' });
 };
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOneAndDelete({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    res.status(200).json({ message: 'User account deleted successfully.' });
+
+  } catch (error) {
+    console.error('Error deleting user account:', error);
+    res.status(500).json({ message: 'Server error.' });
+  }
+};
