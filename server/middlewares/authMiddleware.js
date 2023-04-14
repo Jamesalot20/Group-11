@@ -12,7 +12,7 @@ exports.authenticate = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 console.log('Decoded:', decoded);
-    req.user = decoded;
+    req.user = { ...decoded, userId: decoded.userId };
     console.log('User:', req.user);
     next();
   } catch (error) {
