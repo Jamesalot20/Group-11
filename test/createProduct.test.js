@@ -22,7 +22,7 @@ describe('POST /api/users/createProduct', () => {
       description: 'This is a test product',
       price: 9.99,
       quantity: 10,
-      seller: 'seller@example.com',
+      seller: 'sellertest@example.com',
     };
     request(app)
       .post('/api/users/createProduct')
