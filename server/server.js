@@ -35,7 +35,7 @@ app.use('/api/shipping', shippingRoutes);
 app.use(errorMiddleware.errorHandler);
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 connectToDB().then(() => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
