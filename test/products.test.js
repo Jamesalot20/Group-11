@@ -57,3 +57,57 @@ describe('Product Tests', () => {
     });
   });
 });
+describe('Cart Tests', () => {
+  let buyerToken;
+  let productId;
+
+  before(async () => {
+    // Login as a buyer to obtain the authorization token
+    const buyerCredentials = {
+      email: 'test@example.com',
+      password: 'password123'
+    };
+
+    const loginRes = await chai.request(server)
+      .post('/api/users/login')
+      .send(buyerCredentials);
+
+    buyerToken = loginRes.body.token;
+
+    // Create a new product
+    const newProduct = {
+      name: 'Test Product',
+      description: 'Test Product Description',
+      price: 10,
+      category: 'Test Category',
+      seller: '64384ac5734ffb9222e8a989', // Replace this with an actual seller ID
+    };
+
+    const createRes = await chai.request(server)
+      .post('/api/users/createProduct')
+      .set('Authorization', `Bearer ${sellerToken}`)
+      .send(newProduct);
+
+    productId = createRes.body._id;
+  });
+
+  describe('Add Product to Cart', () => {
+    it('should add a product to the buyer\'s cart', (done) => {
+      const addProductToCart = {
+        productId: productId,
+        quantity: 1
+      };
+
+      chai.request(server)
+        .post('/api/carts/addProduct')
+        .set('Authorization', `Bearer ${buyerToken}`)
+        .send(addProductToCart)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('message').eql('Product added to cart successfully.');
+          done();
+        });
+    });
+  });
+});
