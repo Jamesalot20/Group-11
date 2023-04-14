@@ -18,11 +18,11 @@ describe('POST /api/users/createProduct', () => {
 
   it('should create a new product', (done) => {
     const newProduct = {
-      name: 'Test Product',
+      name: 'Test Product1',
       description: 'This is a test product',
-      price: 9.99,
-      quantity: 10,
-      seller: 'sellertest@example.com',
+      price: 10,
+      category: 'Test Category',
+      seller: '643885909545b9fda39f31ec',
     };
     request(app)
       .post('/api/users/createProduct')
@@ -66,7 +66,7 @@ describe('POST /api/users/createProduct', () => {
     // Log in as a buyer and get the access token
     request(app)
       .post('/api/users/login')
-      .send({ email: 'buyer@example.com', password: 'password' })
+      .send({ email: 'test@example.com', password: 'password123' })
       .end((err, res) => {
         if (err) return done(err);
         const buyerToken = res.body.token;
