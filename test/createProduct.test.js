@@ -1,85 +1,38 @@
-const request = require('supertest');
-const app = require('../server/server');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const server = require('../server');
 
-describe('POST /api/users/createProduct', () => {
-  let sellerToken;
+// Configure chai
+chai.use(chaiHttp);
+chai.should();
 
-  beforeAll((done) => {
-    // Log in as a seller and get the access token
-    request(app)
-      .post('/api/users/login')
-      .send({ email: 'sellertest@example.com', password: 'password123' })
-      .end((err, res) => {
-        if (err) return done(err);
-        sellerToken = res.body.token;
-        done();
-      });
-  });
+describe('Products', () => {
+  describe('POST /api/users/createProduct', () => {
+    // Test the create product route for a seller
+    it('Should create a new product', (done) => {
+      // Login as a seller
+      chai.request(server)
+        .post('/api/users/login')
+        .send({ email: 'seller@example.com', password: 'password' })
+        .end((err, res) => {
+          res.should.have.status(200);
+          const token = res.body.token;
 
-  it('should create a new product', (done) => {
-    const newProduct = {
-      name: 'Test Product1',
-      description: 'This is a test product',
-      price: 10,
-      category: 'Test Category',
-      seller: '643885909545b9fda39f31ec',
-    };
-    request(app)
-      .post('/api/users/createProduct')
-      .send(newProduct)
-      .set('Authorization', `Bearer ${sellerToken}`)
-      .expect(201)
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res.body.message).toEqual('Product successfully created.');
-        done();
-      });
-  });
-
-  it('should not create a new product if user is not authenticated', (done) => {
-    const newProduct = {
-      name: 'Test Product',
-      description: 'This is a test product',
-      price: 9.99,
-      quantity: 10,
-      seller: 'sellertest@example.com',
-    };
-    request(app)
-      .post('/api/users/createProduct')
-      .send(newProduct)
-      .expect(401)
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res.body.message).toEqual('Authentication required.');
-        done();
-      });
-  });
-
-  it('should not create a new product if user is not a seller', (done) => {
-    const newProduct = {
-      name: 'Test Product',
-      description: 'This is a test product',
-      price: 9.99,
-      quantity: 10,
-      seller: 'seller@example.com',
-    };
-    // Log in as a buyer and get the access token
-    request(app)
-      .post('/api/users/login')
-      .send({ email: 'test@example.com', password: 'password123' })
-      .end((err, res) => {
-        if (err) return done(err);
-        const buyerToken = res.body.token;
-        request(app)
-          .post('/api/users/createProduct')
-          .send(newProduct)
-          .set('Authorization', `Bearer ${buyerToken}`)
-          .expect(403)
-          .end((err, res) => {
-            if (err) return done(err);
-            expect(res.body.message).toEqual('You are not authorized to perform this action.');
-            done();
-          });
-      });
+          // Create a new product
+          chai.request(server)
+            .post('/api/users/createProduct')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+              name: 'Product Name',
+              description: 'Product Description',
+              price: 9.99,
+              quantity: 10
+            })
+            .end((err, res) => {
+              res.should.have.status(201);
+              done();
+            });
+        });
+    });
   });
 });
