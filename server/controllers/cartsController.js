@@ -16,6 +16,7 @@ exports.getCartByUser = async (req, res) => {
 
 exports.addItemToCart = async (req, res) => {
   console.log('addItemToCart called'); // Add this line
+  console.log('Request user:', req.user); // Add this line
   try {
     const { productId, quantity } = req.body;
     const cart = await Cart.findOne({ user: req.user._id });
