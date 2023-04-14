@@ -35,6 +35,7 @@ exports.addItemToCart = async (req, res) => {
     await cart.save();
     res.status(200).json({ message: 'Item added to cart.', cart });
   } catch (error) {
+     console.log('Error:', error.message);
     res.status(500).json({ message: 'Server error.' });
   }
 };
