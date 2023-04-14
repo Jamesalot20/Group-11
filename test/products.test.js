@@ -51,7 +51,7 @@ describe('Product Tests', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('Product deleted successfully.');
+          res.body.should.have.property('message').eql('Product successfully deleted.');
           done();
         });
     });
