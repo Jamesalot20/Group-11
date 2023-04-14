@@ -1,6 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
-const app = require('../server');
+const app = require('../server/server');
 const request = require('supertest');
 
 describe('Product Routes', () => {
