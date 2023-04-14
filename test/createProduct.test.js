@@ -13,7 +13,7 @@ describe('Products', () => {
       // Login as a seller
       chai.request(server)
         .post('/api/users/login')
-        .send({ email: 'seller@example.com', password: 'password' })
+        .send({ email: 'sellertest@example.com', password: 'password123' })
         .end((err, res) => {
           res.should.have.status(200);
           const token = res.body.token;
@@ -26,7 +26,8 @@ describe('Products', () => {
               name: 'Product Name',
               description: 'Product Description',
               price: 9.99,
-              quantity: 10
+              category: 'Temp',
+              seller: ''
             })
             .end((err, res) => {
               res.should.have.status(201);
