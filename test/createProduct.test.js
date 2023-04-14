@@ -8,7 +8,7 @@ describe('POST /api/users/createProduct', () => {
     // Log in as a seller and get the access token
     request(app)
       .post('/api/users/login')
-      .send({ email: 'seller@example.com', password: 'password' })
+      .send({ email: 'sellertest@example.com', password: 'password123' })
       .end((err, res) => {
         if (err) return done(err);
         sellerToken = res.body.token;
@@ -42,7 +42,7 @@ describe('POST /api/users/createProduct', () => {
       description: 'This is a test product',
       price: 9.99,
       quantity: 10,
-      seller: 'seller@example.com',
+      seller: 'sellertest@example.com',
     };
     request(app)
       .post('/api/users/createProduct')
