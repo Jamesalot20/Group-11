@@ -28,8 +28,16 @@ exports.addItemToCart = async (req, res) => {
     if (!cart) {
       return res.status(404).json({ message: 'Cart not found.' });
     }
+const itemIndex = cart.items.findIndex((item) => item.product.toString() === productId);
 
-    // ... rest of the function code
+    if (itemIndex >= 0) {
+      cart.items[itemIndex].quantity += quantity;
+    } else {
+      cart.items.push({ product: productId, quantity });
+    }
+
+    await cart.save();
+    res.status(200).json({ message: 'Item added to cart.', cart });
   } catch (error) {
     console.log('Error:', error.message);
     res.status(500).json({ message: 'Server error.' });
