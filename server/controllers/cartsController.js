@@ -6,7 +6,7 @@ exports.getCartByUser = async (req, res) => {
 
 
     if (!cart) {
-  cart = new Cart({ user: req.userId, items: [] });
+  cart = new Cart({ user: req.user.userId, items: [] });
   await cart.save();
 }
 
