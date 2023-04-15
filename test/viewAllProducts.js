@@ -1,19 +1,20 @@
 const chai = require('chai');
-const expect = chai.expect;
+const chaiHttp = require('chai-http');
 const app = require('../server/server');
-const request = require('supertest');
 
-describe('Product Routes', () => {
+chai.use(chaiHttp);
+
+describe('Products API', () => {
   describe('GET /api/products', () => {
-    it('should return all products for a buyer', (done) => {
-      request(app)
+    it('should return all products', (done) => {
+      chai.request(app)
         .get('/api/products')
         .end((err, res) => {
-          expect(res.statusCode).to.equal(200);
-          expect(res.body).to.be.an('array');
-          // Make sure all products are for buyers
-          const allProductsForBuyers = res.body.every(product => product.seller === 'admin');
-          expect(allProductsForBuyers).to.be.true;
+          chai.expect(res).to.have.status(200);
+          chai.expect(res.body).to.be.an('array');
+          chai.expect(res.body[0]).to.have.property('name');
+          chai.expect(res.body[0]).to.have.property('price');
+          // Add more expectations for other properties of a product object
           done();
         });
     });
