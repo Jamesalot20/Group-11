@@ -1,4 +1,3 @@
-/*
 const chai = require('chai');
 const expect = chai.expect;
 const app = require('../server/server');
@@ -20,4 +19,3 @@ describe('Product Routes', () => {
     });
   });
 });
-*/
