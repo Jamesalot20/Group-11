@@ -2,11 +2,11 @@ const Cart = require('../models/Cart');
 
 exports.getCartByUser = async (req, res) => {
   try {
-    const cart = await Cart.findOne({ user: req.user.userId }).populate('items.product');
+    let cart = await Cart.findOne({ user: req.user.userId }).populate('items.product');
 
 
     if (!cart) {
-  cart = new Cart({ user: req.user._id, items: [] });
+  cart = new Cart({ user: req.userId, items: [] });
   await cart.save();
 }
 
