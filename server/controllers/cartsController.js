@@ -4,11 +4,9 @@ exports.getCartByUser = async (req, res) => {
   try {
     let cart = await Cart.findOne({ user: req.user.userId }).populate('items.product');
 
-
     if (!cart) {
-  cart = new Cart({ user: req.user.userId, items: [] });
-  await cart.save();
-}
+      cart = new Cart({ user: req.user.userId, items: [] });
+    }
 
     res.status(200).json(cart);
   } catch (error) {
@@ -22,13 +20,15 @@ exports.addItemToCart = async (req, res) => {
   console.log('Request user:', req.user);
   try {
     const { productId, quantity } = req.body;
-    const cart = await Cart.findOne({ user: req.user.userId }); // Change this line
+    let cart = await Cart.findOne({ user: req.user.userId });
     console.log('userId:', req.user.userId)
     console.log('Cart:', cart);
+
     if (!cart) {
-      return res.status(404).json({ message: 'Cart not found.' });
+      cart = new Cart({ user: req.user.userId, items: [] });
     }
-const itemIndex = cart.items.findIndex((item) => item.product.toString() === productId);
+
+    const itemIndex = cart.items.findIndex((item) => item.product.toString() === productId);
 
     if (itemIndex >= 0) {
       cart.items[itemIndex].quantity += quantity;
