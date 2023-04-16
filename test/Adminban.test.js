@@ -1,5 +1,4 @@
 const request = require('supertest');
-const User = require('../models/User');
 const app = require('../server/server');
 
 describe('Admin banning a user', () => {
