@@ -1,7 +1,7 @@
 const request = require('supertest');
-const app = require('../app'); // Import your Express app
 const User = require('../models/User');
 const app = require('../server/server');
+
 describe('Admin banning a user', () => {
   let adminToken;
   let userEmail;
