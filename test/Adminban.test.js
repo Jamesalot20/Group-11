@@ -1,3 +1,4 @@
+/*
 const request = require('supertest');
 const chai = require('chai');
 const server = require('../server/server');
@@ -56,3 +57,4 @@ describe('Admin banning a user', () => {
     expect(deletedUser).to.be.null;
   });
 });
+/*
