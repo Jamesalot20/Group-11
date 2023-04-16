@@ -1,59 +1,65 @@
-const request = require('supertest');
+const supertest = require('supertest');
 const chai = require('chai');
-const app = require('../app'); // Import your Express app
-const User = require('../models/User');
-
+const app = require('../server/server'); // Import your server or app instance
+const request = supertest(app);
 const { expect } = chai;
 
-describe('Admin banning a user', () => {
-  let adminToken;
-  let userEmail;
+describe('Auth Tests', () => {
+  let buyerToken, sellerToken, adminToken;
 
-  before(async () => {
-    // Create an admin user and get its token
-    const adminUser = new User({
-      email: 'admin@example.com',
-      password: 'AdminPassword123',
-      role: 'admin',
+  it('Buyer login', async () => {
+    const response = await request.post('/api/users/login').send({
+      email: 'test@example.com',
+      password: 'password123',
     });
-
-    await adminUser.save();
-
-    const response = await request(app)
-      .post('/login')
-      .send({
-        email: 'admin@example.com',
-        password: 'AdminPassword123',
-      });
-
-    adminToken = response.body.token;
-
-    // Create a user to be banned
-    const userToBeBanned = new User({
-      email: 'user@example.com',
-      password: 'UserPassword123',
-      role: 'buyer',
-    });
-
-    await userToBeBanned.save();
-    userEmail = userToBeBanned.email;
-  });
-
-  after(async () => {
-    // Clean up the test users
-    await User.deleteOne({ email: 'admin@example.com' });
-    await User.deleteOne({ email: 'user@example.com' });
-  });
-
-  it('Admin can ban a user', async () => {
-    const response = await request(app)
-      .delete(`/deleteUser/${userEmail}`)
-      .set('Authorization', `Bearer ${adminToken}`);
 
     expect(response.status).to.equal(200);
-    expect(response.body.message).to.equal('User account deleted successfully.');
+    expect(response.body.token).to.exist;
+    buyerToken = response.body.token;
+  });
 
-    const deletedUser = await User.findOne({ email: userEmail });
-    expect(deletedUser).to.be.null;
+  it('Seller login', async () => {
+    const response = await request.post('/api/users/login').send({
+      email: 'sellertest@example.com',
+      password: 'password123',
+    });
+
+    expect(response.status).to.equal(200);
+    expect(response.body.token).to.exist;
+    sellerToken = response.body.token;
+  });
+
+  it('Admin login', async () => {
+    const response = await request.post('/api/users/login').send({
+      email: 'jf1812@msstate.edu',
+      password: 'Qwerre123',
+    });
+
+    expect(response.status).to.equal(200);
+    expect(response.body.token).to.exist;
+    adminToken = response.body.token;
+  });
+
+  // Write test cases for different user roles performing actions
+
+  it('Buyer logout', async () => {
+    const response = await request.post('/api/users/logout').set('Authorization', `Bearer ${buyerToken}`);
+
+    expect(response.status).to.equal(200);
+    expect(response.body.message).to.equal('Logout successful.');
+  });
+
+  it('Seller logout', async () => {
+    const response = await request.post('/api/users/logout').set('Authorization', `Bearer ${sellerToken}`);
+
+    expect(response.status).to.equal(200);
+    expect(response.body.message).to.equal('Logout successful.');
+  });
+
+  it('Admin logout', async () => {
+    const response = await request.post('/api/users/logout').set('Authorization', `Bearer ${adminToken}`);
+
+    expect(response.status).to.equal(200);
+    expect(response.body.message).to.equal('Logout successful.');
   });
 });
