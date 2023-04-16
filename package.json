@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npx mocha",
     "build": "webpack --mode production",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "test:single": "mocha"
   },
   "repository": {
     "type": "git",
