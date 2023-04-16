@@ -1,6 +1,6 @@
 const request = require('supertest');
 const chai = require('chai');
-const app = require('../app'); // Import your Express app
+const app = require('../server/server');
 const User = require('../models/User');
 
 const { expect } = chai;
