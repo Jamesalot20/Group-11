@@ -33,7 +33,7 @@ describe('Product Tests', () => {
         description: 'Test Product Description',
         price: 10,
         category: 'Test Category',
-        seller: '643885909545b9fda39f31ec', // Replace this with an actual seller ID
+        seller: '643c8252413dc68db4ca978c', // Replace this with an actual seller ID
       };
 
       const createRes = await chai.request(server)
@@ -80,7 +80,7 @@ describe('Cart Tests', () => {
       description: 'Test Product Description',
       price: 10,
       category: 'Test Category',
-      seller: '64384ac5734ffb9222e8a989', // Replace this with an actual seller ID
+      seller: '64384ae9734ffb9222e8a98c', // Replace this with an actual seller ID
     };
 
     const createRes = await chai.request(server)
