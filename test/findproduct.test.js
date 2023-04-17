@@ -43,7 +43,7 @@ describe('Product API', () => {
           expect(res.body).to.have.property('name', 'Test Product');
           expect(res.body).to.have.property('description', 'Test Product Description');
           expect(res.body).to.have.property('price', 99.99);
-          expect(res.body).to.have.property('seller', 'some-seller-id');
+          expect(res.body).to.have.property('seller', testProduct.seller.toString());
           done();
         });
     });
