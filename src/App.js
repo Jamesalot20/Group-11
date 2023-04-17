@@ -6,6 +6,11 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Login from './components/login.component'
 import SignUp from './components/signup.component'
 import Store from './components/Store'
+import Checkout from './components/Checkout'
+import Completion from './components/Completion'
+
+
+import "./main.css";
 
 function App() {
   return (
@@ -32,6 +37,16 @@ function App() {
                     Store
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={'/Checkout'}>
+                    Checkout
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={'/Completion'}>
+                    Completion
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -44,6 +59,8 @@ function App() {
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/store" element={<Store />} />
+              <Route path="/Checkout" element={<Checkout />} />
+              <Route path="/Completion" element={<Completion />} />
             </Routes>
           </div>
         </div>
