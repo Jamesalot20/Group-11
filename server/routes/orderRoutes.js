@@ -5,6 +5,9 @@ const ordersController = require('../controllers/ordersController');
 // Get all orders for the current user
 router.get('/', ordersController.getOrdersByUser);
 
+// Get order history for a user
+router.get('/history/:userId', authMiddleware.authenticate, orderController.getOrderHistory);
+
 // Get a single order by ID for the current user
 router.get('/:orderId', ordersController.getOrderById);
 
