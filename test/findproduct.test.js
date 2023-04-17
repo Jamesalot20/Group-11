@@ -1,9 +1,10 @@
 // test.js
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('./app'); // Import your main app.js file here
+ // Import your main app.js file here
 const Product = require('./models/Product'); // Import your Product model
 const { expect } = chai;
+const server = require('../server/server');
 
 chai.use(chaiHttp);
 
