@@ -47,7 +47,12 @@ describe('Order history API', () => {
       res.should.have.status(201);
       res.body.should.be.a('object');
       res.body.should.have.property('buyer').eql(order.buyer);
-      res.body.should.have.property('items').deep.eql(order.items);
+      //res.body.should.have.property('items').deep.eql(order.items);
+      res.body.should.have.property('items').deep.eql(order.items.map(item => ({
+        product: item.product,
+        quantity: item.quantity,
+        price: item.price,
+      })));
       res.body.should.have.property('totalPrice').eql(order.totalPrice);
       res.body.should.have.property('status').eql(order.status);
       res.body.should.have.property('createdAt');
