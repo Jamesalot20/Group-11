@@ -5,22 +5,22 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-// Move adminToken declaration to the outer scope
-let adminToken;
+// Move sellerToken declaration to the outer scope
+let sellerToken;
 
 describe('Product Tests', () => {
   before(async () => {
-    // Login as an admin to obtain the authorization token
-    const adminCredentials = {
+    // Login as a seller to obtain the authorization token
+    const sellerCredentials = {
       email: 'jf1812@msstate.edu',
       password: 'Qwerre123'
     };
 
     const res = await chai.request(server)
       .post('/api/users/login')
-      .send(adminCredentials);
+      .send(sellerCredentials);
 
-    adminToken = res.body.token;
+    sellerToken = res.body.token;
   });
 
   describe('Delete Product', () => {
@@ -33,12 +33,12 @@ describe('Product Tests', () => {
         description: 'Test Product Description',
         price: 10,
         category: 'Test Category',
-        seller: '643c8ea417aa25bf8350452b',
+        seller: '643c8ea417aa25bf8350452b', // Replace this with an actual seller ID
       };
 
       const createRes = await chai.request(server)
         .post('/api/products/createProduct')
-        .set('Authorization', `Bearer ${adminToken}`)
+        .set('Authorization', `Bearer ${sellerToken}`)
         .send(newProduct);
 
       productId = createRes.body._id;
@@ -46,8 +46,8 @@ describe('Product Tests', () => {
 
     it('should delete a product by an admin', (done) => {
       chai.request(server)
-        .delete(`/api/products/${productId}`)
-        .set('Authorization', `Bearer ${adminToken}`)
+        .delete(`/api/users/${productId}`)
+        .set('Authorization', `Bearer ${sellerToken}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
