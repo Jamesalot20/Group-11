@@ -47,7 +47,7 @@ describe('Order history API', () => {
           }
         ],
         "totalPrice": 27.97,
-        "status": "cancelled",
+        "status": "pending",
         "createdAt": "2022-04-13T10:00:00.000Z",
         "updatedAt": "2022-04-13T10:00:00.000Z"
       };
