@@ -20,7 +20,7 @@ describe('Product API', () => {
       name: 'Test Product',
       description: 'Test Product Description',
       price: 99.99,
-      seller: 'some-seller-id',
+      seller: 'mongoose.Types.ObjectId()',
     });
 
     await testProduct.save();
