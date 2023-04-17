@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ordersController = require('../controllers/ordersController');
-
+const authMiddleware = require('../middlewares/authMiddleware');
 // Get all orders for the current user
 router.get('/', ordersController.getOrdersByUser);
 
