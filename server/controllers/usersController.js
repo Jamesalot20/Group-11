@@ -58,7 +58,7 @@ exports.loginUser = async (req, res) => {
       return res.status(401).json({ message: 'Invalid password.' });
     }
     const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '400h' });
-    console.log('Generated token:', token);
+    
 
     res.status(200).json({ message: 'Login successful.', token });
 
@@ -95,14 +95,14 @@ exports.deleteUser = async (req, res) => {
     const user = await User.findOneAndDelete({ email });
 
     if (!user) {
-console.error('User not found in deleteUser:', email);
+
       return res.status(404).json({ message: 'User not found.' });
     }
 
     res.status(200).json({ message: 'User account deleted successfully.' });
 
   } catch (error) {
-    console.error('Error deleting user account:', error);
+    
     res.status(500).json({ message: 'Server error.' });
   }
 };
