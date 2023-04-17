@@ -12,7 +12,7 @@ describe('Order history API', () => {
     // Log in as a buyer to obtain an access token
     const res = await chai.request(app)
       .post('/api/users/login')
-      .send({ email: 'buyer@test.com', password: 'password' });
+      .send({ email: 'test@example.com', password: 'password123' });
 
     token = res.body.token;
   });
