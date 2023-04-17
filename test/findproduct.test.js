@@ -11,22 +11,26 @@ chai.use(chaiHttp);
 describe('Product API', () => {
   let testProductId;
 
-  before(async () => {
-    // Clean up the test database
-    await Product.deleteMany({});
+  before((done) => { // Remove "async" and add "done" parameter
+  // Clean up the test database
+  Product.deleteMany({})
+    .then(() => {
+      // Create a test product
+      const testProduct = new Product({
+        name: 'Test Product',
+        description: 'Test Product Description',
+        price: 99.99,
+        category: 'TestCategory', // Add category field
+        seller: new mongoose.Types.ObjectId(),
+      });
 
-    // Create a test product
-    const testProduct = new Product({
-      name: 'Test Product',
-      description: 'Test Product Description',
-      price: 99.99,
-      category: 'TestCategory', // Add category field
-      seller: new mongoose.Types.ObjectId(),
+      return testProduct.save(); // Return the promise
+    })
+    .then((savedProduct) => {
+      testProductId = savedProduct._id;
+      done(); // Call the "done" callback
     });
-
-    await testProduct.save();
-    testProductId = testProduct._id;
-  });
+});
 
   describe('GET /products/:productId', () => {
     it('should get a product by ID', (done) => {
