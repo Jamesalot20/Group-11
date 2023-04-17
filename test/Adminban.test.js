@@ -10,34 +10,36 @@ describe('Admin banning a user', () => {
   let userEmail;
 
   before(async () => {
-    // Create an admin user and get its token
-    const adminUser = new User({
+  // Create an admin user and get its token
+  const adminUser = new User({
+    email: 'admin@example.com',
+    password: 'AdminPassword123',
+    role: 'admin',
+  });
+
+  const savedAdminUser = await adminUser.save();
+  console.log('Admin user created:', savedAdminUser);
+
+  const response = await request(app)
+    .post('/login')
+    .send({
       email: 'admin@example.com',
       password: 'AdminPassword123',
-      role: 'admin',
     });
 
-    await adminUser.save();
+  adminToken = response.body.token;
 
-    const response = await request(app)
-      .post('/login')
-      .send({
-        email: 'admin@example.com',
-        password: 'AdminPassword123',
-      });
-
-    adminToken = response.body.token;
-
-    // Create a user to be banned
-    const userToBeBanned = new User({
-      email: 'user@example.com',
-      password: 'UserPassword123',
-      role: 'buyer',
-    });
-
-    await userToBeBanned.save();
-    userEmail = userToBeBanned.email;
+  // Create a user to be banned
+  const userToBeBanned = new User({
+    email: 'user@example.com',
+    password: 'UserPassword123',
+    role: 'buyer',
   });
+
+  const savedUserToBeBanned = await userToBeBanned.save();
+  console.log('User to be banned created:', savedUserToBeBanned);
+  userEmail = savedUserToBeBanned.email;
+});
 
   after(async () => {
      //Clean up the test users
