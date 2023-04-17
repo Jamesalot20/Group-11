@@ -49,12 +49,15 @@ describe('Product API', () => {
     });
 
     it('should return a 404 error when the product is not found', (done) => {
-      chai
-        .request(app)
-        .get('/products/nonexistent-product-id')
-        .end((err, res) => {
-          expect(err).to.be.null;
-          expect(res).to.have.status(404);
+  chai
+    .request(app)
+    .get('/products/nonexistent-product-id')
+    .end((err, res) => {
+      if (err || res.status !== 404) {
+        console.error(res.body);
+      }
+      expect(err).to.be.null;
+      expect(res).to.have.status(404);
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('error', 'Product not found.');
           done();
