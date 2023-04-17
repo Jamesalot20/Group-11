@@ -44,9 +44,9 @@ describe('Product Tests', () => {
       productId = createRes.body._id;
     });
 
-    it('should delete a product by an admin', (done) => {
+    it('should delete a product by a seller', (done) => {
       chai.request(server)
-        .delete(`/api/users/${productId}`)
+        .delete(`/api/products/${productId}`) // Use the correct endpoint for deleting a product
         .set('Authorization', `Bearer ${sellerToken}`)
         .end((err, res) => {
           res.should.have.status(200);
