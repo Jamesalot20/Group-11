@@ -8,7 +8,6 @@ router.post('/register', usersController.registerUser);
 router.post('/login', usersController.loginUser);
 router.post('/createProduct', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.createProduct);
 router.post('/logout', authMiddleware.authenticate, usersController.logoutUser);
-router.post('/searchItems', usersController.searchItems);
 router.delete('/deleteUser/:email', authMiddleware.authenticate, authMiddleware.authorize(['admin']), usersController.deleteUser);
 router.delete('/:productId', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.deleteProduct);
 
