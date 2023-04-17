@@ -48,14 +48,14 @@ describe('Admin banning a user', () => {
   });
 
   it('Admin can ban a user', async () => {
-    const deleteUserResponse = await chai.request(app)
-  .delete(`/api/users/deleteUser/${userToBeBanned.email}`)
-  .set('Authorization', `Bearer ${adminUserLoginResponse.body.token}`);
+  const deleteUserResponse = await request(app)
+    .delete(`/api/users/deleteUser/${userEmail}`)
+    .set('Authorization', `Bearer ${adminToken}`);
 
-    expect(response.status).to.equal(200);
-    expect(response.body.message).to.equal('User account deleted successfully.');
+  expect(deleteUserResponse.status).to.equal(200);
+  expect(deleteUserResponse.body.message).to.equal('User account deleted successfully.');
 
-    const deletedUser = await User.findOne({ email: userEmail });
-    expect(deletedUser).to.be.null;
+  const deletedUser = await User.findOne({ email: userEmail });
+  expect(deletedUser).to.be.null;
   });
 });
