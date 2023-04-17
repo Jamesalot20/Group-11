@@ -1,8 +1,8 @@
 const User = require('../server/models/User');
 const request = require('supertest');
 const chai = require('chai');
-const { app, server } = require('../server/server');
-
+const app = require('../server/server');
+const server = require('../server/server');
 const { expect } = chai;
 
 describe('Admin banning a user', () => {
