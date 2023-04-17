@@ -1,7 +1,7 @@
 const User = require('../server/models/User');
 const request = require('supertest');
 const chai = require('chai');
-const server = require('../server/server');
+const app = require('../server/server');
 
 const { expect } = chai;
 
