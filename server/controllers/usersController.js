@@ -30,11 +30,10 @@ exports.registerUser = async (req, res) => {
 };
 exports.getUserByEmail = async (req, res) => {
   try {
-    console.log('Email parameter:', req.params.email);
     const allUsers = await User.find({});
-    console.log('All users:', allUsers);
+    
     const user = await User.findOne({ email: req.params.email });
-    console.log('User found:', user);
+    
 
     if (!user) {
       res.status(404).json({ message: 'User not found' });
@@ -42,7 +41,6 @@ exports.getUserByEmail = async (req, res) => {
       res.status(200).json(user);
     }
   } catch (error) {
-    console.error('Error fetching user:', error);
     res.status(500).json({ error: 'An error occurred while fetching the user.' });
   }
 };
@@ -59,7 +57,6 @@ exports.loginUser = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid password.' });
     }
-    console.log('JWT_SECRET:', process.env.JWT_SECRET);
     const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '400h' });
     console.log('Generated token:', token);
 
@@ -93,7 +90,6 @@ exports.protectedRoute = (req, res) => {
 };
 
 exports.deleteUser = async (req, res) => {
-console.log('deleteUser function called');
   try {
     const { email } = req.params;
     const user = await User.findOneAndDelete({ email });
