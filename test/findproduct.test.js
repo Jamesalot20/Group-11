@@ -21,7 +21,7 @@ describe('Product API', () => {
       description: 'Test Product Description',
       price: 99.99,
       category: 'TestCategory', // Add category field
-      seller: mongoose.Types.ObjectId(),
+      seller: new mongoose.Types.ObjectId(),
     });
 
     await testProduct.save();
