@@ -6,7 +6,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 router.get('/', ordersController.getOrdersByUser);
 
 // Get buyer's order history
-router.get('/history', authMiddleware.authenticate, orderController.getBuyerOrderHistory);
+router.get('/history', authMiddleware.authenticate, ordersController.getBuyerOrderHistory);
 
 // Get a single order by ID for the current user
 router.get('/:orderId', ordersController.getOrderById);
