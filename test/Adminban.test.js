@@ -1,4 +1,5 @@
 const User = require('../server/models/User');
+const bcrypt = require('bcrypt');
 const request = require('supertest');
 const chai = require('chai');
 const app = require('../server/server');
@@ -10,12 +11,15 @@ describe('Admin banning a user', () => {
   let userEmail;
 
   before(async () => {
-    // Create an admin user and get its token
-    const adminUser = new User({
-      email: 'admin@example.com',
-      password: 'AdminPassword123',
-      role: 'admin',
-    });
+  // Create an admin user and get its token
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash('AdminPassword123', salt);
+  
+  const adminUser = new User({
+    email: 'admin@example.com',
+    password: hashedPassword,
+    role: 'admin',
+  });
 
     const savedAdminUser = await adminUser.save();
     console.log('Admin user created:', savedAdminUser);
