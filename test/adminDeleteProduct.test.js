@@ -23,10 +23,10 @@ describe('DELETE /api/products/:productId', () => {
       .set('Authorization', `Bearer ${adminToken}`)
       .send({
         name: 'Test Product',
-        description: 'This is a test product.',
-        price: 10.99,
-        category: 'test',
-        seller: '643c8f8017aa25bf8350452e',
+        description: 'Test Product Description',
+        price: 10,
+        category: 'Test Category',
+        seller: '643c8ea417aa25bf8350452b', // Replace this with an actual seller ID
       });
 
     // Delete the product
