@@ -73,18 +73,7 @@ exports.logoutUser = (req, res) => {
   res.status(200).json({ message: 'Logout successful.' });
 };
 
-exports.searchItems = async (req, res) => {
-  try {
-    const { query } = req.query;
 
-    const items = await Item.find({ name: { $regex: query, $options: 'i' } });
-
-    res.status(200).json({ items });
-
-  } catch (error) {
-    res.status(500).json({ message: 'Server error.' });
-  }
-};
 exports.protectedRoute = (req, res) => {
   res.status(200).json({ message: 'This is a protected route.' });
 };
