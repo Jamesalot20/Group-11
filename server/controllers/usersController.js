@@ -97,6 +97,7 @@ exports.deleteUser = async (req, res) => {
     const user = await User.findOneAndDelete({ email });
 
     if (!user) {
+console.error('User not found in deleteUser:', email);
       return res.status(404).json({ message: 'User not found.' });
     }
 
