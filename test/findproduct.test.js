@@ -5,7 +5,7 @@ const chaiHttp = require('chai-http');
 const Product = require('../server/models/Product'); // Import your Product model
 const { expect } = chai;
 const server = require('../server/server');
-
+const mongoose = require('mongoose');
 chai.use(chaiHttp);
 
 describe('Product API', () => {
