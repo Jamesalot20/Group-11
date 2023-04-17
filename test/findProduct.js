@@ -12,7 +12,7 @@ describe('Product search by ID', () => {
   before((done) => {
     chai.request(app)
       .post('/api/users/login')
-      .send({ email: 'buyer@example.com', password: 'password123' })
+      .send({ email: 'test@example.com', password: 'password123' })
       .end((err, res) => {
         authToken = res.body.token;
         done();
