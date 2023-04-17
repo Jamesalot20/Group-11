@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 exports.authenticate = (req, res, next) => {
+console.log('authenticate middleware called');
   const authHeader = req.headers.authorization;
   console.log('Headers:', req.headers);
   if (!authHeader) {
@@ -23,6 +24,7 @@ console.error('Error:', error);
 };
 
 exports.authorize = (roles) => {
+console.log('authorize middleware called');
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return res.status(403).json({ message: 'Access denied. You do not have permission to perform this action.' });
