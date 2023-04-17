@@ -48,9 +48,9 @@ describe('Admin banning a user', () => {
   });
 
   it('Admin can ban a user', async () => {
-    const response = await request(app)
-      .delete(`api/users/deleteUser/${userEmail}`)
-      .set('Authorization', `Bearer ${adminToken}`);
+    const deleteUserResponse = await chai.request(server)
+  .delete(`/api/users/deleteUser/${userToBeBanned.email}`)
+  .set('Authorization', `Bearer ${adminUserLoginResponse.body.token}`);
 
     expect(response.status).to.equal(200);
     expect(response.body.message).to.equal('User account deleted successfully.');
