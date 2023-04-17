@@ -32,8 +32,11 @@ describe('Product API', () => {
     it('should get a product by ID', (done) => {
       chai
         .request(app)
-        .get('/' + testProductId)
+        .get('/products/' + testProductId)
         .end((err, res) => {
+         if (err || res.status !== 200) {
+        console.error(res.body);
+      }
           expect(err).to.be.null;
           expect(res).to.have.status(200);
           expect(res.body).to.be.an('object');
