@@ -12,8 +12,8 @@ describe('Product Tests', () => {
   before(async () => {
     // Login as a seller to obtain the authorization token
     const sellerCredentials = {
-      email: 'jf1812@msstate.edu',
-      password: 'Qwerre123'
+      email: 'deleteproduct@example.com',
+      password: 'password123'
     };
 
     const res = await chai.request(server)
@@ -46,7 +46,7 @@ describe('Product Tests', () => {
 
     it('should delete a product by a seller', (done) => {
       chai.request(server)
-        .delete(`/api/products/${productId}`) // Use the correct endpoint for deleting a product
+        .delete(`/api/users/${productId}`)
         .set('Authorization', `Bearer ${sellerToken}`)
         .end((err, res) => {
           res.should.have.status(200);
