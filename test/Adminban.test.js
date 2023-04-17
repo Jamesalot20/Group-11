@@ -21,7 +21,7 @@ describe('Admin banning a user', () => {
     console.log('Admin user created:', savedAdminUser);
 
     const response = await request(app)
-      .post('api/users/login') // Updated the login endpoint
+      .post('/login') // Updated the login endpoint
       .send({
         email: 'admin@example.com',
         password: 'AdminPassword123',
