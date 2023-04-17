@@ -25,7 +25,6 @@ describe('DELETE /api/products/:productId', () => {
         name: 'Test Product',
         description: 'This is a test product.',
         price: 10.99,
-        image: 'https://example.com/test-product.jpg',
         category: 'test',
         seller: '643c8f8017aa25bf8350452e',
       });
