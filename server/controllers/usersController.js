@@ -92,6 +92,7 @@ exports.protectedRoute = (req, res) => {
 };
 
 exports.deleteUser = async (req, res) => {
+console.log('deleteUser function called');
   try {
     const { email } = req.params;
     const user = await User.findOneAndDelete({ email });
