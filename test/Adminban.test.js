@@ -40,7 +40,7 @@ describe('Admin banning a user', () => {
   });
 
   after(async () => {
-     Clean up the test users
+     //Clean up the test users
     await User.deleteOne({ email: 'admin@example.com' });
     await User.deleteOne({ email: 'user@example.com' });
   });
