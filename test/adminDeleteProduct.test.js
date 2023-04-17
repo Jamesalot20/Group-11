@@ -44,7 +44,7 @@ describe('Product Tests', () => {
       productId = createRes.body._id;
     });
 
-    it('should delete a product by a seller', (done) => {
+    it('should delete a product via admin', (done) => {
       chai.request(server)
         .delete(`/api/users/${productId}`)
         .set('Authorization', `Bearer ${adminToken}`)
