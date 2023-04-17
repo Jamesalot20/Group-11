@@ -2,7 +2,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
  // Import your main app.js file here
-const Product = require('./models/Product'); // Import your Product model
+const Product = require('../server/models/Product'); // Import your Product model
 const { expect } = chai;
 const server = require('../server/server');
 
