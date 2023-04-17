@@ -1,6 +1,8 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../server/server');
+const chaiExclude = require('chai-exclude');
+chai.use(chaiExclude);
 
 chai.use(chaiHttp);
 chai.should();
@@ -45,13 +47,13 @@ describe('Order history API', () => {
         .send(order);
       
       res.should.have.status(201);
-      res.body.should.be.a('object');
-      res.body.should.have.property('buyer').eql(order.buyer);
-      res.body.should.have.property('items').deep.eql(order.items);
-      res.body.should.have.property('totalPrice').eql(order.totalPrice);
-      res.body.should.have.property('status').eql(order.status);
-      res.body.should.have.property('createdAt');
-      res.body.should.have.property('updatedAt');
+  res.body.should.be.a('object');
+  res.body.should.have.property('buyer').eql(order.buyer);
+  res.body.should.have.property('items').excluding('_id').deep.equal(order.items);
+  res.body.should.have.property('totalPrice').eql(order.totalPrice);
+  res.body.should.have.property('status').eql(order.status);
+  res.body.should.have.property('createdAt');
+  res.body.should.have.property('updatedAt');
     });
   });
 });
