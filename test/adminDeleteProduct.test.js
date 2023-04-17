@@ -1,59 +1,54 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../server/server');
-const should = chai.should();
+const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-// Move adminToken declaration to the outer scope
-let adminToken;
+describe('DELETE /api/products/:productId', () => {
+  let adminToken;
 
-describe('Product Tests', () => {
   before(async () => {
-    // Login as a admin to obtain the authorization token
-    const adminCredentials = {
-      email: 'jf1812@msstate.edu',
-      password: 'Qwerre123'
-    };
-
+    // Login as admin user to get authentication token
     const res = await chai.request(server)
       .post('/api/users/login')
-      .send(adminCredentials);
-
+      .send({ email: 'jf1812@msstate.edu', password: 'Qwerre123' });
     adminToken = res.body.token;
   });
 
-  describe('Delete Product', () => {
-    let productId;
+  it('should delete a product when requested by an admin', async () => {
+    // Create a new product
+    const createProductRes = await chai.request(server)
+      .post('/api/products/createProduct')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        name: 'Test Product',
+        description: 'This is a test product.',
+        price: 10.99,
+        image: 'https://example.com/test-product.jpg',
+        category: 'test',
+        seller: '643c8f8017aa25bf8350452e',
+      });
 
-    before(async () => {
-      // Create a new product
-      const newProduct = {
-        name: 'Admin Test',
-        description: 'Admin Test Description',
-        price: 10,
-        category: 'Test Category',
-        seller: '643c8ea417aa25bf8350452b', // Replace this with an actual seller ID
-      };
+    // Delete the product
+    const deleteProductRes = await chai.request(server)
+      .delete(`/api/products/${createProductRes.body._id}`)
+      .set('Authorization', `Bearer ${adminToken}`);
 
-      const createRes = await chai.request(server)
-        .post('/api/products/createProduct')
-        .set('Authorization', `Bearer ${adminToken}`)
-        .send(newProduct);
+    // Assert that the product was deleted
+    expect(deleteProductRes.status).to.equal(200);
+    expect(deleteProductRes.body.message).to.equal('Product deleted successfully.');
+  });
 
-      productId = createRes.body._id;
-    });
-
-    it('should delete a product via admin', (done) => {
-      chai.request(server)
-        .delete(`/api/users/${productId}`)
-        .set('Authorization', `Bearer ${adminToken}`)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('Product successfully deleted.');
-          done();
-        });
-    });
+  after(async () => {
+    // Cleanup: delete all products created during the test
+    const products = await chai.request(server)
+      .get('/api/products')
+      .set('Authorization', `Bearer ${adminToken}`);
+    for (const product of products.body) {
+      await chai.request(server)
+        .delete(`/api/products/${product._id}`)
+        .set('Authorization', `Bearer ${adminToken}`);
+    }
   });
 });
