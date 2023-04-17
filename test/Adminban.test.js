@@ -10,36 +10,37 @@ describe('Admin banning a user', () => {
   let userEmail;
 
   before(async () => {
-  // Create an admin user and get its token
-  const adminUser = new User({
-    email: 'admin@example.com',
-    password: 'AdminPassword123',
-    role: 'admin',
-  });
-
-  const savedAdminUser = await adminUser.save();
-  console.log('Admin user created:', savedAdminUser);
-
-  const response = await request(app)
-    .post('/login')
-    .send({
+    // Create an admin user and get its token
+    const adminUser = new User({
       email: 'admin@example.com',
       password: 'AdminPassword123',
+      role: 'admin',
     });
 
-  adminToken = response.body.token;
+    const savedAdminUser = await adminUser.save();
+    console.log('Admin user created:', savedAdminUser);
 
-  // Create a user to be banned
-  const userToBeBanned = new User({
-    email: 'user@example.com',
-    password: 'UserPassword123',
-    role: 'buyer',
+    const response = await request(app)
+      .post('/api/users/login') // Updated the login endpoint
+      .send({
+        email: 'admin@example.com',
+        password: 'AdminPassword123',
+      });
+
+    adminToken = response.body.token;
+    console.log('Admin token:', adminToken); // Added console.log to check the admin token
+
+    // Create a user to be banned
+    const userToBeBanned = new User({
+      email: 'user@example.com',
+      password: 'UserPassword123',
+      role: 'buyer',
+    });
+
+    const savedUserToBeBanned = await userToBeBanned.save();
+    console.log('User to be banned created:', savedUserToBeBanned);
+    userEmail = savedUserToBeBanned.email;
   });
-
-  const savedUserToBeBanned = await userToBeBanned.save();
-  console.log('User to be banned created:', savedUserToBeBanned);
-  userEmail = savedUserToBeBanned.email;
-});
 
   after(async () => {
     // Clean up the test users
@@ -48,14 +49,14 @@ describe('Admin banning a user', () => {
   });
 
   it('Admin can ban a user', async () => {
-  const deleteUserResponse = await request(app)
-    .delete(`/api/users/deleteUser/${userEmail}`)
-    .set('Authorization', `Bearer ${adminToken}`);
+    const deleteUserResponse = await request(app)
+      .delete(`/api/users/deleteUser/${userEmail}`)
+      .set('Authorization', `Bearer ${adminToken}`);
 
-  expect(deleteUserResponse.status).to.equal(200);
-  expect(deleteUserResponse.body.message).to.equal('User account deleted successfully.');
+    expect(deleteUserResponse.status).to.equal(200);
+    expect(deleteUserResponse.body.message).to.equal('User account deleted successfully.');
 
-  const deletedUser = await User.findOne({ email: userEmail });
-  expect(deletedUser).to.be.null;
+    const deletedUser = await User.findOne({ email: userEmail });
+    expect(deletedUser).to.be.null;
   });
 });
