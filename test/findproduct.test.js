@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 
 describe('Product API', () => {
   let testProductId;
-
+let testProduct;
   before((done) => { // Remove "async" and add "done" parameter
   // Clean up the test database
   Product.deleteMany({})
@@ -27,6 +27,7 @@ describe('Product API', () => {
       return testProduct.save(); // Return the promise
     })
     .then((savedProduct) => {
+ testProduct = savedProduct;
       testProductId = savedProduct._id;
       done(); // Call the "done" callback
     });
