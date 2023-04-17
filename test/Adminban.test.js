@@ -26,7 +26,7 @@ describe('Admin banning a user', () => {
         email: 'admin@example.com',
         password: 'AdminPassword123',
       });
-
+console.log('Login response:', response.body);
     adminToken = response.body.token;
     console.log('Admin token:', adminToken); // Added console.log to check the admin token
 
