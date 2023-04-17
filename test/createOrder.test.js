@@ -7,19 +7,6 @@ chai.should();
 
 describe('Order history API', () => {
   let token;
-  let order;
-
-  before(async () => {
-    // Log in as a buyer to obtain an access token
-    const res = await chai.request(app)
-      .post('/api/users/login')
-      .send({ email: 'test@example.com', password: 'password123' });
-
-    token = res.body.token;
-  });
-
-describe('Order history API', () => {
-  let token;
 
   before(async () => {
     // Log in as a buyer to obtain an access token
