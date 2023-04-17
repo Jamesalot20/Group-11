@@ -22,7 +22,6 @@ describe('Admin banning a user', () => {
   });
 
     const savedAdminUser = await adminUser.save();
-    console.log('Admin user created:', savedAdminUser);
 
     const response = await request(app)
       .post('/api/users/login') // Updated the login endpoint
@@ -30,9 +29,7 @@ describe('Admin banning a user', () => {
         email: 'admin@example.com',
         password: 'AdminPassword123',
       });
-console.log('Login response:', response.body);
     adminToken = response.body.token;
-    console.log('Admin token:', adminToken); // Added console.log to check the admin token
 
     // Create a user to be banned
     const userToBeBanned = new User({
@@ -42,7 +39,6 @@ console.log('Login response:', response.body);
     });
 
     const savedUserToBeBanned = await userToBeBanned.save();
-    console.log('User to be banned created:', savedUserToBeBanned);
     userEmail = savedUserToBeBanned.email;
   });
 
