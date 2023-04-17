@@ -28,7 +28,7 @@ describe('Product API', () => {
     testProductId = testProduct._id;
   });
 
-  describe('GET /:productId', () => {
+  describe('GET /products/:productId', () => {
     it('should get a product by ID', (done) => {
       chai
         .request(app)
@@ -48,7 +48,7 @@ describe('Product API', () => {
     it('should return a 404 error when the product is not found', (done) => {
       chai
         .request(app)
-        .get('/nonexistent-product-id')
+        .get('/products/nonexistent-product-id')
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(404);
