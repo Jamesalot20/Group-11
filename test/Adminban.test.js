@@ -48,7 +48,7 @@ describe('Admin banning a user', () => {
   });
 
   it('Admin can ban a user', async () => {
-    const deleteUserResponse = await chai.request(server)
+    const deleteUserResponse = await chai.request(app)
   .delete(`/api/users/deleteUser/${userToBeBanned.email}`)
   .set('Authorization', `Bearer ${adminUserLoginResponse.body.token}`);
 
