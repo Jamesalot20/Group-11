@@ -41,11 +41,11 @@ describe('Admin banning a user', () => {
   userEmail = savedUserToBeBanned.email;
 });
 
-//  after(async () => {
-     //Clean up the test users
-   // await User.deleteOne({ email: 'admin@example.com' });
-    //await User.deleteOne({ email: 'user@example.com' });
-  //});
+  after(async () => {
+     Clean up the test users
+    await User.deleteOne({ email: 'admin@example.com' });
+    await User.deleteOne({ email: 'user@example.com' });
+  });
 
   it('Admin can ban a user', async () => {
     const response = await request(app)
