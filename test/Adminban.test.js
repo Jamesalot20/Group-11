@@ -49,7 +49,7 @@ describe('Admin banning a user', () => {
 
   it('Admin can ban a user', async () => {
     const response = await request(app)
-      .delete(`/deleteUser/${userEmail}`)
+      .delete(`api/users/deleteUser/${userEmail}`)
       .set('Authorization', `Bearer ${adminToken}`);
 
     expect(response.status).to.equal(200);
