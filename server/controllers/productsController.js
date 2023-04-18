@@ -11,7 +11,12 @@ exports.getProducts = async (req, res) => {
 
 exports.getProductById = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const { productId } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(404).json({ error: 'Product not found.' });
+    }
+
+    const product = await Product.findById(productId);
     if (!product) {
       res.status(404).json({ error: 'Product not found.' });
     } else {
@@ -24,7 +29,6 @@ exports.getProductById = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   const user = req.user;
-  console.log('User:', user);
   if (user.role !== 'seller' && user.role !== 'admin') {
     res.status(403).json({ message: 'You do not have permission to create a product' });
     return;
