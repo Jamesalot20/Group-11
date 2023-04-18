@@ -15,9 +15,14 @@ exports.getCartByUser = async (req, res) => {
 };
 
 exports.addItemToCart = async (req, res) => {
+  console.log("addItemToCart req.user:", req.user);
+  console.log('addItemToCart called');
+  console.log('Request user:', req.user);
   try {
     const { productId, quantity } = req.body;
     let cart = await Cart.findOne({ user: req.user.userId });
+    console.log('userId:', req.user.userId)
+    console.log('Cart:', cart);
 
     if (!cart) {
       cart = new Cart({ user: req.user.userId, items: [] });
@@ -34,6 +39,7 @@ exports.addItemToCart = async (req, res) => {
     await cart.save();
     res.status(200).json({ message: 'Product added to cart successfully.', cart });
   } catch (error) {
+    console.log('Error:', error.message);
     res.status(500).json({ message: 'Server error.' });
   }
 };

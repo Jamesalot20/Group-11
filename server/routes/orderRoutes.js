@@ -1,13 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const ordersController = require('../controllers/ordersController');
-const authMiddleware = require('../middlewares/authMiddleware');
+
 // Get all orders for the current user
 router.get('/', ordersController.getOrdersByUser);
-
-// Get buyer's order history
-router.get('/history', authMiddleware.authenticate, ordersController.getOrdersByUser);
-//router.get('/history', authMiddleware.authenticate, ordersController.getBuyerOrderHistory);
 
 // Get a single order by ID for the current user
 router.get('/:orderId', ordersController.getOrderById);

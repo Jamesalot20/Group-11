@@ -57,13 +57,3 @@ exports.deleteOrder = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while deleting the order.' });
   }
 };
-
-exports.getBuyerOrderHistory = async (req, res) => {
-  try {
-    const orders = await Order.find({ userId: req.user.userId });
-    res.status(200).json(orders);
-  } catch (error) {
-    console.error('Error fetching order history:', error);
-    res.status(500).json({ error: 'An error occurred while fetching the order history.' });
-  }
-};

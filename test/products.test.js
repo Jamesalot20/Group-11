@@ -13,7 +13,7 @@ describe('Product Tests', () => {
     // Login as a seller to obtain the authorization token
     const sellerCredentials = {
       email: 'deleteproduct@example.com',
-      password: 'password123'
+      password: 'qwerre'
     };
 
     const res = await chai.request(server)
@@ -33,7 +33,7 @@ describe('Product Tests', () => {
         description: 'Test Product Description',
         price: 10,
         category: 'Test Category',
-        seller: '643c8ea417aa25bf8350452b', // Replace this with an actual seller ID
+        seller: '643885909545b9fda39f31ec', // Replace this with an actual seller ID
       };
 
       const createRes = await chai.request(server)
@@ -80,7 +80,7 @@ describe('Cart Tests', () => {
       description: 'Test Product Description',
       price: 10,
       category: 'Test Category',
-      seller: '643c8ea417aa25bf8350452b', // Replace this with an actual seller ID
+      seller: '64384ac5734ffb9222e8a989', // Replace this with an actual seller ID
     };
 
     const createRes = await chai.request(server)
