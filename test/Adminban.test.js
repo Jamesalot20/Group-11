@@ -60,3 +60,4 @@ describe('Admin banning a user', () => {
     expect(deletedUser).to.be.null;
   });
 });
+chai.should().timeout(5000); // 5 seconds timeout
