@@ -1,63 +1,73 @@
 
+// test.js
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+ // Import your main app.js file here
+const Product = require('../server/models/Product'); // Import your Product model
+const { expect } = chai;
 const app = require('../server/server');
-
+const mongoose = require('mongoose');
 chai.use(chaiHttp);
-chai.should();
 
-describe('Product search by ID', () => {
-  let authToken;
-
-  // Get auth token before running tests
-  before((done) => {
-    chai.request(app)
-      .post('/api/users/login')
-      .send({ email: 'test@example.com', password: 'password123' })
-      .end((err, res) => {
-        authToken = res.body.token;
-        done();
+describe('Product API', () => {
+  let testProductId;
+let testProduct;
+  before((done) => { // Remove "async" and add "done" parameter
+  // Clean up the test database
+  Product.deleteMany({})
+    .then(() => {
+      // Create a test product
+      const testProduct = new Product({
+        name: 'Test Product',
+        description: 'Test Product Description',
+        price: 99.99,
+        category: 'TestCategory', // Add category field
+        seller: new mongoose.Types.ObjectId(),
       });
-  });
 
-  it('should return a product by ID', (done) => {
-    const productId = '643ccd3aebe48b07e6c7f157';
-    chai.request(app)
-      .get(`/api/products/${productId}`)
-      .set('Authorization', `Bearer ${authToken}`)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('name');
-        res.body.should.have.property('description');
-        res.body.should.have.property('price');
-        done();
-      });
-  });
+      return testProduct.save(); // Return the promise
+    })
+    .then((savedProduct) => {
+ testProduct = savedProduct;
+      testProductId = savedProduct._id;
+      done(); // Call the "done" callback
+    });
+});
 
-  it('should return an error when the product ID is not found', (done) => {
-    const productId = '32543';
-    chai.request(app)
-      .get(`/api/products/${productId}`)
-      .set('Authorization', `Bearer ${authToken}`)
-      .end((err, res) => {
-        res.should.have.status(404);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Product not found.');
-        done();
-      });
-  });
+  describe('GET /products/:productId', () => {
+    it('should get a product by ID', (done) => {
+      chai
+        .request(app)
+        .get('/products/' + testProductId)
+        .end((err, res) => {
+         if (err || res.status !== 200) {
+        console.error(res.body);
+      }
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('name', 'Test Product');
+          expect(res.body).to.have.property('description', 'Test Product Description');
+          expect(res.body).to.have.property('price', 99.99);
+          expect(res.body).to.have.property('seller', testProduct.seller.toString());
+          done();
+        });
+    });
 
-  it('should return an error when an invalid product ID is provided', (done) => {
-    const productId = 'invalidid';
-    chai.request(app)
-      .get(`/api/products/${productId}`)
-      .set('Authorization', `Bearer ${authToken}`)
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('Invalid product ID.');
-        done();
-      });
+    it('should return a 404 error when the product is not found', (done) => {
+  chai
+    .request(app)
+    .get('/products/nonexistent-product-id')
+    .end((err, res) => {
+      if (err || res.status !== 404) {
+        console.error(res.body);
+      }
+      expect(err).to.be.null;
+      expect(res).to.have.status(404);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('error', 'Product not found.');
+          done();
+        });
+    });
   });
 });
