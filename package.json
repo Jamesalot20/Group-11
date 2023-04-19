@@ -8,7 +8,7 @@
     "test:single": "mocha",
     "test": "mocha --recursive --reporter spec",
     "build": "webpack --mode production",
-    "start": "node server/server.js",
+    "start": "node server/server.js"
     
   },
   "repository": {
