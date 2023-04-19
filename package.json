@@ -4,12 +4,10 @@
   "description": "Josh Mccoy, jdm1502, JDMCCOY, jdmccoy3187@gmail.com\r James Fairley, jf1812, Jamesalot20, jf1812@msstate.edu\r William Emmich,wbe41, William-Emmich,wbe41@msstate.edu\r Tyler Wilson, taw501, tw0429, and tylerwilson0429@gmail.com",
   "main": "index.js",
   "scripts": {
-    "test": "npx mocha",
-    "test:single": "mocha",
     "test": "mocha --recursive --reporter spec",
+    "test:single": "mocha",
     "build": "webpack --mode production",
     "start": "node server/server.js"
-    
   },
   "repository": {
     "type": "git",
@@ -33,6 +31,8 @@
     "chai": "^4.3.7",
     "chai-http": "^4.3.0",
     "mocha": "^10.2.0",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "webpack": "^5.80.0",
+    "webpack-cli": "^5.0.1"
   }
 }
