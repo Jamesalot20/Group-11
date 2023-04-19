@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "npx mocha",
+    "test:single": "mocha",
+    "test": "mocha --recursive --reporter spec",
     "build": "webpack --mode production",
     "start": "node server/server.js",
-    "test:single": "mocha"
+    
   },
   "repository": {
     "type": "git",
