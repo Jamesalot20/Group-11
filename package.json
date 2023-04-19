@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --recursive --reporter spec",
     "test:single": "mocha",
+    "test": "mocha --exit",
     "build": "webpack --mode production",
     "start": "node server/server.js"
   },
