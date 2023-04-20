@@ -34,7 +34,7 @@ let testProduct;
     });
 });
 
-  describe('GET /products/:productId', () => {
+  describe('GET api/products/:productId', () => {
     it('should get a product by ID', (done) => {
       chai
         .request(app)
