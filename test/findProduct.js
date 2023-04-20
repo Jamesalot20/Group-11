@@ -69,6 +69,5 @@ let testProduct;
           done();
         });
         */
-    });
   });
 });
