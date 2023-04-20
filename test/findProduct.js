@@ -38,7 +38,7 @@ let testProduct;
     it('should get a product by ID', (done) => {
       chai
         .request(app)
-        .get('/products/' + testProductId)
+        .get('/api/products/' + testProductId)
         .end((err, res) => {
          if (err || res.status !== 200) {
         console.error(res.body);
