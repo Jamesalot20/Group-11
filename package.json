@@ -4,9 +4,8 @@
   "description": "Josh Mccoy, jdm1502, JDMCCOY, jdmccoy3187@gmail.com\r James Fairley, jf1812, Jamesalot20, jf1812@msstate.edu\r William Emmich,wbe41, William-Emmich,wbe41@msstate.edu\r Tyler Wilson, taw501, tw0429, and tylerwilson0429@gmail.com",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive --reporter spec",
-    "test:single": "mocha",
     "test": "mocha --exit",
+    "test:single": "mocha",
     "build": "webpack --mode production",
     "start": "node server/server.js"
   },
@@ -17,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.3.5",
+    "axios": "^1.3.6",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "chai-exclude": "^2.1.0",
