@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
-
+import styles from '../Store.css';
 const Store = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState('');
