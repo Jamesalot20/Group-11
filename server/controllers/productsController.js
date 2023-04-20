@@ -21,7 +21,7 @@ exports.getProductById = async (req, res) => {
     if (!product) {
       res.status(404).json({ error: 'Product not found.' });
     } else {
-      res.status(200).json('error');
+      res.status(200).json(product);
     }
   } catch (error) {
     console.error('Error fetching the product:', error);
