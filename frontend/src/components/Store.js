@@ -7,19 +7,17 @@ const Store = () => {
   const [category, setCategory] = useState('');
 
   useEffect(() => {
-    getProducts();
-  }, [category]);
+    const getProducts = async () => {
+      try {
+        const response = await api.get('/api/products');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
 
-  const getProducts = async () => {
-    try {
-      const response = await api.get('/api/products/getProducts', {
-        params: { search, category },
-      });
-      setProducts(response.data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
+    getProducts();
+  }, []);
 
   return (
     <div>
