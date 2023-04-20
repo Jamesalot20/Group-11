@@ -66,6 +66,7 @@ let testProduct;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('error', 'Product not found.');
           done();
+});
         });
   });
 });
