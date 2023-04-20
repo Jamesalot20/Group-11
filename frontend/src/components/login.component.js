@@ -1,61 +1,56 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../api';
 
-const handleSubmit = (e) => {
-  e.preventDeafault();
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    try {
+      const response = await api.post('api/users/login', { email, password });
+      const { token } = response.data;
 
+      // Save the token in local storage or any other preferred storage
+      localStorage.setItem('authToken', token);
 
+      // Redirect to the Store page
+      navigate('/store');
+    } catch (error) {
+      console.error('Error logging in:', error);
+      // Show an error message or handle the error as needed
+    }
+  };
 
-export default class Login extends Component {
-  render() {
-    return (
-      <form>
-        <h3>Sign In</h3>
+  return (
+    <form onSubmit={handleSubmit}>
+      <h3>Sign In</h3>
+      // ...
+      <input
+        type="email"
+        className="form-control"
+        placeholder="Enter email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      // ...
+      <input
+        type="password"
+        className="form-control"
+        placeholder="Enter password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      // ...
+      <button type="submit" className="btn btn-primary">
+        Submit
+      </button>
+      // ...
+    </form>
+  );
+};
 
-        <div className="mb-3">
-          <label>Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Enter email"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Enter password"
-          />
-        </div>
-
-        <div className="mb-3">
-          <div className="custom-control custom-checkbox">
-            <input
-              type="checkbox"
-              className="custom-control-input"
-              id="customCheck1"
-            />
-            <label className="custom-control-label" htmlFor="customCheck1">
-              Remember me
-            </label>
-          </div>
-        </div>
-        <div className="d-grid">
-          <a href="Store.js">
-            <button ontype="submit" className="btn btn-primary" >
-              Submit
-            </button>
-          </a>
-        </div>
-        <p className="forgot-password text-right">
-          No Account? <a href="/Sign-Up">sign up</a>
-        </p>
-      </form>
-    )
-  }
-}
+export default Login;
