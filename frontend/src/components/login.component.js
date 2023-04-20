@@ -11,7 +11,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await api.post('api/users/login', { email, password });
+      const response = await api.post('/users/login', { email, password });
       const { token } = response.data;
 
       // Save the token in local storage or any other preferred storage
@@ -28,7 +28,7 @@ const Login = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h3>Sign In</h3>
-      // ...
+      {/* ... */}
       <input
         type="email"
         className="form-control"
@@ -36,7 +36,7 @@ const Login = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      // ...
+      {/* ... */}
       <input
         type="password"
         className="form-control"
@@ -44,11 +44,11 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      // ...
+      {/* ... */}
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
-      // ...
+      {/* ... */}
     </form>
   );
 };
