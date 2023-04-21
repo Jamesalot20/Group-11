@@ -46,7 +46,6 @@ export default class Checkout extends Component {
                 </div>
                 <div className="d-grid">
                     <a href="Completion">
-                        /*Submit*/
                         <button ontype="submit" className="btn btn-primary" >
                             Submit
                         </button>
