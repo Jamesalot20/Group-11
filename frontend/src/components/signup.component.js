@@ -7,9 +7,11 @@ export default class SignUp extends Component {
     this.state = {
       email: '',
       password: '',
+      role: 'buyer', //default role to buyer
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  
   handleSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
@@ -25,6 +27,7 @@ export default class SignUp extends Component {
       body: JSON.stringify({
         email,
         password,
+        role: this.state.role,
       }),
     })
       .then((res) => res.json())
@@ -55,6 +58,15 @@ export default class SignUp extends Component {
             placeholder="Enter Password"
             onChange={(e) => this.setState({ password: e.target.value })}
           />
+        </div>
+
+        <div className="mb-3">
+          <label>Account Role</label>
+          <select className="form-select" onChange={(e) => this.setState({ role: e.target.value })}>
+            <option value="buyer">Buyer</option>
+            <option value="seller">Seller</option>
+            <option value="admin">Admin</option>
+          </select>
         </div>
 
         <div className="d-grid">
