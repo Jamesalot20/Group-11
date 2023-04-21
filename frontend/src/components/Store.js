@@ -11,6 +11,7 @@ const Store = () => {
       const response = await api.get('/api/products', {
         params: { search, category },
       });
+       console.log('Response data:', response.data);
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
