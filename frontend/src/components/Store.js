@@ -8,7 +8,7 @@ const Store = () => {
 
   const getProducts = async () => {
     try {
-      const response = await api.get('/api/products', {
+      const response = await api.get('/products', {
         params: { search, category },
       });
        console.log('Response data:', response.data);
