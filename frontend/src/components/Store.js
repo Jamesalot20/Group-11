@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from '../api';
 import styles from '../Store.css';
+import { CartContext } from '/CartContext';
 const Store = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
-
+  const { addToCart } = useContext(CartContext);
   const getProducts = async () => {
     try {
       const response = await api.get('/products', {
@@ -51,6 +52,7 @@ const Store = () => {
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <p>Price: ${product.price}</p>
+            <button onClick={() => addToCart(product._id)}>Add to Cart</button>
           </div>
         ))}
       </div>
