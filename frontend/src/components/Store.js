@@ -8,7 +8,7 @@ const Store = () => {
 
   const getProducts = async () => {
     try {
-      const response = await api.get('/api/products/getProducts', {
+      const response = await api.get('/api/products', {
         params: { search, category },
       });
       setProducts(response.data);
