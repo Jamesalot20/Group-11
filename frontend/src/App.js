@@ -8,6 +8,7 @@ import SignUp from './components/signup.component'
 import Store from './components/Store'
 import Checkout from './components/Checkout'
 import Completion from './components/Completion'
+import Logout from './components/logout.component'
 
 
 import "./main.css";
@@ -47,6 +48,11 @@ function App() {
                     Completion
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={'/log-out'}>
+                    Logout
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -61,6 +67,7 @@ function App() {
               <Route path="/store" element={<Store />} />
               <Route path="/Checkout" element={<Checkout />} />
               <Route path="/Completion" element={<Completion />} />
+              <Route path="/log-out" element={<Logout />} />
             </Routes>
           </div>
         </div>
