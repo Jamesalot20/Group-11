@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import api from '../api';
 import styles from '../Store.css';
-import { CartContext } from '/CartContext';
+import { CartContext } from './CartContext';
 const Store = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState('');
