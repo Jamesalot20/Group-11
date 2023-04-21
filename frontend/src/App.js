@@ -49,10 +49,10 @@ function App() {
                       Checkout
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  /*<li className="nav-item">
                     <Link className="nav-link" to={'/Completion'}>
                       Completion
-                    </Link>
+                    </Link>*/
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to={'/log-out'}>
