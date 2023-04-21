@@ -34,7 +34,7 @@
 .btn {
     border: none;
     outline: none;
-    background: transparent;
+    /*background: transparent;*/
     cursor: pointer;
 }
 
