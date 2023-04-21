@@ -15,6 +15,7 @@ const Store = () => {
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
+      console.log('Axios error object:', error.response);
     }
   };
 
