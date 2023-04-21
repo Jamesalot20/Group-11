@@ -5,6 +5,7 @@ export default class Checkout extends Component {
     render() {
         
         const handleSubmit = () => {
+            const navigate = useNavigate();
             // Redirect to the Login page
             navigate('/Store');
   };
