@@ -140,9 +140,9 @@ main {
     gap: 10px;
 }
 
-.product:hover .buttons {
+/*.product:hover .buttons {
     opacity: 1;
-}
+}*/
 
 .buttons .btn {
     margin-right: 1rem;
