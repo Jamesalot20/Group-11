@@ -5,7 +5,7 @@ function Checkout() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    // Redirect to the Login page
+    // Redirect to the Store page
     navigate('/Store');
   };
 
