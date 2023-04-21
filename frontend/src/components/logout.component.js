@@ -10,6 +10,10 @@ const Logout = () => {
 
     // Redirect to the Login page
     navigate('/sign-in');
+    } catch (error) {
+      console.error('Error logging in:', error);
+      // Show an error message or handle the error as needed
+    }
   };
 
   return (
