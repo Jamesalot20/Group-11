@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 
 export default class Checkout extends Component {
     render() {
+        
+        const handleSubmit = () => {
+            // Redirect to the Login page
+            navigate('/Store');
+  };
+        
         return (
             <form>
 
@@ -46,7 +52,7 @@ export default class Checkout extends Component {
                 </div>
                 <div className="d-grid">
                     <a href="Completion">
-                        <button ontype="submit" className="btn btn-primary" >
+                        <button ontype="submit" className="btn btn-primary" onClick={handleSubmit}>
                             Submit
                         </button>
                     </a>
