@@ -21,8 +21,8 @@ const Store = () => {
   };
 
   useEffect(() => {
-    getProducts();
-  }, [category]);
+  getProducts();
+}, [category, search]);
 
   return (
     <div>
@@ -40,10 +40,9 @@ const Store = () => {
         onChange={(e) => setCategory(e.target.value)}
       >
         <option value="">All Categories</option>
-        <option value="category1">GPU</option>
-        <option value="category2">CPU</option>
-        <option value="category3">RAM</option>
-        {/* Add more categories here */}
+        <option value="GPU">GPU</option>
+        <option value="CPU">CPU</option>
+        <option value="RAM">RAM</option>
       </select>
 
       <div>
