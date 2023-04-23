@@ -8,7 +8,18 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (productId) => {
     try {
-      const response = await api.post('/carts/add', { productId, quantity: 1 });
+      // Retrieve the authentication token from local storage or another source
+      const token = localStorage.getItem('authToken');
+
+      const response = await api.post(
+        '/carts/add',
+        { productId, quantity: 1 },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }
+      );
       setCartItems(response.data.cart.items);
     } catch (error) {
       console.error('Error adding item to cart:', error);
@@ -21,3 +32,4 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
+
