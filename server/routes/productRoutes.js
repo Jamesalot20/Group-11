@@ -10,7 +10,7 @@ router.get('/', productsController.getProducts);
 router.get('/:productId', productsController.getProductById);
 
 // Add a new product (assuming the user is a seller)
-router.post('/createProduct', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.createProduct);
+//router.post('/createProduct', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.createProduct);
 
 // Update an existing product (assuming the user is the product owner)
 router.put('/:productId', productsController.updateProduct);
