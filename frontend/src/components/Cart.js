@@ -3,7 +3,7 @@ import { CartContext } from './CartContext';
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, productDetails } = useContext(CartContext);
 
   const navigate = useNavigate();
   const handleCheckout = () => {
@@ -14,14 +14,24 @@ const Cart = () => {
   return (
     <div>
       <h1>Cart</h1>
-      {cartItems.map((item) => (
-        <div key={item.product._id}>
-          <h3>{item.product.name}</h3>
-          <p>{item.product.description}</p>
-          <p>Price: ${item.product.price}</p>
-          <p>Quantity: {item.quantity}</p>
-        </div>
-      ))}
+      {cartItems.map((item) => {
+        const product = productDetails[item.product];
+
+        return (
+          <div key={item.product}>
+            {product ? (
+              <>
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                <p>Price: ${product.price}</p>
+                <p>Quantity: {item.quantity}</p>
+              </>
+            ) : (
+              <p>Loading product...</p>
+            )}
+          </div>
+        );
+      })}
       <button onClick={handleCheckout}>
         Checkout
       </button>
