@@ -5,6 +5,19 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [productDetails, setProductDetails] = useState({});
+
+  const fetchProductDetails = async (productId) => {
+    try {
+      const response = await api.get(`/api/products/${productId}`);
+      setProductDetails((prevDetails) => ({
+        ...prevDetails,
+        [productId]: response.data,
+      }));
+    } catch (error) {
+      console.error('Error fetching product details:', error);
+    }
+  };
 
   const addToCart = async (productId) => {
     try {
@@ -21,15 +34,15 @@ export const CartProvider = ({ children }) => {
         }
       );
       setCartItems(response.data.cart.items);
+      fetchProductDetails(productId);
     } catch (error) {
       console.error('Error adding item to cart:', error);
     }
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, productDetails }}>
       {children}
     </CartContext.Provider>
   );
 };
-
