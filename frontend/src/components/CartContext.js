@@ -9,7 +9,7 @@ export const CartProvider = ({ children }) => {
 
   const fetchProductDetails = async (productId) => {
     try {
-      const response = await api.get(`/api/products/${productId}`);
+      const response = await api.get(`/products/${productId}`);
       setProductDetails((prevDetails) => ({
         ...prevDetails,
         [productId]: response.data,
