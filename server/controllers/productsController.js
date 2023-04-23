@@ -47,7 +47,20 @@ exports.createProduct = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while creating the product.' });
   }
 };
+exports.createProductsBulk = async (req, res) => {
+  try {
+    const products = req.body;
 
+    for (let i = 0; i < products.length; i++) {
+      const product = new Product(products[i]);
+      await product.save();
+    }
+
+    res.status(200).json({ message: 'Products created successfully.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error.' });
+  }
+};
 
 exports.updateProduct = async (req, res) => {
   try {
