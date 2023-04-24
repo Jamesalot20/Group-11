@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { CartContext } from './CartContext';
 
 function Checkout() {
+  console.log('cartItems:', cartItems, 'productDetails:', productDetails);
+
   const navigate = useNavigate();
   const { cartItems, productDetails } = useContext(CartContext);
 
