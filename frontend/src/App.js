@@ -60,6 +60,7 @@ function App() {
                     </Link>
                   </li>
                 </ul>
+                </li>
               </div>
             </div>
           </nav>
