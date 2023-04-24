@@ -67,7 +67,6 @@ async function createOrder(orderData) {
   }
 }
 
-
   return (
     <form>
       <h1>Checkout</h1>
