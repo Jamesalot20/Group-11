@@ -34,7 +34,7 @@ function OrdersPage() {
     }
   }
 
-  return (
+   return (
     <div>
       <h1>Orders</h1>
       {orders.length === 0 ? (
@@ -42,7 +42,8 @@ function OrdersPage() {
       ) : (
         orders.map(order => (
           <div key={order._id}>
-            <h2>Order {order._id}</h2>
+            <h2>Order ID: {order._id}</h2>
+            <h3>Total Price: ${order.totalPrice.toFixed(2)}</h3>
             <table>
               <thead>
                 <tr>
@@ -68,14 +69,6 @@ function OrdersPage() {
                   </tr>
                 ))}
               </tbody>
-              <tfoot>
-                <tr>
-                  <td colSpan="2"></td>
-                  <td>Total:</td>
-                  <td>${order.totalPrice.toFixed(2)}</td>
-                  <td></td>
-                </tr>
-              </tfoot>
             </table>
           </div>
         ))
