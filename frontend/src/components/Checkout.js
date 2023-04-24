@@ -33,8 +33,8 @@ const handleSubmit = async (e) => {
   const orderData = {
   items,
   total: totalPrice,
-  totalPrice, // Add this line to include the totalPrice field
-  buyer: localStorage.getItem('userId'), // Add this line to include the buyer field
+  totalPrice,
+  buyer: localStorage.getItem('userId'), // Make sure this key matches the one you used when storing the user ID
 };
 
   try {
