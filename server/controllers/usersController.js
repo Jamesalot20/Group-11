@@ -95,3 +95,31 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ message: 'Server error.' });
   }
 };
+
+exports.getPendingUsers = async (req, res) => {
+  try {
+    const pendingUsers = await User.find({ isApproved: false });
+    res.status(200).json(pendingUsers);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching pending users.' });
+  }
+};
+
+exports.updateUserApprovalStatus = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const { isApproved } = req.body;
+
+    const user = await User.findOneAndUpdate({ email }, { isApproved });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    res.status(200).json({ message: 'User approval status updated successfully.' });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Server error.' });
+  }
+};
+
