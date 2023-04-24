@@ -18,7 +18,7 @@ export const CartProvider = ({ children }) => {
       console.error('Error fetching product details:', error);
     }
     console.log('cartItems:', cartItems);
-  console.log('productDetails:', productDetails);
+    console.log('productDetails:', productDetails);
   };
 
   const addToCart = async (productId) => {
@@ -43,7 +43,7 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, productDetails }}>
+    <CartContext.Provider value={{ cartItems, addToCart, productDetails, fetchProductDetails }}>
       {children}
     </CartContext.Provider>
   );
