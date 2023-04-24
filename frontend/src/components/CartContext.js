@@ -18,6 +18,14 @@ export const CartProvider = ({ children }) => {
       console.error('Error fetching product details:', error);
     }
   };
+  // Add this useEffect block
+  useEffect(() => {
+    cartItems.forEach((item) => {
+      if (!productDetails[item.productId]) {
+        fetchProductDetails(item.productId);
+      }
+    });
+  }, [cartItems]);
 
   const addToCart = async (productId) => {
     try {
