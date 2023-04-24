@@ -5,18 +5,25 @@ function OrdersPage() {
   const [returningProductId, setReturningProductId] = useState(null);
 
   // Fetch orders on mount
-  useEffect(() => {
-    async function fetchOrders() {
-      const response = await fetch('/api/orders/history', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      const orders = await response.json();
-      setOrders(orders);
+ useEffect(() => {
+  async function fetchOrders() {
+    const response = await fetch('/api/orders/history', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    if (!response.ok) {
+      console.error('Error fetching orders:', response.status);
+      return;
     }
-    fetchOrders();
-  }, []);
+
+    const orders = await response.json();
+    setOrders(orders);
+  }
+  fetchOrders();
+}, []);
+
 
   async function handleReturn(productId) {
     const response = await fetch(`/api/orders/${productId}`, {
