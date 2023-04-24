@@ -8,7 +8,7 @@ function OrdersPage() {
   // Fetch orders on mount
  useEffect(() => {
   async function fetchOrders() {
-    const response = await api.get('/api/orders/history', {
+    const response = await api.get('/orders/history', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
