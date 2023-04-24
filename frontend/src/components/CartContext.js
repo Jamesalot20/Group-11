@@ -7,19 +7,25 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [productDetails, setProductDetails] = useState({});
 
-  const fetchProductDetails = async (product) => {
+  const fetchProductDetails = async (productId) => {
     try {
-      const response = await api.get(`/products/${product}`);
+      const response = await api.get(`/products/${productId}`);
       setProductDetails((prevDetails) => ({
         ...prevDetails,
-        [product]: response.data,
+        [productId]: response.data,
       }));
     } catch (error) {
       console.error('Error fetching product details:', error);
     }
-    console.log('cartItems:', cartItems);
-    console.log('productDetails:', productDetails);
   };
+  // Add this useEffect block
+  useEffect(() => {
+    cartItems.forEach((item) => {
+      if (!productDetails[item.productId]) {
+        fetchProductDetails(item.productId);
+      }
+    });
+  }, [cartItems]);
 
   const addToCart = async (productId) => {
     try {
@@ -43,7 +49,7 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, productDetails, fetchProductDetails }}>
+    <CartContext.Provider value={{ cartItems, addToCart, productDetails }}>
       {children}
     </CartContext.Provider>
   );
