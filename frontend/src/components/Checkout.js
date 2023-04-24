@@ -1,10 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from './CartContext';
 
 function Checkout() {
   const navigate = useNavigate();
-  const { cartItems, productDetails } = useContext(CartContext);
+  const { cartItems, productDetails, fetchProductDetails } = useContext(CartContext);
+
+  useEffect(() => {
+    cartItems.forEach((item) => {
+      if (!productDetails[item.productId]) {
+        fetchProductDetails(item.productId);
+      }
+    });
+  }, [cartItems, productDetails, fetchProductDetails]);
 
   const totalPrice = cartItems.reduce((total, item) => {
     const product = productDetails[item.productId];
