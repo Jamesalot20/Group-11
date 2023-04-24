@@ -14,7 +14,8 @@ function Checkout() {
   const calculateTotal = () => {
     return cartItems.reduce(
       (accumulator, currentItem) =>
-        accumulator + currentItem.product.price * currentItem.quantity,
+        accumulator +
+        (currentItem.product?.price || 0) * (currentItem.quantity || 0),
       0
     );
   };
@@ -26,10 +27,10 @@ function Checkout() {
 
       <div className="Products">
         {cartItems.map((item) => (
-          <div key={item.product._id}>
-            <h3>{item.product.name}</h3>
-            <p>Price: ${item.product.price}</p>
-            <p>Quantity: {item.quantity}</p>
+          <div key={item.product?._id}>
+            <h3>{item.product?.name}</h3>
+            <p>Price: ${item.product?.price || ''}</p>
+            <p>Quantity: {item.quantity || ''}</p>
           </div>
         ))}
       </div>
