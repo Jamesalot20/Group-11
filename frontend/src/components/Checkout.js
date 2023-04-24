@@ -48,7 +48,8 @@ const handleSubmit = async (e) => {
 async function createOrder(orderData) {
   try {
     console.log('Token:', localStorage.getItem('token'));
-    
+    console.log('Submitting order data:', orderData);
+
     const response = await fetch('http://localhost:5000/api/orders', {
       method: 'POST',
       headers: {
@@ -56,7 +57,6 @@ async function createOrder(orderData) {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(orderData),
-      console.log('Submitting order data:', orderData);
     });
 
     if (!response.ok) {
