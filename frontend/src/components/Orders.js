@@ -9,7 +9,7 @@ function OrdersPage() {
 useEffect(() => {
   async function fetchOrders() {
     try {
-      const response = await api.get('/api/orders/history', {
+      const response = await api.get('/orders/history', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
