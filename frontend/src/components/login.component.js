@@ -21,7 +21,7 @@ const Login = () => {
     if (role === 'admin') {
       navigate('/Admin');
     } else {
-      navigate('/store');
+      navigate('/Store');
     }
   } catch (error) {
     console.error('Error logging in:', error);
