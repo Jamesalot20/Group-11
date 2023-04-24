@@ -31,9 +31,11 @@ const handleSubmit = async (e) => {
 }).filter(item => item !== null);
 
   const orderData = {
-    items,
-    total: totalPrice,
-  };
+  items,
+  total: totalPrice,
+  totalPrice, // Add this line to include the totalPrice field
+  buyer: localStorage.getItem('userId'), // Add this line to include the buyer field
+};
 
   try {
     await createOrder(orderData);
