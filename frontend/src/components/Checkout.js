@@ -48,6 +48,7 @@ const handleSubmit = async (e) => {
 async function createOrder(orderData) {
   try {
     console.log('Token:', localStorage.getItem('token'));
+    
     const response = await fetch('http://localhost:5000/api/orders', {
       method: 'POST',
       headers: {
