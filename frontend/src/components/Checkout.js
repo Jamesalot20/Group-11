@@ -22,7 +22,7 @@ function Checkout() {
 
       <div className="Products">
         {cartItems.map((item, index) => {
-          const product = productDetails[item.productId];
+          const product = productDetails[item.product];
           return product ? (
             <div key={index}>
               <h3>{product.name}</h3>
