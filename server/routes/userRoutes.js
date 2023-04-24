@@ -12,6 +12,10 @@ router.post('/logout', authMiddleware.authenticate, usersController.logoutUser);
 router.delete('/deleteUser/:email', authMiddleware.authenticate, authMiddleware.authorize(['admin']), usersController.deleteUser);
 router.delete('/:productId', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.deleteProduct);
 
+router.get('/pendingUsers', authMiddleware.authenticate, authMiddleware.authorize(['admin']), usersController.getPendingUsers);
+router.put('/updateUserApprovalStatus/:email', authMiddleware.authenticate, authMiddleware.authorize(['admin']), usersController.updateUserApprovalStatus);
+
+
 
 router.get('/protected', authMiddleware.authenticate, authMiddleware.authorize(['admin', 'seller']), usersController.protectedRoute);
 router.get('/userByEmail/:email', usersController.getUserByEmail);
