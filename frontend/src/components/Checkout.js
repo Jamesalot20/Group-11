@@ -14,7 +14,7 @@ function Checkout() {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  onst items = cartItems.map((item) => {
+  const items = cartItems.map((item) => {
   const product = productDetails[item.productId];
 
   if (!product) {
