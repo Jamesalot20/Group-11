@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 const Cart = () => {
   const { cartItems, productDetails, fetchProductDetails } = useContext(CartContext);
   console.log("cartItems:", cartItems);
-  useEffect(() => {
-    cartItems.forEach((item) => {
-      if (!productDetails[item.product]) {
-        fetchProductDetails(item.product);
-      }
-    });
-  }, [cartItems, productDetails, fetchProductDetails]);
+useEffect(() => {
+  cartItems.forEach((item) => {
+    if (!productDetails[item.product]) {
+      fetchProductDetails(item.product);
+    }
+  });
+}, [cartItems, productDetails, fetchProductDetails]);
 
   const navigate = useNavigate();
   const handleCheckout = () => {
