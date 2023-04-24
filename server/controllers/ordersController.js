@@ -24,6 +24,7 @@ exports.getOrderById = async (req, res) => {
 
 exports.createOrder = async (req, res) => {
   try {
+    console.log('Received order data:', req.body);
     const orderData = {
       ...req.body,
       userId: req.user.userId,
