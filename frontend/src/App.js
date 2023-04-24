@@ -12,6 +12,7 @@ import Checkout from './components/Checkout';
 import Orders from './components/Orders';
 import Completion from './components/Completion';
 import Logout from './components/logout.component';
+import Admin from './components/Admin';
 
 import './main.css';
 
@@ -60,6 +61,11 @@ function App() {
                       Logout
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={'/Admin'}>
+                      Admin
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -77,6 +83,7 @@ function App() {
                 <Route path="/Orders" element={<Orders />} />
                 <Route path="/Completion" element={<Completion />} />
                 <Route path="/log-out" element={<Logout />} />
+                <Route path="/Admin" element={<Admin />} />
               </Routes>
             </div>
           </div>
