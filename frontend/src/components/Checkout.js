@@ -8,14 +8,14 @@ function Checkout() {
 
   useEffect(() => {
     cartItems.forEach((item) => {
-      if (!productDetails[item.productId]) {
-        fetchProductDetails(item.productId);
+      if (!productDetails[item.product]) {
+        fetchProductDetails(item.product);
       }
     });
   }, [cartItems, productDetails, fetchProductDetails]);
 
   const totalPrice = cartItems.reduce((total, item) => {
-    const product = productDetails[item.productId];
+    const product = productDetails[item.product];
     return total + (product ? product.price * item.quantity : 0);
   }, 0);
 
@@ -30,7 +30,7 @@ function Checkout() {
 
       <div className="Products">
         {cartItems.map((item, index) => {
-          const product = productDetails[item.productId];
+          const product = productDetails[item.product];
           console.log('Cart item:', item);
   console.log('Product:', product);
           return product ? (
