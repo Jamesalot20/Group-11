@@ -17,5 +17,29 @@ router.put('/:productId', productsController.updateProduct);
 
 // Delete a product (assuming the user is the product owner or an admin)
 
+// Route to get all pending products
+router.get('/pending-products', async (req, res) => {
+  try {
+    const products = await Product.find({ status: 'pending' });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Route to approve a product
+router.put('/approve-product/:id', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    product.status = 'approved';
+    await product.save();
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 module.exports = router;
