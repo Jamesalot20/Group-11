@@ -4,34 +4,33 @@ import { CartContext } from './CartContext';
 
 function Checkout() {
   const navigate = useNavigate();
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, productDetails } = useContext(CartContext);
+
+  const totalPrice = cartItems.reduce((total, item) => {
+    const product = productDetails[item.productId];
+    return total + (product ? product.price * item.quantity : 0);
+  }, 0);
 
   const handleSubmit = () => {
-    // Redirect to the Store page
     navigate('/Store');
-  };
-
- const calculateTotal = () => {
-    return cartItems.reduce(
-      (accumulator, currentItem) =>
-        accumulator + currentItem.product.price * currentItem.quantity,
-      0
-    );
   };
 
   return (
     <form>
       <h1>Checkout</h1>
-      <h2>Total: ${calculateTotal().toFixed(2)}</h2>
+      <h2>Total: ${totalPrice.toFixed(2)}</h2>
 
       <div className="Products">
-        {cartItems.map((item, index) => ( // Add 'index' parameter
-          <div key={index}> // Use 'index' as the key
-            <h3>{item.product.name}</h3>
-            <p>Price: ${item.product.price}</p>
-            <p>Quantity: {item.quantity}</p>
-          </div>
-        ))}
+        {cartItems.map((item, index) => {
+          const product = productDetails[item.productId];
+          return product ? (
+            <div key={index}>
+              <h3>{product.name}</h3>
+              <p>Price: ${product.price}</p>
+              <p>Quantity: {item.quantity}</p>
+            </div>
+          ) : null;
+        })}
       </div>
 
       <div className="mb-3">
