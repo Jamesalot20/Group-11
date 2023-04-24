@@ -8,6 +8,7 @@ export const CartProvider = ({ children }) => {
   const [productDetails, setProductDetails] = useState({});
 
   const fetchProductDetails = async (productId) => {
+    
     if (!productId) return;
     try {
       const response = await api.get(`/products/${productId}`);
@@ -18,6 +19,9 @@ export const CartProvider = ({ children }) => {
     } catch (error) {
       console.error('Error fetching product details:', error);
     }
+    console.log('cartItems:', cartItems);
+console.log('productDetails:', productDetails);
+
   };
 
   const addToCart = async (productId) => {
