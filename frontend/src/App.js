@@ -9,6 +9,7 @@ import Login from './components/login.component';
 import SignUp from './components/signup.component';
 import Store from './components/Store';
 import Checkout from './components/Checkout';
+import Orders from './components/Orders';
 import Completion from './components/Completion';
 import Logout from './components/logout.component';
 
@@ -48,6 +49,10 @@ function App() {
                     <Link className="nav-link" to={'/Checkout'}>
                       Checkout
                     </Link>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={'/Orders'}>
+                      Order History
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to={'/log-out'}>
@@ -68,6 +73,7 @@ function App() {
                 <Route path="/store" element={<Store />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/Checkout" element={<Checkout />} />
+                <Route path="/Orders" element={<Order History />} />
                 <Route path="/Completion" element={<Completion />} />
                 <Route path="/log-out" element={<Logout />} />
               </Routes>
