@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import api from '../api';
 
 export const CartContext = createContext();
@@ -8,8 +8,6 @@ export const CartProvider = ({ children }) => {
   const [productDetails, setProductDetails] = useState({});
 
   const fetchProductDetails = async (productId) => {
-    
-    if (!productId) return;
     try {
       const response = await api.get(`/products/${productId}`);
       setProductDetails((prevDetails) => ({
@@ -19,9 +17,6 @@ export const CartProvider = ({ children }) => {
     } catch (error) {
       console.error('Error fetching product details:', error);
     }
-    console.log('cartItems:', cartItems);
-console.log('productDetails:', productDetails);
-
   };
 
   const addToCart = async (productId) => {
@@ -46,9 +41,7 @@ console.log('productDetails:', productDetails);
   };
 
   return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, productDetails, fetchProductDetails }}
-    >
+    <CartContext.Provider value={{ cartItems, addToCart, productDetails }}>
       {children}
     </CartContext.Provider>
   );
