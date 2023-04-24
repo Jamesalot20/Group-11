@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 import api from '../api';
 
 export const CartContext = createContext();
@@ -18,14 +18,6 @@ export const CartProvider = ({ children }) => {
       console.error('Error fetching product details:', error);
     }
   };
-  // Add this useEffect block
-useEffect(() => {
-  cartItems.forEach((item) => {
-    if (!productDetails[item.productId] && item.productId) {
-      fetchProductDetails(item.productId);
-    }
-  });
-}, [cartItems]);
 
   const addToCart = async (productId) => {
     try {
@@ -49,9 +41,10 @@ useEffect(() => {
   };
 
   return (
-  <CartContext.Provider
-    value={{ cartItems, addToCart, productDetails, fetchProductDetails }}
-  >
-    {children}
-  </CartContext.Provider>
-);
+    <CartContext.Provider
+      value={{ cartItems, addToCart, productDetails, fetchProductDetails }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+};
