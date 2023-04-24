@@ -11,17 +11,32 @@ function Checkout() {
     return total + (product ? product.price * item.quantity : 0);
   }, 0);
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
-  // Prepare the order data
-  const orderData = {
-    items: cartItems.map(item => ({
-      productId: item.product,
+  const items = cartItems.map((item) => {
+    const product = productDetails[item.productId];
+    return {
+      product: item.productId,
+      name: product.name,
+      price: product.price,
       quantity: item.quantity,
-    })),
-    totalPrice,
+    };
+  });
+
+  const orderData = {
+    items,
+    total: totalPrice,
   };
+
+  try {
+    await createOrder(orderData);
+    navigate('/Completion');
+  } catch (error) {
+    console.error('Failed to submit order:', error);
+  }
+};
+
 
   try {
     const response = await fetch('http://localhost:5000/api/orders', {
