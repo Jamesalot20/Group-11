@@ -7,7 +7,7 @@ function Checkout() {
   const { cartItems, productDetails } = useContext(CartContext);
 
   const totalPrice = cartItems.reduce((total, item) => {
-    const product = productDetails[item.productId];
+    const product = productDetails[item.product];
     return total + (product ? product.price * item.quantity : 0);
   }, 0);
 
@@ -15,15 +15,15 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   const items = cartItems.map((item) => {
-  const product = productDetails[item.productId];
+  const product = productDetails[item.product];
 
   if (!product) {
-    console.error(`Product with ID ${item.productId} not found`);
+    console.error(`Product with ID ${item.product} not found`);
     return null;
   }
 
   return {
-    product: item.productId,
+    product: item.product,
     name: product.name,
     price: product.price,
     quantity: item.quantity,
@@ -74,7 +74,7 @@ async function createOrder(orderData) {
 
       <div className="Products">
         {cartItems.map((item, index) => {
-          const product = productDetails[item.productId];
+          const product = productDetails[item.product];
           return product ? (
             <div key={index}>
               <h3>{product.name}</h3>
