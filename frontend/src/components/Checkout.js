@@ -58,3 +58,4 @@ function Checkout() {
     </form>
   );
 }
+export default Checkout;
