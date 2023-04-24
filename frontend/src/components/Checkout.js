@@ -25,8 +25,8 @@ function Checkout() {
       <h2>Total: ${calculateTotal().toFixed(2)}</h2>
 
       <div className="Products">
-        {cartItems.map((item) => (
-          <div key={item.product._id}>
+        {cartItems.map((item, index) => ( // Add 'index' parameter
+          <div key={index}> // Use 'index' as the key
             <h3>{item.product.name}</h3>
             <p>Price: ${item.product.price}</p>
             <p>Quantity: {item.quantity}</p>
