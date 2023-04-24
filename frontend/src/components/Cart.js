@@ -15,7 +15,7 @@ const Cart = () => {
     <div>
       <h1>Cart</h1>
       {cartItems.map((item) => {
-        const product = productDetails[item.product];
+        const product = productDetails[item.productId];
 
         return (
           <div key={item.product}>
