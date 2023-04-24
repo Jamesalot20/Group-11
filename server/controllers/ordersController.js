@@ -1,5 +1,4 @@
 const Order = require('../models/Order');
-
 exports.getOrdersByUser = async (req, res) => {
   try {
     const orders = await Order.find();
@@ -8,7 +7,6 @@ exports.getOrdersByUser = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while fetching orders.' });
   }
 };
-
 exports.getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
@@ -32,7 +30,6 @@ exports.createOrder = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while creating the order.' });
   }
 };
-
 exports.updateOrder = async (req, res) => {
   try {
     const order = await Order.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -45,7 +42,6 @@ exports.updateOrder = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while updating the order.' });
   }
 };
-
 exports.deleteOrder = async (req, res) => {
   try {
     const order = await Order.findByIdAndRemove(req.params.id);
