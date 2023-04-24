@@ -49,6 +49,7 @@ function App() {
                     <Link className="nav-link" to={'/Checkout'}>
                       Checkout
                     </Link>
+                  </li>
                   <li className="nav-item">
                     <Link className="nav-link" to={'/Orders'}>
                       Order History
@@ -60,7 +61,6 @@ function App() {
                     </Link>
                   </li>
                 </ul>
-                </li>
               </div>
             </div>
           </nav>
