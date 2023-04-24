@@ -1,52 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from './CartContext';
 
 function Checkout() {
   const navigate = useNavigate();
+  const { cartItems } = useContext(CartContext);
 
   const handleSubmit = () => {
     // Redirect to the Store page
     navigate('/Store');
   };
 
+  const calculateTotal = () => {
+    return cartItems.reduce(
+      (accumulator, currentItem) =>
+        accumulator + currentItem.product.price * currentItem.quantity,
+      0
+    );
+  };
+
   return (
     <form>
       <h1>Checkout</h1>
-      <h2>Total:</h2>
+      <h2>Total: ${calculateTotal().toFixed(2)}</h2>
 
-      <div className="Products"></div>
+      <div className="Products">
+        {cartItems.map((item) => (
+          <div key={item.product._id}>
+            <h3>{item.product.name}</h3>
+            <p>Price: ${item.product.price}</p>
+            <p>Quantity: {item.quantity}</p>
+          </div>
+        ))}
+      </div>
 
       <div className="mb-3">
-        <label>Address</label>
-        <input
-          type="address"
-          className="form-control"
-          placeholder="Enter address"
-        />
-      </div>
-      <div className="mb-3">
-        <label>Card Number</label>
-        <input
-          type="card number"
-          className="form-control"
-          placeholder="Enter card number"
-        />
-      </div>
-      <div className="mb-3">
-        <label>City</label>
-        <input
-          type="city"
-          className="form-control"
-          placeholder="Enter city"
-        />
-      </div>
-      <div className="mb-3">
-        <label>State</label>
-        <input
-          type="state"
-          className="form-control"
-          placeholder="Enter state"
-        />
+        {/* Other form fields */}
       </div>
       <div className="d-grid">
         <a href="Completion">
