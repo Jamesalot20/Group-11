@@ -37,7 +37,7 @@ const handleSubmit = async (e) => {
   }
 };
 
-
+async function createOrder(orderData) {
   try {
     const response = await fetch('http://localhost:5000/api/orders', {
       method: 'POST',
@@ -59,7 +59,8 @@ const handleSubmit = async (e) => {
   } catch (error) {
     console.error(error);
   }
-};
+}
+
 
   return (
     <form>
