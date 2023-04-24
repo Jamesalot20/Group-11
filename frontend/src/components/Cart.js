@@ -1,9 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CartContext } from './CartContext';
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { cartItems, productDetails } = useContext(CartContext);
+  const { cartItems, productDetails, fetchProductDetails } = useContext(CartContext);
+
+  useEffect(() => {
+    cartItems.forEach((item) => {
+      if (!productDetails[item.productId]) {
+        fetchProductDetails(item.productId);
+      }
+    });
+  }, [cartItems, productDetails, fetchProductDetails]);
 
   const navigate = useNavigate();
   const handleCheckout = () => {
@@ -14,11 +22,11 @@ const Cart = () => {
   return (
     <div>
       <h1>Cart</h1>
-      {cartItems.map((item, index) => { // Add 'index' parameter
+      {cartItems.map((item, index) => {
         const product = productDetails[item.productId];
 
         return (
-          <div key={index}> // Use 'index' as the key
+          <div key={index}>
             {product ? (
               <>
                 <h3>{product.name}</h3>
