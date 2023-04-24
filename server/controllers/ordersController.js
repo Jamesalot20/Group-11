@@ -24,7 +24,11 @@ exports.getOrderById = async (req, res) => {
 
 exports.createOrder = async (req, res) => {
   try {
-    const order = new Order(req.body);
+    const orderData = {
+      ...req.body,
+      userId: req.user.userId,
+    };
+    const order = new Order(orderData);
     await order.save();
     res.status(201).json(order);
   } catch (error) {
@@ -61,7 +65,9 @@ exports.deleteOrder = async (req, res) => {
 
 exports.getBuyerOrderHistory = async (req, res) => {
   try {
+    console.log('User ID:', req.user.userId);
     const orders = await Order.find({ userId: req.user.userId });
+    console.log('Fetched orders:', orders);
     res.status(200).json(orders);
   } catch (error) {
     console.error('Error fetching order history:', error);
