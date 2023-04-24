@@ -8,6 +8,7 @@ export const CartProvider = ({ children }) => {
   const [productDetails, setProductDetails] = useState({});
 
   const fetchProductDetails = async (productId) => {
+    if (!productId) return;
     try {
       const response = await api.get(`/products/${productId}`);
       setProductDetails((prevDetails) => ({
