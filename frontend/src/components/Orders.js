@@ -9,7 +9,7 @@ function OrdersPage() {
 useEffect(() => {
   async function fetchOrders() {
     try {
-      const response = await api.get('/orders/history', {
+      const response = await api.get('/api/orders/history', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
@@ -24,7 +24,7 @@ useEffect(() => {
 
 
   async function handleReturn(productId) {
-    const response = await fetch(`/api/orders/${productId}`, {
+    const response = await fetch(`/orders/${productId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
