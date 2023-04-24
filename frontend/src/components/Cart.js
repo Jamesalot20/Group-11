@@ -7,8 +7,8 @@ const Cart = () => {
 
   useEffect(() => {
     cartItems.forEach((item) => {
-      if (!productDetails[item.productId]) {
-        fetchProductDetails(item.productId);
+      if (!productDetails[item.product]) {
+        fetchProductDetails(item.product);
       }
     });
   }, [cartItems, productDetails, fetchProductDetails]);
