@@ -102,3 +102,31 @@ exports.deleteProduct = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while deleting the product.' });
   }
 };
+
+exports.getPendingProducts = async (req, res) => {
+  try {
+    const pendingProducts = await Product.find({ status: 'pending' });
+    res.status(200).json(pendingProducts);
+  } catch (error) {
+    console.error('Error fetching pending products:', error);
+    res.status(500).json({ error: 'An error occurred while fetching pending products.' });
+  }
+};
+
+exports.approveProduct = async (req, res) => {
+  const productId = req.params.productId;
+  try {
+    const product = await Product.findById(productId);
+    if (!product) {
+      res.status(404).json({ error: 'Product not found.' });
+      return;
+    }
+
+    product.status = 'approved';
+    await product.save();
+    res.status(200).json({ message: 'Product approved successfully.' });
+  } catch (error) {
+    console.error('Error approving product:', error);
+    res.status(500).json({ error: 'An error occurred while approving the product.' });
+  }
+};
