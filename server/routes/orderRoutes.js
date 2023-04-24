@@ -13,7 +13,7 @@ router.get('/history', authMiddleware.authenticate, ordersController.getBuyerOrd
 router.get('/:orderId', ordersController.getOrderById);
 
 // Create a new order (assuming the user is a buyer)
-router.post('/', ordersController.createOrder);
+router.post('/', authMiddleware.authenticate, ordersController.createOrder);
 
 // Update an order (e.g., change the status or cancel the order)
 router.put('/:orderId', ordersController.updateOrder);
