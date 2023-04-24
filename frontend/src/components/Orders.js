@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import api from '../api';
 
 function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -7,7 +8,7 @@ function OrdersPage() {
   // Fetch orders on mount
  useEffect(() => {
   async function fetchOrders() {
-    const response = await fetch('/api/orders/history', {
+    const response = await api.get('/api/orders/history', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
