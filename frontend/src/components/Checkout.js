@@ -12,12 +12,14 @@ function Checkout() {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce(
-      (accumulator, currentItem) =>
-        accumulator + currentItem.product.price * currentItem.quantity,
-      0
-    );
-  };
+  return cartItems.reduce((accumulator, currentItem) => {
+    const product = productDetails[currentItem.productId];
+    if (product) {
+      return accumulator + product.price * currentItem.quantity;
+    }
+    return accumulator;
+  }, 0);
+};
 
   return (
     <form>
