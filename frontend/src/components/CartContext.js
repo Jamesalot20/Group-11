@@ -7,14 +7,14 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [productDetails, setProductDetails] = useState({});
 
-  const fetchProductDetails = async (productId) => {
+  const fetchProductDetails = async (product) => {
     
     if (!productId) return;
     try {
-      const response = await api.get(`/products/${productId}`);
+      const response = await api.get(`/products/${product}`);
       setProductDetails((prevDetails) => ({
         ...prevDetails,
-        [productId]: response.data,
+        [product]: response.data,
       }));
     } catch (error) {
       console.error('Error fetching product details:', error);
@@ -24,7 +24,7 @@ console.log('productDetails:', productDetails);
 
   };
 
-  const addToCart = async (productId) => {
+  const addToCart = async (product) => {
     try {
       // Retrieve the authentication token from local storage or another source
       const token = localStorage.getItem('authToken');
@@ -39,7 +39,7 @@ console.log('productDetails:', productDetails);
         }
       );
       setCartItems(response.data.cart.items);
-      fetchProductDetails(productId);
+      fetchProductDetails(product);
     } catch (error) {
       console.error('Error adding item to cart:', error);
     }
