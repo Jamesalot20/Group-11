@@ -19,13 +19,13 @@ export const CartProvider = ({ children }) => {
     }
   };
   // Add this useEffect block
-  useEffect(() => {
-    cartItems.forEach((item) => {
-      if (!productDetails[item.productId]) {
-        fetchProductDetails(item.productId);
-      }
-    });
-  }, [cartItems]);
+useEffect(() => {
+  cartItems.forEach((item) => {
+    if (!productDetails[item.productId] && item.productId) {
+      fetchProductDetails(item.productId);
+    }
+  });
+}, [cartItems]);
 
   const addToCart = async (productId) => {
     try {
