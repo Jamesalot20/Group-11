@@ -14,11 +14,11 @@ const Cart = () => {
   return (
     <div>
       <h1>Cart</h1>
-      {cartItems.map((item) => {
+      {cartItems.map((item, index) => { // Add 'index' parameter
         const product = productDetails[item.productId];
 
         return (
-          <div key={item.productId}>
+          <div key={index}> // Use 'index' as the key
             {product ? (
               <>
                 <h3>{product.name}</h3>
