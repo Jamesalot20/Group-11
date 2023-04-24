@@ -9,7 +9,7 @@ export const CartProvider = ({ children }) => {
 
   const fetchProductDetails = async (product) => {
     
-    if (!productId) return;
+    if (!product) return;
     try {
       const response = await api.get(`/products/${product}`);
       setProductDetails((prevDetails) => ({
@@ -31,7 +31,7 @@ console.log('productDetails:', productDetails);
 
       const response = await api.post(
         '/carts/add',
-        { productId, quantity: 1 },
+        { product, quantity: 1 },
         {
           headers: {
             'Authorization': `Bearer ${token}`,
