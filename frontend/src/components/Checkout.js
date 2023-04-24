@@ -3,11 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { CartContext } from './CartContext';
 
 function Checkout() {
-  console.log('cartItems:', cartItems, 'productDetails:', productDetails);
-
   const navigate = useNavigate();
   const { cartItems, productDetails } = useContext(CartContext);
-
+console.log('cartItems:', cartItems, 'productDetails:', productDetails);
   const totalPrice = cartItems.reduce((total, item) => {
     const product = productDetails[item.product];
     return total + (product ? product.price * item.quantity : 0);
