@@ -14,15 +14,21 @@ function Checkout() {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const items = cartItems.map((item) => {
-    const product = productDetails[item.productId];
-    return {
-      product: item.productId,
-      name: product.name,
-      price: product.price,
-      quantity: item.quantity,
-    };
-  });
+  onst items = cartItems.map((item) => {
+  const product = productDetails[item.productId];
+
+  if (!product) {
+    console.error(`Product with ID ${item.productId} not found`);
+    return null;
+  }
+
+  return {
+    product: item.productId,
+    name: product.name,
+    price: product.price,
+    quantity: item.quantity,
+  };
+}).filter(item => item !== null);
 
   const orderData = {
     items,
