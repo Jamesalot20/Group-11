@@ -49,8 +49,9 @@ useEffect(() => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, productDetails }}>
-      {children}
-    </CartContext.Provider>
-  );
-};
+  <CartContext.Provider
+    value={{ cartItems, addToCart, productDetails, fetchProductDetails }}
+  >
+    {children}
+  </CartContext.Provider>
+);
