@@ -18,7 +18,7 @@ const Login = () => {
     localStorage.setItem('authToken', token);
 
     // Redirect to the appropriate page based on the user's role
-    if (role === 'admin') {
+    if (role === 'admin' || 'Admin') {
       navigate('/Admin');
     } else {
       navigate('/Store');
