@@ -11,32 +11,40 @@ function Checkout() {
     return total + (product ? product.price * item.quantity : 0);
   }, 0);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const orderItems = cartItems.map((item) => ({
-      product: item.product,
+  // Prepare the order data
+  const orderData = {
+    items: cartItems.map(item => ({
+      productId: item.product,
       quantity: item.quantity,
-    }));
+    })),
+    totalPrice,
+  };
 
-    const response = await fetch('/api/orders', {
+  try {
+    const response = await fetch('http://localhost:5000/api/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-      body: JSON.stringify({
-        items: orderItems,
-        totalPrice: totalPrice,
-      }),
+      body: JSON.stringify(orderData),
     });
 
-    if (response.ok) {
-      navigate('/Completion');
-    } else {
-      console.error('Failed to submit order:', response.status);
+    if (!response.ok) {
+      throw new Error(`Failed to submit order: ${response.status}`);
     }
-  };
+
+    // Handle successful order submission
+    const order = await response.json();
+    console.log('Order created:', order);
+    navigate('/Store');
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <form>
