@@ -1,44 +1,37 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from './CartContext';
 
 function Checkout() {
   const navigate = useNavigate();
-  const { cartItems, productDetails, fetchProductDetails } = useContext(CartContext);
-
-  useEffect(() => {
-    cartItems.forEach((item) => {
-      if (!productDetails[item.productId]) {
-        fetchProductDetails(item.productId);
-      }
-    });
-  }, [cartItems, productDetails, fetchProductDetails]);
-
-  const totalPrice = cartItems.reduce((total, item) => {
-    const product = productDetails[item.productId];
-    return total + (product ? product.price * item.quantity : 0);
-  }, 0);
+  const { cartItems } = useContext(CartContext);
 
   const handleSubmit = () => {
+    // Redirect to the Store page
     navigate('/Store');
+  };
+
+  const calculateTotal = () => {
+    return cartItems.reduce(
+      (accumulator, currentItem) =>
+        accumulator + currentItem.product.price * currentItem.quantity,
+      0
+    );
   };
 
   return (
     <form>
       <h1>Checkout</h1>
-      <h2>Total: ${totalPrice.toFixed(2)}</h2>
+      <h2>Total: ${calculateTotal().toFixed(2)}</h2>
 
       <div className="Products">
-        {cartItems.map((item, index) => {
-          const product = productDetails[item.productId];
-          return product ? (
-            <div key={index}>
-              <h3>{product.name}</h3>
-              <p>Price: ${product.price}</p>
-              <p>Quantity: {item.quantity}</p>
-            </div>
-          ) : null;
-        })}
+        {cartItems.map((item) => (
+          <div key={item.product._id}>
+            <h3>{item.product.name}</h3>
+            <p>Price: ${item.product.price}</p>
+            <p>Quantity: {item.quantity}</p>
+          </div>
+        ))}
       </div>
 
       <div className="mb-3">
@@ -58,4 +51,5 @@ function Checkout() {
     </form>
   );
 }
+
 export default Checkout;
