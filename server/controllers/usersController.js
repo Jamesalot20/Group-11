@@ -102,7 +102,7 @@ exports.getUsers = async (req, res) => {
     let query = {};
 
     if (search) {
-      query.username = { $regex: search, $options: 'i' };
+      query.email = { $regex: search, $options: 'i' };
     }
 
     if (role) {
