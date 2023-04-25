@@ -5,7 +5,6 @@ function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [returningItemId, setReturningItemId] = useState(null);
 
-  // Fetch orders on mount
   useEffect(() => {
     async function fetchOrders() {
       try {
@@ -54,7 +53,16 @@ function OrdersPage() {
     }
   }
 
-return (
+  function renderReturnButton(item) {
+    if (item.status === 'completed') {
+      return (
+        <button onClick={() => handleReturn(item._id)}>Return</button>
+      );
+    }
+    return null;
+  }
+
+  return (
     <div>
       <h1>Orders</h1>
       {orders.length === 0 ? (
@@ -76,18 +84,14 @@ return (
               </thead>
               <tbody>
                 {order.items.map(item => (
-  <tr key={item.product._id}>
-    <td>{item.product.name}</td>
-    <td>{item.quantity}</td>
-    <td>${item.price.toFixed(2)}</td>
-    <td>{item.status}</td>
-    <td>
-      {item.status === 'completed' && (
-        <button onClick={() => handleReturn(item._id)}>Return</button>
-      )}
-    </td>
-  </tr>
-))}
+                  <tr key={item.product._id}>
+                    <td>{item.product.name}</td>
+                    <td>{item.quantity}</td>
+                    <td>${item.price.toFixed(2)}</td>
+                    <td>{item.status}</td>
+                    <td>{renderReturnButton(item)}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
