@@ -83,8 +83,10 @@ function OrdersPage() {
               </tbody>
             </table>
             {order.status === 'completed' && (
-              <button onClick={() => handleReturn(order._id)}>Return order</button>
-              <button onClick={() => handleReturn(order._id)}>Return Order</button>
+              <>
+  <button onClick={() => handleReturn(order._id)}>Return order</button>
+  <button onClick={() => handleReturn(order._id)}>Return Order</button>
+</>
             )}
           </div>
         ))
