@@ -49,7 +49,7 @@ const AdminPage = () => {
       <ul>
         {users.map((user) => (
           <li key={user._id}>
-            {user.name} ({user.email})
+            {user.email} ({user.role})
             <button onClick={() => handleDeleteUser(user._id)}>Decline</button>
           </li>
         ))}
