@@ -92,13 +92,9 @@ function OrdersPage() {
               </tbody>
             </table>
             {order.status === 'completed' && (
-              <div>
-                {order.items.map(item => (
-                  <div key={item._id}>
-                    {renderReturnButton(item)}
-                  </div>
-                ))}
-              </div>
+              <button onClick={() => handleReturn(order._id)}>Return Order</button>
+            )}
+          </div>
             )}
           </div>
         ))
