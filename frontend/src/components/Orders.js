@@ -82,7 +82,7 @@ function OrdersPage() {
     <td>${item.price.toFixed(2)}</td>
     <td>{item.status}</td>
     <td>
-      {item.status === 'delivered' && (
+      {item.status === 'completed' && (
         <button onClick={() => handleReturn(item._id)}>Return</button>
       )}
     </td>
