@@ -95,12 +95,24 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-exports.getAllUsers = async (req, res) => {
+exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find({});
+    const { search, role } = req.query;
+
+    let query = {};
+
+    if (search) {
+      query.username = { $regex: search, $options: 'i' };
+    }
+
+    if (role) {
+      query.role = role;
+    }
+
+    const users = await User.find(query);
     res.status(200).json(users);
   } catch (error) {
-    console.error('Error in getAllUsers:', error);
-    res.status(500).json({ message: 'Server error.' });
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'An error occurred while fetching users.' });
   }
 };
