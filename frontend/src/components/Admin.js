@@ -61,11 +61,11 @@ const handleDeleteProduct = async (productId) => {
       <h2>User Accounts</h2>
       <ul>
         {Array.isArray(users) && users.map((user) => (
-          <li key={user._id}>
-            {user.email} ({user.role})
-            <button onClick={() => handleDeleteUser(user._id)}>Decline</button>
-          </li>
-        ))}
+  <li key={user._id}>
+    {user.email} ({user.role})
+    <button onClick={() => handleDeleteUser(user.email)}>Decline</button> {/* Pass user.email here */}
+  </li>
+))}
       </ul>
 
       <h2>Products</h2>
