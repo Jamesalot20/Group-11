@@ -35,16 +35,20 @@ const AdminPage = () => {
     }
   };
 
-  const handleDeleteProduct = async (productId) => {
-    try {
-      await api.delete(`/users/${productId}`);
-      // Update the product list after deletion
-      const response = await api.get('/products');
-      setProducts(response.data);
-    } catch (error) {
-      console.error('Error deleting product:', error);
-    }
-  };
+const handleDeleteProduct = async (productId) => {
+  try {
+    await api.delete(`/products/${productId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      },
+    });
+    // Update the product list after deletion
+    const response = await api.get('/products');
+    setProducts(response.data.data);
+  } catch (error) {
+    console.error('Error deleting product:', error);
+  }
+};
 
   return (
     <div>
