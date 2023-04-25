@@ -1,12 +1,14 @@
 const Order = require('../models/Order');
 exports.getOrdersByUser = async (req, res) => {
   try {
-    const orders = await Order.find();
+    const userId = req.user.userId; // Accessing the userId from req.user
+    const orders = await Order.find({ buyer: userId });
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while fetching orders.' });
   }
 };
+
 exports.getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
