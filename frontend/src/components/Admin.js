@@ -22,8 +22,8 @@ const Admin = () => {
 
   const handleApproveUser = async (userId) => {
     try {
-      await api.patch(`/users/${userId}`, { status: 1 });
-      setUsers(users.map(user => user.id === userId ? { ...user, status: 1 } : user));
+      await api.patch(`/users/${userId}`, { status: true });
+      setUsers(users.map(user => user.id === userId ? { ...user, status: true } : user));
     } catch (error) {
       console.error('Error approving user:', error);
       // Show an error message or handle the error as needed
@@ -32,8 +32,8 @@ const Admin = () => {
 
   const handleApproveProduct = async (productId) => {
     try {
-      await api.patch(`/products/${productId}`, { status: 1 });
-      setProducts(products.map(product => product.id === productId ? { ...product, status: 1 } : product));
+      await api.patch(`/products/${productId}`, { status: true });
+      setProducts(products.map(product => product.id === productId ? { ...product, status: true } : product));
     } catch (error) {
       console.error('Error approving product:', error);
       // Show an error message or handle the error as needed
@@ -42,8 +42,8 @@ const Admin = () => {
   
   const handleDeclineUser = async (userId) => {
     try {
-      await api.patch(`/users/${userId}`, { status: 0 });
-      setUsers(users.map(user => user.id === userId ? { ...user, status: 0 } : user));
+      await api.patch(`/users/${userId}`, { status: false });
+      setUsers(users.map(user => user.id === userId ? { ...user, status: false } : user));
     } catch (error) {
       console.error('Error approving user:', error);
       // Show an error message or handle the error as needed
@@ -52,8 +52,8 @@ const Admin = () => {
 
   const handleDeclineProduct = async (productId) => {
     try {
-      await api.patch(`/products/${productId}`, { status: 0 });
-      setProducts(products.map(product => product.id === productId ? { ...product, status: 0 } : product));
+      await api.patch(`/products/${productId}`, { status: false });
+      setProducts(products.map(product => product.id === productId ? { ...product, status: false } : product));
     } catch (error) {
       console.error('Error approving product:', error);
       // Show an error message or handle the error as needed
