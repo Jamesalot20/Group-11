@@ -53,15 +53,6 @@ function OrdersPage() {
     }
   }
 
-  function renderReturnButton(item) {
-    if (item.status === 'completed') {
-      return (
-        <button onClick={() => handleReturn(item._id)}>Return</button>
-      );
-    }
-    return null;
-  }
-
   return (
     <div>
       <h1>Orders</h1>
