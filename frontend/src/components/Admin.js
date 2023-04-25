@@ -23,7 +23,7 @@ const AdminPage = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      await api.delete(`/users/${userId}`);
+      await api.delete(`/users/deleteUser/${userId}`);
       // Update the user list after deletion
       const response = await api.get('/users');
       setUsers(response.data);
