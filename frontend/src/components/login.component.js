@@ -19,7 +19,7 @@ const Login = () => {
     localStorage.setItem('userId', userId);
 
     // Redirect to the appropriate page based on the user's role
-    if (role === 'admin' || role === 'Admin') {
+    if (role === 'admin') {
       navigate('/Admin');
     } else {
       navigate('/Store');
