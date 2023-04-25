@@ -73,26 +73,16 @@ exports.getBuyerOrderHistory = async (req, res) => {
 
 exports.returnOrderItem = async (req, res) => {
   try {
-    const order = await Order.findOne({ _id: req.params.orderId });
+    const order = await Order.findOneAndUpdate(
+      { _id: req.params.orderId },
+      { $set: { 'items.$[].status': 'returned' } },
+      { new: true }
+    );
 
     if (!order) {
       res.status(404).json({ error: 'Order not found.' });
-      return;
-    }
-
-    let itemReturned = false;
-    order.items.forEach((item) => {
-      if (item.status === 'pending') {
-        item.status = 'returned';
-        itemReturned = true;
-      }
-    });
-
-    if (itemReturned) {
-      await order.save();
-      res.status(200).json(order);
     } else {
-      res.status(400).json({ error: 'No pending items found in the order.' });
+      res.status(200).json(order);
     }
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while returning the item.' });
