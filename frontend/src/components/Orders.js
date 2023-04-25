@@ -94,6 +94,9 @@ function OrdersPage() {
                 ))}
               </tbody>
             </table>
+            {order.status === 'completed' && (
+              <button onClick={() => handleReturn(order._id)}>Return Order</button>
+            )}
           </div>
         ))
       )}
