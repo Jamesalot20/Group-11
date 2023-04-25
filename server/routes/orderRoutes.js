@@ -18,7 +18,7 @@ router.post('/', ordersController.createOrder);
 // Update an order (e.g., change the status or cancel the order)
 router.put('/:orderId', ordersController.updateOrder);
 
-router.put('/item/:itemId/return', authMiddleware.authenticate, ordersController.returnOrderItem);
+router.put('/:orderId/return', authMiddleware.authenticate, ordersController.returnOrderItem);
 
 // Delete an order (assuming the user is the order owner or an admin)
 router.delete('/:orderId', ordersController.deleteOrder);
