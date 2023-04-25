@@ -8,10 +8,11 @@ const AdminPage = () => {
   useEffect(() => {
     // Fetch all users and products data from API
     const fetchUserData = async () => {
-      const response = await api.get('/users');
-      console.log('Users response:', response.data);
-      setUsers(response.data);
-    };
+  const response = await api.get('/users');
+  console.log('Users response:', response.data);
+  setUsers(response.data.data);
+};
+
 
     const fetchProductData = async () => {
       const response = await api.get('/products');
