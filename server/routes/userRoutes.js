@@ -15,7 +15,7 @@ router.delete('/:productId', authMiddleware.authenticate, authMiddleware.authori
 
 
 
-router.get('/', authMiddleware.authenticate, authMiddleware.authorize(['admin']), usersController.getAllUsers);
+router.get('/', usersController.getAllUsers);
 router.get('/protected', authMiddleware.authenticate, authMiddleware.authorize(['admin', 'seller']), usersController.protectedRoute);
 router.get('/userByEmail/:email', usersController.getUserByEmail);
 module.exports = router;
