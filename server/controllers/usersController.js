@@ -97,22 +97,10 @@ exports.deleteUser = async (req, res) => {
 
 exports.getUsers = async (req, res) => {
   try {
-    const { search, role } = req.query;
-
-    let query = {};
-
-    if (search) {
-      query.email = { $regex: search, $options: 'i' };
-    }
-
-    if (role) {
-      query.role = role;
-    }
-
-    const users = await User.find(query);
-    res.status(200).json(users);
+    const users = await User.find();
+    res.status(200).json({ success: true, data: users });
   } catch (error) {
-    console.error('Error fetching users:', error);
-    res.status(500).json({ error: 'An error occurred while fetching users.' });
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Unable to get users' });
   }
 };
