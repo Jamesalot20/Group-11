@@ -55,46 +55,43 @@ function OrdersPage() {
   }
 
   return (
-    <div>
-      <h1>Orders</h1>
-      {orders.length === 0 ? (
-        <p>No orders found.</p>
-      ) : (
-        orders.map(order => (
-          <div key={order._id}>
-            <h2>Order ID: {order._id}</h2>
-            <h3>Total Price: ${order.totalPrice.toFixed(2)}</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Quantity</th>
-                  <th>Price</th>
-                  <th>Status</th>
-                  <th>Action</th>
+    <main>
+      <div className="title">
+        <h1>Order History</h1>
+      </div>
+      {orders.map((order) => (
+        <div key={order._id}>
+          <h2>Order ID: {order._id}</h2>
+          <h3>Total Price: ${order.totalPrice.toFixed(2)}</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {order.items.map((item) => (
+                <tr key={item._id}>
+                  <td>{item.productName}</td>
+                  <td>${item.price.toFixed(2)}</td>
+                  <td>{item.status}</td>
+                  <td>
+                    {item.status === 'delivered' && (
+                      <button onClick={() => handleReturn(item._id)}>
+                        Return
+                      </button>
+                    )}
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {order.items.map(item => (
-  <tr key={item.product._id}>
-    <td>{item.product.name}</td>
-    <td>{item.quantity}</td>
-    <td>${item.price.toFixed(2)}</td>
-    <td>{item.status}</td>
-    <td>
-      {item.status === 'completed' && (
-        <button onClick={() => handleReturn(item._id)}>Return</button>
-      )}
-    </td>
-  </tr>
-))}
-              </tbody>
-            </table>
-          </div>
-        ))
-      )}
-      {returningItemId && <p>Product returned.</p>}
-    </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </main>
   );
 }
 
