@@ -1,124 +1,71 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
 
-const Admin = () => {
+const AdminPage = () => {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    // Fetch all users and products data from API
+    const fetchUserData = async () => {
       const response = await api.get('/users');
       setUsers(response.data);
     };
 
-    const fetchProducts = async () => {
+    const fetchProductData = async () => {
       const response = await api.get('/products');
       setProducts(response.data);
     };
 
-    fetchUsers();
-    fetchProducts();
+    fetchUserData();
+    fetchProductData();
   }, []);
 
-  const handleApproveUser = async (userId) => {
+  const handleDeleteUser = async (userId) => {
     try {
-      await api.patch(`/users/${userId}`, { status: true });
-      setUsers(users.map(user => user.id === userId ? { ...user, status: true } : user));
+      await api.delete(`/users/${userId}`);
+      // Update the user list after deletion
+      const response = await api.get('/users');
+      setUsers(response.data);
     } catch (error) {
-      console.error('Error approving user:', error);
-      // Show an error message or handle the error as needed
+      console.error('Error deleting user:', error);
     }
   };
 
-  const handleApproveProduct = async (productId) => {
+  const handleDeleteProduct = async (productId) => {
     try {
-      await api.patch(`/products/${productId}`, { status: true });
-      setProducts(products.map(product => product.id === productId ? { ...product, status: true } : product));
+      await api.delete(`/products/${productId}`);
+      // Update the product list after deletion
+      const response = await api.get('/products');
+      setProducts(response.data);
     } catch (error) {
-      console.error('Error approving product:', error);
-      // Show an error message or handle the error as needed
-    }
-  };
-  
-  const handleDeclineUser = async (userId) => {
-    try {
-      await api.patch(`/users/${userId}`, { status: false });
-      setUsers(users.map(user => user.id === userId ? { ...user, status: false } : user));
-    } catch (error) {
-      console.error('Error approving user:', error);
-      // Show an error message or handle the error as needed
-    }
-  };
-
-  const handleDeclineProduct = async (productId) => {
-    try {
-      await api.patch(`/products/${productId}`, { status: false });
-      setProducts(products.map(product => product.id === productId ? { ...product, status: false } : product));
-    } catch (error) {
-      console.error('Error approving product:', error);
-      // Show an error message or handle the error as needed
+      console.error('Error deleting product:', error);
     }
   };
 
   return (
-    <>
-      <h2>Users</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.status === 1 ? 'Approved' : 'Pending'}</td>
-              <td>
-                <button onClick={() => handleApproveUser(user.id)}>Approve</button>
-                <button onClick={() => handleDeclineUser(user.id)}>Decline</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <h2>User Accounts</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user._id}>
+            {user.name} ({user.email})
+            <button onClick={() => handleDeleteUser(user._id)}>Decline</button>
+          </li>
+        ))}
+      </ul>
 
       <h2>Products</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(product => (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>{product.description}</td>
-              <td>{product.price}</td>
-              <td>{product.status === 1 ? 'Approved' : 'Pending'}</td>
-              <td>
-                <button onClick={() => handleApproveProduct(product.id)}>Approve</button>
-                <button onClick={() => handleDeclineProduct(product.id)}>Decline</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+      <ul>
+        {products.map((product) => (
+          <li key={product._id}>
+            {product.name} ({product.price})
+            <button onClick={() => handleDeleteProduct(product._id)}>Decline</button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
-export default Admin;
+export default AdminPage;
