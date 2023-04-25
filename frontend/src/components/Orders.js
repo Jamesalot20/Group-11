@@ -76,18 +76,18 @@ function OrdersPage() {
               </thead>
               <tbody>
                 {order.items.map(item => (
-                  <tr key={item.product._id}>
-                    <td>{item.product.name}</td>
-                    <td>{item.quantity}</td>
-                    <td>${item.price.toFixed(2)}</td>
-                    <td>{item.status}</td>
-                    <td>
-                      {item.status === 'completed' && (
-                        <button onClick={() => handleReturn(item._id)}>Return</button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+  <tr key={item.product._id}>
+    <td>{item.product.name}</td>
+    <td>{item.quantity}</td>
+    <td>${item.price.toFixed(2)}</td>
+    <td>{item.status}</td>
+    <td>
+      {item.status === 'delivered' && (
+        <button onClick={() => handleReturn(item._id)}>Return</button>
+      )}
+    </td>
+  </tr>
+))}
               </tbody>
             </table>
           </div>
