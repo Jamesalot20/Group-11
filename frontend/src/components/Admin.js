@@ -49,12 +49,12 @@ const handleDeleteProduct = async (productId) => {
       },
     });
     // Update the product list after deletion
-    const response = await api.get('/products');
-    setProducts(response.data.data);
+    setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
   } catch (error) {
     console.error('Error deleting product:', error);
   }
 };
+
 
   return (
     <div>
