@@ -52,7 +52,7 @@ function App() {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to={'/orders'}>
+                    <Link className="nav-link" to={'/Orders'}>
                       Order History
                     </Link>
                   </li>
@@ -80,7 +80,7 @@ function App() {
                 <Route path="/store" element={<Store />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/Checkout" element={<Checkout />} />
-                <Route path="/Orders" element={<orders />} />
+                <Route path="/Orders" element={<Orders />} />
                 <Route path="/Completion" element={<Completion />} />
                 <Route path="/log-out" element={<Logout />} />
                 <Route path="/Admin" element={<Admin />} />
