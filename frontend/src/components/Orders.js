@@ -82,18 +82,16 @@ function OrdersPage() {
                     <td>${item.price.toFixed(2)}</td>
                     <td>{item.status}</td>
                     <td>
-                      {item.status === 'delivered' && (
-                        <button onClick={() => handleReturn(item._id)}>Return</button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                      {item.status === 'completed' && (
+                    <button onClick={() => handleReturn(item._id)}>Return</button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
         ))
       )}
-      {returningItemId && <p>Product with ID {returningItemId} returned.</p>}
+      {returningProductId && <p>Product returned.</p>}
     </div>
   );
 }
