@@ -9,11 +9,13 @@ const AdminPage = () => {
     // Fetch all users and products data from API
     const fetchUserData = async () => {
       const response = await api.get('/users');
+      console.log('Users response:', response.data);
       setUsers(response.data);
     };
 
     const fetchProductData = async () => {
       const response = await api.get('/products');
+      console.log('Products response:', response.data);
       setProducts(response.data);
     };
 
@@ -47,7 +49,7 @@ const AdminPage = () => {
     <div>
       <h2>User Accounts</h2>
       <ul>
-        {users.map((user) => (
+        {Array.isArray(users) && users.map((user) => (
           <li key={user._id}>
             {user.email} ({user.role})
             <button onClick={() => handleDeleteUser(user._id)}>Decline</button>
@@ -57,7 +59,7 @@ const AdminPage = () => {
 
       <h2>Products</h2>
       <ul>
-        {products.map((product) => (
+        {Array.isArray(products) && products.map((product) => (
           <li key={product._id}>
             {product.name} ({product.price})
             <button onClick={() => handleDeleteProduct(product._id)}>Decline</button>
