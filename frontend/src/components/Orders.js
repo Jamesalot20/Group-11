@@ -72,14 +72,13 @@ function OrdersPage() {
           <div key={order._id}>
             <h2>Order ID: {order._id}</h2>
             <h3>Total Price: ${order.totalPrice.toFixed(2)}</h3>
+            <p>Status: {order.status}</p>
             <table>
               <thead>
                 <tr>
                   <th>Product</th>
                   <th>Quantity</th>
                   <th>Price</th>
-                  <th>Status</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -88,14 +87,18 @@ function OrdersPage() {
                     <td>{item.product.name}</td>
                     <td>{item.quantity}</td>
                     <td>${item.price.toFixed(2)}</td>
-                    <td>{item.status}</td>
-                    <td>{renderReturnButton(item)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
             {order.status === 'completed' && (
-              <button onClick={() => handleReturn(order._id)}>Return Order</button>
+              <div>
+                {order.items.map(item => (
+                  <div key={item._id}>
+                    {renderReturnButton(item)}
+                  </div>
+                ))}
+              </div>
             )}
           </div>
         ))
