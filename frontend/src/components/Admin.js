@@ -1,91 +1,113 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react';
+import api from '../api';
 
-export default class Admin extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            pendingProducts: [],
-            approvedProducts: []
-        }
+const Admin = () => {
+  const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const usersResponse = await api.get('/users');
+      setUsers(usersResponse.data);
+
+      const productsResponse = await api.get('/products');
+      setProducts(productsResponse.data);
+    };
+
+    fetchData();
+  }, []);
+
+  const handleApprove = async (type, id) => {
+    const response = await api.put(`/${type}/${id}`, { status: 1 });
+    if (response.status === 200) {
+      if (type === 'users') {
+        setUsers(users.map(user => user.id === id ? { ...user, status: 1 } : user));
+      } else if (type === 'products') {
+        setProducts(products.map(product => product.id === id ? { ...product, status: 1 } : product));
+      }
     }
+  };
 
-    componentDidMount() {
-        // fetch pending products
-        fetch('/api/products/pending')
-            .then(res => res.json())
-            .then(data => this.setState({ pendingProducts: data }));
-
-        // fetch approved products
-        fetch('/api/products/approved')
-            .then(res => res.json())
-            .then(data => this.setState({ approvedProducts: data }));
+  const handleDecline = async (type, id) => {
+    // Implement logic to decline the user or product
+    const response = await api.put(`/${type}/${id}`, { status: 0 });
+    if (response.status === 200) {
+      if (type === 'users') {
+        setUsers(users.map(user => user.id === id ? { ...user, status: 0 } : user));
+      } else if (type === 'products') {
+        setProducts(products.map(product => product.id === id ? { ...product, status: 0 } : product));
+      }
     }
+  };
 
-    render() {
-        const { pendingProducts, approvedProducts } = this.state;
+  return (
+    <div>
+      <h2>Admin Page</h2>
+      <h3>Users</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map(user => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.status === 1 ? 'Approved' : 'Pending'}</td>
+              <td>
+                {user.status === 0 && (
+                  <>
+                    <button onClick={() => handleApprove('users', user.id)}>Approve</button>
+                    <button onClick={() => handleDecline('users', user.id)}>Decline</button>
+                  </>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-        return (
-            <html>
-                <head>
-                    <title>Admin Dashboard</title>
-                </head>
-                <body>
-                    <h1>Admin Dashboard</h1>
-                    <h2>New Products</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="new-products-body">
-                            {pendingProducts.map(product => (
-                                <tr key={product.id}>
-                                    <td>{product.name}</td>
-                                    <td>{product.description}</td>
-                                    <td><button onClick={() => this.approveProduct(product.id)}>Approve</button></td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <h2>Approved Products</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="approved-products-body">
-                            {approvedProducts.map(product => (
-                                <tr key={product.id}>
-                                    <td>{product.name}</td>
-                                    <td>{product.description}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </body>
-            </html>
-        )
-    }
+      <h3>Products</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(product => (
+            <tr key={product.id}>
+              <td>{product.id}</td>
+              <td>{product.name}</td>
+              <td>{product.description}</td>
+              <td>{product.price}</td>
+              <td>{product.status === 1 ? 'Approved' : 'Pending'}</td>
+              <td>
+                {product.status === 0 && (
+                  <>
+                    <button onClick={() => handleApprove('products', product.id)}>Approve</button>
+                    <button onClick={() => handleDecline('products', product.id)}>Decline</button>
+                  </>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
-    approveProduct(id) {
-        fetch(`/api/products/approve/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id })
-        })
-            .then(() => {
-                // refresh pending products after approving
-                fetch('/api/products/pending')
-                    .then(res => res.json())
-                    .then(data => this.setState({ pendingProducts: data }));
-            })
-            .catch(error => console.log(error));
-    }
-}
+export default Admin;
