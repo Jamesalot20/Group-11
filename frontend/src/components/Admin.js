@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../api';
 
 const Admin = () => {
@@ -6,44 +6,63 @@ const Admin = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const usersResponse = await api.get('/users');
-      setUsers(usersResponse.data);
-
-      const productsResponse = await api.get('/products');
-      setProducts(productsResponse.data);
+    const fetchUsers = async () => {
+      const response = await api.get('/users');
+      setUsers(response.data);
     };
 
-    fetchData();
+    const fetchProducts = async () => {
+      const response = await api.get('/products');
+      setProducts(response.data);
+    };
+
+    fetchUsers();
+    fetchProducts();
   }, []);
 
-  const handleApprove = async (type, id) => {
-    const response = await api.put(`/${type}/${id}`, { status: 1 });
-    if (response.status === 200) {
-      if (type === 'users') {
-        setUsers(users.map(user => user.id === id ? { ...user, status: 1 } : user));
-      } else if (type === 'products') {
-        setProducts(products.map(product => product.id === id ? { ...product, status: 1 } : product));
-      }
+  const handleApproveUser = async (userId) => {
+    try {
+      await api.patch(`/users/${userId}`, { status: 1 });
+      setUsers(users.map(user => user.id === userId ? { ...user, status: 1 } : user));
+    } catch (error) {
+      console.error('Error approving user:', error);
+      // Show an error message or handle the error as needed
     }
   };
 
-  const handleDecline = async (type, id) => {
-    // Implement logic to decline the user or product
-    const response = await api.put(`/${type}/${id}`, { status: 0 });
-    if (response.status === 200) {
-      if (type === 'users') {
-        setUsers(users.map(user => user.id === id ? { ...user, status: 0 } : user));
-      } else if (type === 'products') {
-        setProducts(products.map(product => product.id === id ? { ...product, status: 0 } : product));
-      }
+  const handleApproveProduct = async (productId) => {
+    try {
+      await api.patch(`/products/${productId}`, { status: 1 });
+      setProducts(products.map(product => product.id === productId ? { ...product, status: 1 } : product));
+    } catch (error) {
+      console.error('Error approving product:', error);
+      // Show an error message or handle the error as needed
+    }
+  };
+  
+  const handleDeclineUser = async (userId) => {
+    try {
+      await api.patch(`/users/${userId}`, { status: 0 });
+      setUsers(users.map(user => user.id === userId ? { ...user, status: 0 } : user));
+    } catch (error) {
+      console.error('Error approving user:', error);
+      // Show an error message or handle the error as needed
+    }
+  };
+
+  const handleDeclineProduct = async (productId) => {
+    try {
+      await api.patch(`/products/${productId}`, { status: 0 });
+      setProducts(products.map(product => product.id === productId ? { ...product, status: 0 } : product));
+    } catch (error) {
+      console.error('Error approving product:', error);
+      // Show an error message or handle the error as needed
     }
   };
 
   return (
-    <div>
-      <h2>Admin Page</h2>
-      <h3>Users</h3>
+    <>
+      <h2>Users</h2>
       <table>
         <thead>
           <tr>
@@ -62,19 +81,15 @@ const Admin = () => {
               <td>{user.email}</td>
               <td>{user.status === 1 ? 'Approved' : 'Pending'}</td>
               <td>
-                {user.status === 0 && (
-                  <>
-                    <button onClick={() => handleApprove('users', user.id)}>Approve</button>
-                    <button onClick={() => handleDecline('users', user.id)}>Decline</button>
-                  </>
-                )}
+                <button onClick={() => handleApproveUser(user.id)}>Approve</button>
+                <button onClick={() => handleDeclineUser(user.id)}>Decline</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <h3>Products</h3>
+      <h2>Products</h2>
       <table>
         <thead>
           <tr>
@@ -95,18 +110,14 @@ const Admin = () => {
               <td>{product.price}</td>
               <td>{product.status === 1 ? 'Approved' : 'Pending'}</td>
               <td>
-                {product.status === 0 && (
-                  <>
-                    <button onClick={() => handleApprove('products', product.id)}>Approve</button>
-                    <button onClick={() => handleDecline('products', product.id)}>Decline</button>
-                  </>
-                )}
+                <button onClick={() => handleApproveProduct(product.id)}>Approve</button>
+                <button onClick={() => handleDeclineProduct(product.id)}>Decline</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    </>
   );
 };
 
