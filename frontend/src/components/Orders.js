@@ -24,19 +24,21 @@ useEffect(() => {
 }, []);
 
 
-async function handleReturn(productId) {
-  const response = await fetch(`/orders/${productId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-    },
-    body: JSON.stringify({ status: 'cancelled' }),
-  });
-  if (response.ok) {
-    setReturningProductId(productId);
-  } else {
-    console.error('Failed to return product:', response.status);
+async function handleReturn(itemId) {
+  try {
+    const response = await api.put(`/orders/item/${itemId}/return`, {}, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      },
+    });
+
+    if (response.status === 200) {
+      setReturningItemId(itemId);
+    } else {
+      console.error('Failed to return item:', response.status);
+    }
+  } catch (error) {
+    console.error('Error returning item:', error);
   }
 }
 
@@ -69,7 +71,7 @@ async function handleReturn(productId) {
                     <td>{item.status}</td>
                     <td>
                       {item.status === 'delivered' && (
-                        <button onClick={() => handleReturn(item.product._id)}>Return</button>
+                        <button onClick={() => handleReturn(item._id)}>Return</button>
                       )}
                     </td>
                   </tr>
