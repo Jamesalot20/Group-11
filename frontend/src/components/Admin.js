@@ -24,9 +24,9 @@ const AdminPage = () => {
     fetchProductData();
   }, []);
 
-  const handleDeleteUser = async (userId) => {
+const handleDeleteUser = async (userEmail) => {
   try {
-    await api.delete(`/users/deleteUser/${userId}`, {
+    await api.delete(`/users/deleteUser/${userEmail}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('authToken')}`,
       },
@@ -38,6 +38,7 @@ const AdminPage = () => {
     console.error('Error deleting user:', error);
   }
 };
+
 
 
 const handleDeleteProduct = async (productId) => {
