@@ -22,36 +22,36 @@ function OrdersPage() {
     fetchOrders();
   }, []);
 
-  async function handleReturn(itemId) {
-    try {
-      const response = await api.put(`/orders/item/${itemId}/return`, {}, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-        },
-      });
+async function handleReturn(orderId) {
+  try {
+    const response = await api.put(`/orders/${orderId}/return`, {}, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      },
+    });
 
-      if (response.status === 200) {
-        setReturningItemId(itemId);
+    if (response.status === 200) {
+      setReturningItemId(orderId);
 
-        setOrders((prevOrders) =>
-          prevOrders.map((order) => {
+      setOrders((prevOrders) =>
+        prevOrders.map((order) => {
+          if (order._id === orderId) {
             const items = order.items.map((item) => {
-              if (item._id === itemId) {
-                return { ...item, status: "returned" };
-              } else {
-                return item;
-              }
+              return { ...item, status: "returned" };
             });
             return { ...order, items };
-          })
-        );
-      } else {
-        console.error('Failed to return item:', response.status);
-      }
-    } catch (error) {
-      console.error('Error returning item:', error);
+          } else {
+            return order;
+          }
+        })
+      );
+    } else {
+      console.error('Failed to return item:', response.status);
     }
+  } catch (error) {
+    console.error('Error returning item:', error);
   }
+}
 
   return (
     <div>
