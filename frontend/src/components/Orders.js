@@ -14,6 +14,7 @@ useEffect(() => {
           Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
       });
+      console.log('Fetched orders:', response.data);
       setOrders(response.data);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -23,21 +24,21 @@ useEffect(() => {
 }, []);
 
 
-  async function handleReturn(productId) {
-    const response = await fetch(`/orders/${productId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify({ status: 'cancelled' }),
-    });
-    if (response.ok) {
-      setReturningProductId(productId);
-    } else {
-      console.error('Failed to return product:', response.status);
-    }
+async function handleReturn(productId) {
+  const response = await fetch(`/orders/${productId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+    },
+    body: JSON.stringify({ status: 'cancelled' }),
+  });
+  if (response.ok) {
+    setReturningProductId(productId);
+  } else {
+    console.error('Failed to return product:', response.status);
   }
+}
 
    return (
     <div>
