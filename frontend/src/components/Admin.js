@@ -34,7 +34,7 @@ const AdminPage = () => {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      await api.delete(`/products/${productId}`);
+      await api.delete(`/users/${productId}`);
       // Update the product list after deletion
       const response = await api.get('/products');
       setProducts(response.data);
