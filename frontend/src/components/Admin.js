@@ -37,7 +37,7 @@ const AdminPage = () => {
 
 const handleDeleteProduct = async (productId) => {
   try {
-    await api.delete(`/products/${productId}`, {
+    await api.delete(`/users/${productId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('authToken')}`,
       },
