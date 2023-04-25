@@ -95,8 +95,6 @@ function OrdersPage() {
               <button onClick={() => handleReturn(order._id)}>Return Order</button>
             )}
           </div>
-            )}
-          </div>
         ))
       )}
       {returningItemId && <p>Product returned.</p>}
