@@ -37,6 +37,7 @@ async function handleReturn(orderId) {
         prevOrders.map((order) => {
           if (order._id === orderId) {
             const items = order.items.map((item) => {
+              order.status = "returned";
               return { ...item, status: "returned" };
             });
             return { ...order, items };
