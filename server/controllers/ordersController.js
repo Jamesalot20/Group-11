@@ -97,8 +97,8 @@ exports.getBuyerOrderHistory = async (req, res) => {
 exports.returnOrderItem = async (req, res) => {
   try {
     const order = await Order.findOneAndUpdate(
-      { 'items._id': req.params.itemId },
-      { $set: { 'items.$.status': 'returned' } },
+      { _id: req.params.orderId },
+      { $set: { 'items.$[].status': 'returned' } },
       { new: true }
     );
 
