@@ -83,7 +83,7 @@ async function handleReturn(orderId) {
                 ))}
               </tbody>
             </table>
-            {order.status === 'completed' && (
+            {order.status === 'pending' && (
   <button onClick={() => handleReturn(order._id)}>Return order</button>
             )}
           </div>
