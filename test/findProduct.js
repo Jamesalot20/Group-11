@@ -1,5 +1,5 @@
 const chai = require('chai');
-const chaiHttp = require('chai-http';
+const chaiHttp = require('chai-http');
 const Product = require('../server/models/Product');
 const { expect } = chai;
 const app = require('../server/server');
