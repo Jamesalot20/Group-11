@@ -2,17 +2,20 @@ import React, { useState, useEffect, useContext } from 'react';
 import api from '../api';
 import styles from '../Store.css';
 import { CartContext } from './CartContext';
+
 const Store = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const { addToCart } = useContext(CartContext);
+
   const getProducts = async () => {
     try {
       const response = await api.get('/products', {
         params: { search, category },
       });
-       console.log('Response data:', response.data);
+      console.log('Response data:', response.data);
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -21,8 +24,16 @@ const Store = () => {
   };
 
   useEffect(() => {
-  getProducts();
-}, [category, search]);
+    getProducts();
+  }, [category, search]);
+
+  const handleAddToCart = (productId) => {
+    addToCart(productId);
+    setSuccessMessage('Item added to cart!');
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 3000);
+  };
 
   return (
     <div>
@@ -45,13 +56,15 @@ const Store = () => {
         <option value="RAM">RAM</option>
       </select>
 
+      {successMessage && <p className="success-message">{successMessage}</p>}
+
       <div>
         {products.map((product) => (
           <div key={product._id}>
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <p>Price: ${product.price}</p>
-            <button onClick={() => addToCart(product._id)}>Add to Cart</button>
+            <button onClick={() => handleAddToCart(product._id)}>Add to Cart</button>
           </div>
         ))}
       </div>
