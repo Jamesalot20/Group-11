@@ -1,4 +1,4 @@
-/*
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../server/server');
@@ -9,6 +9,7 @@ chai.use(chaiHttp);
 // Move sellerToken declaration to the outer scope
 let sellerToken;
 
+/*
 describe('Product Tests', () => {
   before(async () => {
     // Login as a seller to obtain the authorization token
