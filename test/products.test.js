@@ -1,5 +1,4 @@
 
-/*
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../server/server');
@@ -115,4 +114,4 @@ describe('Cart Tests', () => {
     });
   });
 });
-*/
+
