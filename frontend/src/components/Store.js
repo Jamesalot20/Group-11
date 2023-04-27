@@ -7,7 +7,7 @@ const Store = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState({});
   const { addToCart } = useContext(CartContext);
 
   const getProducts = async () => {
@@ -29,9 +29,9 @@ const Store = () => {
 
   const handleAddToCart = (productId) => {
     addToCart(productId);
-    setSuccessMessage('Item added to cart!');
+    setSuccessMessage({ [productId]: 'Item added to cart!' });
     setTimeout(() => {
-      setSuccessMessage('');
+      setSuccessMessage((prevState) => ({ ...prevState, [productId]: '' }));
     }, 3000);
   };
 
@@ -56,8 +56,6 @@ const Store = () => {
         <option value="RAM">RAM</option>
       </select>
 
-      {successMessage && <p className="success-message">{successMessage}</p>}
-
       <div>
         {products.map((product) => (
           <div key={product._id}>
@@ -65,6 +63,9 @@ const Store = () => {
             <p>{product.description}</p>
             <p>Price: ${product.price}</p>
             <button onClick={() => handleAddToCart(product._id)}>Add to Cart</button>
+            {successMessage[product._id] && (
+              <span className="success-message">{successMessage[product._id]}</span>
+            )}
           </div>
         ))}
       </div>
