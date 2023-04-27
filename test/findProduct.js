@@ -14,7 +14,6 @@ describe('Product API', () => {
 let testProduct;
   before((done) => { // Remove "async" and add "done" parameter
   // Clean up the test database
-    .then(() => {
       // Create a test product
       const testProduct = new Product({
         name: 'Test Product',
