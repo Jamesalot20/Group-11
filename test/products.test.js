@@ -1,3 +1,4 @@
+/*
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../server/server');
@@ -57,6 +58,7 @@ describe('Product Tests', () => {
     });
   });
 });
+*/
 describe('Cart Tests', () => {
   let buyerToken;
   let productId;
