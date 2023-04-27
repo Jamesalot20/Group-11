@@ -1,4 +1,4 @@
-/*
+
 // test.js
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -14,7 +14,6 @@ describe('Product API', () => {
 let testProduct;
   before((done) => { // Remove "async" and add "done" parameter
   // Clean up the test database
-  Product.deleteMany({})
     .then(() => {
       // Create a test product
       const testProduct = new Product({
@@ -70,4 +69,4 @@ let testProduct;
         });
   });
 });
-*/
+
