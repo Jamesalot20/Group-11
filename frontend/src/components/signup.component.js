@@ -8,10 +8,11 @@ export default class SignUp extends Component {
       email: '',
       password: '',
       role: 'buyer', //default role to buyer
+      successMessage: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   handleSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
@@ -33,12 +34,20 @@ export default class SignUp extends Component {
       .then((res) => res.json())
       .then((data) => {
         console.log(data, 'userRegister');
+        this.setState({ successMessage: 'Registration successful! You can now sign in.' });
       });
   }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <h3>Sign Up</h3>
+
+        {this.state.successMessage && (
+          <div className="alert alert-success" role="alert">
+            {this.state.successMessage}
+          </div>
+        )}
 
         <div className="mb-3">
           <label>Email</label>
