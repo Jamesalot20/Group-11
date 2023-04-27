@@ -6,6 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -27,6 +28,11 @@ const Login = () => {
   } catch (error) {
     console.error('Error logging in:', error);
     // Show an error message or handle the error as needed
+    if (error.response && error.response.status === 404) {
+        setError('Account not found. Please check your email and password.');
+      } else {
+        setError('Something went wrong. Please try again later.');
+      }
   }
 };
 
@@ -53,6 +59,7 @@ const Login = () => {
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
+      {error && <div className="alert alert-danger">{error}</div>}
       {/* ... */}
     </form>
   );
