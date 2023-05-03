@@ -3,7 +3,7 @@ import api from '../api';
 
 const Money = () => {
   const [amount, setAmount] = useState('');
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState(undefined);
   const [userId, setUserId] = useState('');
   const userEmail = localStorage.getItem('userEmail');
 
@@ -11,6 +11,7 @@ const Money = () => {
     const fetchUserData = async () => {
       try {
         const response = await api.get(`/users/userByEmail/${userEmail}`);
+        console.log('balance:', response.data.balance);
         setBalance(response.data.balance);
         setUserId(response.data._id);
       } catch (error) {
@@ -25,8 +26,11 @@ const Money = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log('userId:', userId);
+      console.log('amount:', amount);
       const response = await api.post('/users/add-money', { userId, amount });
       alert('Money added successfully!');
+      console.log('new balance:', response.data.balance);
       setBalance(response.data.balance);
       setAmount('');
     } catch (error) {
@@ -34,6 +38,7 @@ const Money = () => {
       alert('Error adding money. Please try again.');
     }
   };
+  
 
   return (
     <div>
@@ -48,7 +53,7 @@ const Money = () => {
         />
         <button type="submit">Add Money</button>
       </form>
-      {balance ? (
+      {balance !== undefined ? (
         <h4>Current Balance: ${balance.toFixed(2)}</h4>
       ) : (
         <h4>Loading balance...</h4>

@@ -108,14 +108,21 @@ exports.getUsers = async (req, res) => {
 exports.addMoney = async (req, res) => {
   const { userId, amount } = req.body;
 
+  if (!Number(amount)) {
+    return res.status(400).send({ message: 'Invalid amount' });
+  }
+
   try {
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).send({ message: 'User not found' });
     }
 
-    user.balance += parseFloat(amount);
+    const parsedAmount = parseFloat(amount);
+    user.balance += parsedAmount;
     await user.save();
+
+    console.log(`Updated user balance: ${user.balance.toFixed(2)}`);
 
     res.status(200).send({ message: 'Money added successfully', balance: user.balance });
   } catch (error) {
@@ -123,3 +130,5 @@ exports.addMoney = async (req, res) => {
     res.status(500).send({ message: 'Error adding money. Please try again.' });
   }
 };
+
+
