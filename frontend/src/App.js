@@ -96,7 +96,10 @@ function App() {
                 <Route path="/Admin" element={<Admin />} />
                 <Route path="/my-products" element={<SellerProducts />} />
               </Routes>
-            </Router>
+            </div>
+          </div>
+        </div>
+      </Router>
     </CartProvider>
   );
 }
