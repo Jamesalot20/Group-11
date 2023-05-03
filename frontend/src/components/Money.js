@@ -58,25 +58,3 @@ const Money = () => {
 };
 
 export default Money;
-
-  };
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h3>Add Money</h3>
-        <input
-          type="number"
-          min="1"
-          placeholder="Enter amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        <button type="submit">Add Money</button>
-      </form>
-      <h4>Current Balance: ${balance.toFixed(2)}</h4>
-    </div>
-  );
-};
-
-export default Money;
