@@ -54,7 +54,7 @@ const Money = () => {
         <button type="submit">Add Money</button>
       </form>
       {balance !== undefined ? (
-        <h4>Current Balance: ${balance.toFixed(2)}</h4>
+        <h4>Current Balance: ${balance}</h4>
       ) : (
         <h4>Loading balance...</h4>
       )}

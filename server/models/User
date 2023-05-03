@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
     enum: ['buyer', 'seller', 'admin'],
     default: 'buyer',
   },
+  balance: {
+    type: Number,
+    default: 0
+  },
   status: {
     type: Boolean,
     default: 0,
