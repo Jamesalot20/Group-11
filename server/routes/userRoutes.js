@@ -12,7 +12,7 @@ router.post('/bulk', authMiddleware.authenticate, authMiddleware.authorize(['sel
 router.post('/logout', authMiddleware.authenticate, usersController.logoutUser);
 router.delete('/deleteUser/:email', authMiddleware.authenticate, authMiddleware.authorize(['admin']), usersController.deleteUser);
 router.delete('/:productId', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.deleteProduct);
-
+router.post('/users/add-money', usersController.addMoney);
 
 
 
