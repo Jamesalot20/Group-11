@@ -14,7 +14,6 @@ import Completion from './components/Completion';
 import Logout from './components/logout.component';
 import Admin from './components/Admin';
 import SellerProducts from './components/SellerProducts';
-import AuthenticatedNavigation from './components/AuthenticatedNavigation';
 
 import './main.css';
 
@@ -70,6 +69,13 @@ function App() {
                       Admin
                     </Link>
                   </li>
+                  {isAuthenticated && (userRole === 'seller' || userRole === 'admin') && (
+                    <li className="nav-item">
+                      <Link className="nav-link" to={'/my-products'}>
+                        My Products
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
@@ -88,12 +94,9 @@ function App() {
                 <Route path="/Completion" element={<Completion />} />
                 <Route path="/log-out" element={<Logout />} />
                 <Route path="/Admin" element={<Admin />} />
-                  <Route path="/my-products" element={<SellerProducts />} />
+                <Route path="/my-products" element={<SellerProducts />} />
               </Routes>
-            </div>
-          </div>
-        </div>
-      </Router>
+            </Router>
     </CartProvider>
   );
 }
