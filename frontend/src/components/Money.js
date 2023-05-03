@@ -3,7 +3,7 @@ import api from '../api';
 
 const Money = () => {
   const [amount, setAmount] = useState('');
-  const [balance, setBalance] = useState(null);
+  const [balance, setBalance] = useState(0);
   const [userId, setUserId] = useState('');
   const userEmail = localStorage.getItem('userEmail');
 
@@ -35,14 +35,6 @@ const Money = () => {
     }
   };
 
-  const renderBalance = () => {
-    if (balance === null) {
-      return 'Loading balance...';
-    } else {
-      return `Current Balance: $${balance.toFixed(2)}`;
-    }
-  };
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -56,7 +48,11 @@ const Money = () => {
         />
         <button type="submit">Add Money</button>
       </form>
-      <h4>{renderBalance()}</h4>
+      {balance ? (
+        <h4>Current Balance: ${balance.toFixed(2)}</h4>
+      ) : (
+        <h4>Loading balance...</h4>
+      )}
     </div>
   );
 };
