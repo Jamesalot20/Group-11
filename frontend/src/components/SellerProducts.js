@@ -12,7 +12,7 @@ function SellerProducts() {
 
   const fetchSellerProducts = async () => {
     try {
-      const response = await api.get('/api/users/my-products', {
+      const response = await api.get('/users/my-products', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
@@ -24,13 +24,14 @@ function SellerProducts() {
   };
 
   useEffect(() => {
+    console.log('Calling fetchSellerProducts');
     fetchSellerProducts();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/api/users/createProduct', newProduct, {
+      const response = await api.post('/users/createProduct', newProduct, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
@@ -49,6 +50,7 @@ function SellerProducts() {
   return (
     <div>
       <h1>My Products</h1>
+      {console.log('Rendering SellerProducts component')}
       {products.map((product) => (
         <div key={product._id}>
           <h3>{product.name}</h3>

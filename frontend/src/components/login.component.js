@@ -18,13 +18,14 @@ const Login = () => {
       // Save the token and user ID in local storage or any other preferred storage
       localStorage.setItem('authToken', token);
       localStorage.setItem('userId', userId);
-
+      localStorage.setItem('role', role);
+      console.log('Role saved in Login:', role);
       // Redirect to the appropriate page based on the user's role
       if (role === 'admin') {
         navigate('/Admin');
       }
       else if (role === "seller") {
-        navigate("/AuthenticatedNavigation");
+        navigate("/my-products");
       }
       else {
         navigate('/Store');
