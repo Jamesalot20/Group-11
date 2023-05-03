@@ -2,7 +2,7 @@ import React from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
+import Money from './components/Money';
 import { CartProvider } from './components/CartContext';
 import Cart from './components/Cart';
 import Login from './components/login.component';
@@ -66,6 +66,7 @@ function App() {
                 <Route path="/log-out" element={<Logout />} />
                 <Route path="/Admin" element={<Admin />} />
                 <Route path="/my-products" element={<SellerProducts />} />
+                <Route path="/money" element={<Money />} />
               </Routes>
             </div>
           </div>
