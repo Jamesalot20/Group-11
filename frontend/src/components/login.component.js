@@ -9,32 +9,36 @@ const Login = () => {
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const response = await api.post('/users/login', { email, password });
-    const { token, userId, role } = response.data;
+    try {
+      const response = await api.post('/users/login', { email, password });
+      const { token, userId, role } = response.data;
 
-    // Save the token and user ID in local storage or any other preferred storage
-    localStorage.setItem('authToken', token);
-    localStorage.setItem('userId', userId);
+      // Save the token and user ID in local storage or any other preferred storage
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('userId', userId);
 
-    // Redirect to the appropriate page based on the user's role
-    if (role === 'admin') {
-      navigate('/Admin');
-    } else {
-      navigate('/Store');
-    }
-  } catch (error) {
-    console.error('Error logging in:', error);
-    // Show an error message or handle the error as needed
-    if (error.response && error.response.status === 404) {
+      // Redirect to the appropriate page based on the user's role
+      if (role === 'admin') {
+        navigate('/Admin');
+      }
+      else if (role === "seller") {
+        navigate("/AuthenticatedNavigation");
+      }
+      else {
+        navigate('/Store');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      // Show an error message or handle the error as needed
+      if (error.response && error.response.status === 404) {
         setError('Account not found. Please check your email and password.');
       } else {
         setError('Something went wrong. Please try again later.');
       }
-  }
-};
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
