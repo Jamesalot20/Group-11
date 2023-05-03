@@ -13,10 +13,15 @@ import Orders from './components/Orders';
 import Completion from './components/Completion';
 import Logout from './components/logout.component';
 import Admin from './components/Admin';
+import SellerProducts from './components/SellerProducts';
+import AuthenticatedNavigation from './components/AuthenticatedNavigation';
 
 import './main.css';
 
 function App() {
+  const isAuthenticated = !!localStorage.getItem('authToken');
+  const userRole = localStorage.getItem('role');
+
   return (
     <CartProvider>
       <Router>
@@ -25,48 +30,22 @@ function App() {
             <div className="container">
               <Link className="navbar-brand" to={'/sign-in'}></Link>
               <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                    <Link className="nav-link" to={'/sign-in'}>
-                      Login
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={'/sign-up'}>
-                      Sign up
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={'/Store'}>
-                      Store
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={'/cart'}>
-                      Cart
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={'/Checkout'}>
-                      Checkout
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={'/Orders'}>
-                      Order History
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={'/log-out'}>
-                      Logout
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={'/Admin'}>
-                      Admin
-                    </Link>
-                  </li>
-                </ul>
+                {isAuthenticated ? (
+                  <AuthenticatedNavigation role={userRole} />
+                ) : (
+                  <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                      <Link className="nav-link" to={'/sign-in'}>
+                        Login
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to={'/sign-up'}>
+                        Sign up
+                      </Link>
+                    </li>
+                  </ul>
+                )}
               </div>
             </div>
           </nav>
@@ -84,6 +63,7 @@ function App() {
                 <Route path="/Completion" element={<Completion />} />
                 <Route path="/log-out" element={<Logout />} />
                 <Route path="/Admin" element={<Admin />} />
+                <Route path="/my-products" element={<SellerProducts />} />
               </Routes>
             </div>
           </div>
