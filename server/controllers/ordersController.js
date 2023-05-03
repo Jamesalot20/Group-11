@@ -1,4 +1,5 @@
 const Order = require('../models/Order');
+const User = require('../models/User');
 exports.getOrdersByUser = async (req, res) => {
   try {
     const userId = req.user.userId; // Accessing the userId from req.user
