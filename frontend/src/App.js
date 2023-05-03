@@ -71,8 +71,8 @@ function App() {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to={'/My Products'}>
-                      AuthenticatedNavigation
+                    <Link className="nav-link" to={'/AuthenticatedNavigation'}>
+                      My Products
                     </Link>
                   </li>
                 </ul>
