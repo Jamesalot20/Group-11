@@ -3,7 +3,7 @@ import api from '../api';
 
 const Money = () => {
   const [amount, setAmount] = useState('');
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState(null);
   const [userId, setUserId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const userEmail = localStorage.getItem('userEmail');
@@ -54,7 +54,7 @@ const Money = () => {
       {isLoading ? (
         <h4>Loading balance...</h4>
       ) : (
-        <h4>Current Balance: ${balance.toFixed(2)}</h4>
+        <h4>Current Balance: ${balance !== null ? balance.toFixed(2) : 'N/A'}</h4>
       )}
     </div>
   );
