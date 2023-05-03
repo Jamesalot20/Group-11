@@ -23,6 +23,18 @@ exports.getProducts = async (req, res) => {
   }
 };
 
+exports.getSellerProducts = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const products = await Product.find({ seller: userId });
+    res.status(200).json(products);
+  } catch (error) {
+    console.error('Error fetching seller products:', error);
+    res.status(500).json({ error: 'An error occurred while fetching seller products.' });
+  }
+};
+
 exports.getProductById = async (req, res) => {
   try {
     const { productId } = req.params;
