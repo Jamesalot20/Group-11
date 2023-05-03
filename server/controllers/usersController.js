@@ -123,3 +123,8 @@ const addMoney = async (req, res) => {
     res.status(500).send({ message: 'Error adding money. Please try again.' });
   }
 };
+
+module.exports = {
+  // Other controller exports...
+  addMoney
+};
