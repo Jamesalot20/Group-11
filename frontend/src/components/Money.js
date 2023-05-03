@@ -4,12 +4,12 @@ import api from '../api';
 const Money = () => {
   const [amount, setAmount] = useState('');
   const [balance, setBalance] = useState(0);
-  const userId = localStorage.getItem('userId');
+  const userEmail = localStorage.getItem('userEmail');
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await api.get(`/users/userById/${userId}`);
+        const response = await api.get(`/users/userByEmail/${userEmail}`);
         setBalance(response.data.balance);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -18,12 +18,12 @@ const Money = () => {
     };
 
     fetchUserData();
-  }, [userId]);
+  }, [userEmail]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/users/add-money', { userId, amount });
+      const response = await api.post('/users/add-money', { userId: response.data._id, amount });
       alert('Money added successfully!');
       setBalance(response.data.balance);
       setAmount('');
@@ -52,4 +52,3 @@ const Money = () => {
 };
 
 export default Money;
-
