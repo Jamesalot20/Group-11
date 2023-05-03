@@ -11,6 +11,8 @@ const AuthenticatedNavigation = ({ role }) => {
       <NavLink to="/Orders">Order History</NavLink>
       <NavLink to="/log-out">Logout</NavLink>
       {['seller', 'admin'].includes(role) && <NavLink to="/my-products">My Products</NavLink>}
+      {role === 'buyer' && <NavLink to="/money">Money</NavLink>}
+
       {/* Add more navigation links as needed */}
     </nav>
   );
