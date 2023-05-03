@@ -5,7 +5,6 @@ const Money = () => {
   const [amount, setAmount] = useState('');
   const [balance, setBalance] = useState(null);
   const [userId, setUserId] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
   const userEmail = localStorage.getItem('userEmail');
 
   useEffect(() => {
@@ -17,8 +16,6 @@ const Money = () => {
       } catch (error) {
         console.error('Error fetching user data:', error);
         alert('Error fetching user data. Please try again.');
-      } finally {
-        setIsLoading(false);
       }
     };
 
@@ -38,6 +35,14 @@ const Money = () => {
     }
   };
 
+  const renderBalance = () => {
+    if (balance === null) {
+      return 'Loading balance...';
+    } else {
+      return `Current Balance: $${balance.toFixed(2)}`;
+    }
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -51,11 +56,7 @@ const Money = () => {
         />
         <button type="submit">Add Money</button>
       </form>
-      {isLoading ? (
-        <h4>Loading balance...</h4>
-      ) : (
-        <h4>Current Balance: ${balance !== null ? balance.toFixed(2) : 'N/A'}</h4>
-      )}
+      <h4>{renderBalance()}</h4>
     </div>
   );
 };
