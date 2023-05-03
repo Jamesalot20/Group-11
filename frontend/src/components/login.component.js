@@ -16,6 +16,7 @@ const Login = () => {
       const { token, userId, role } = response.data;
 
       // Save the token and user ID in local storage or any other preferred storage
+      localStorage.setItem('userEmail', response.data.userEmail);
       localStorage.setItem('authToken', token);
       localStorage.setItem('userId', userId);
       localStorage.setItem('role', role);
