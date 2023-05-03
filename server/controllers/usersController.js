@@ -104,3 +104,22 @@ exports.getUsers = async (req, res) => {
     res.status(500).json({ success: false, message: 'Unable to get users' });
   }
 };
+
+const addMoney = async (req, res) => {
+  const { userId, amount } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    user.balance += parseFloat(amount);
+    await user.save();
+
+    res.status(200).send({ message: 'Money added successfully', balance: user.balance });
+  } catch (error) {
+    console.error('Error adding money:', error);
+    res.status(500).send({ message: 'Error adding money. Please try again.' });
+  }
+};
