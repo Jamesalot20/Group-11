@@ -7,6 +7,7 @@ const productsController = require('../controllers/productsController');
 router.post('/register', usersController.registerUser);
 router.post('/login', usersController.loginUser);
 router.post('/createProduct', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.createProduct);
+router.get('/my-products', authMiddleware.authenticate, productsController.getSellerProducts);
 router.post('/bulk', authMiddleware.authenticate, authMiddleware.authorize(['seller', 'admin']), productsController.createProductsBulk);
 router.post('/logout', authMiddleware.authenticate, usersController.logoutUser);
 router.delete('/deleteUser/:email', authMiddleware.authenticate, authMiddleware.authorize(['admin']), usersController.deleteUser);
