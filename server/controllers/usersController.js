@@ -105,7 +105,7 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-const addMoney = async (req, res) => {
+exports.addMoney = async (req, res) => {
   const { userId, amount } = req.body;
 
   try {
@@ -122,9 +122,4 @@ const addMoney = async (req, res) => {
     console.error('Error adding money:', error);
     res.status(500).send({ message: 'Error adding money. Please try again.' });
   }
-};
-
-module.exports = {
-  // Other controller exports...
-  addMoney
 };
