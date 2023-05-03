@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import api from '../api';
 const Money = () => {
   const [amount, setAmount] = useState('');
   const userId = localStorage.getItem('userId');
@@ -7,7 +7,7 @@ const Money = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/api/users/add-money', { userId, amount });
+      await api.post('/users/add-money', { userId, amount });
       alert('Money added successfully!');
     } catch (error) {
       console.error('Error adding money:', error);
