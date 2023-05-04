@@ -32,7 +32,7 @@ describe('Get seller products', () => {
       description: 'Test product description',
       price: 10.0,
       castegory: "RAM"
-      seller: savedSellerUser._id,
+      seller:savedSellerUser.userId,
     });
 
     await product.save();
