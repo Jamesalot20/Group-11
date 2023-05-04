@@ -10,6 +10,8 @@ describe('Get seller products', () => {
 
   before(async () => {
     // Create a seller and get its token
+    const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash('SellerPassword123', salt);
     const sellerUser = new User({
       email: 'seller50@example.com',
       password: 'SellerPassword123',
