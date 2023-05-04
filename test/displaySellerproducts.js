@@ -31,7 +31,7 @@ describe('Get seller products', () => {
       name: 'Test Product',
       description: 'Test product description',
       price: 10.0,
-      castegory: "RAM",
+      category: "RAM",
       seller:savedSellerUser.userId,
     });
 
