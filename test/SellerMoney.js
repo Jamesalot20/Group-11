@@ -104,7 +104,7 @@ describe('Seller receiving money after product purchase', () => {
       .set('Authorization', `Bearer ${buyerToken}`)
       .send(orderData);
 
-    expect(response.status).toBe(201);
+    expect(response.status).to.equal(201);
 
     // Verify the buyer's balance has decreased
     const updatedBuyer = await User.findById(buyer._id);
