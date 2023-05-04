@@ -39,7 +39,7 @@ describe('Buyer updating money balance', () => {
 
   it('Buyer can update money balance', async () => {
     const addMoneyResponse = await request(app)
-      .put('/api/users/addMoney') // Replace with the correct endpoint for adding money
+      .post('/api/users/add-money') // Replace with the correct endpoint for adding money
       .set('Authorization', `Bearer ${buyerToken}`)
       .send({
         userId: buyerId,
