@@ -11,7 +11,7 @@ describe('Get seller products', () => {
   before(async () => {
     // Create a seller and get its token
     const sellerUser = new User({
-      email: 'seller@example.com',
+      email: 'seller50@example.com',
       password: 'SellerPassword123',
       role: 'seller',
     });
@@ -40,7 +40,7 @@ describe('Get seller products', () => {
 
   after(async () => {
     // Clean up the test seller and product
-    await User.deleteOne({ email: 'seller@example.com' });
+    await User.deleteOne({ email: 'seller50@example.com' });
     await Product.deleteOne({ name: 'Test Product' });
   });
 
