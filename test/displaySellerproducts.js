@@ -21,7 +21,7 @@ describe('Get seller products', () => {
     const response = await request(app)
       .post('/api/users/login')
       .send({
-        email: 'seller@example.com',
+        email: 'seller50@example.com',
         password: 'SellerPassword123',
       });
     sellerToken = response.body.token;
