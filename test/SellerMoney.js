@@ -5,6 +5,7 @@ const app = require('../server/server');
 const chai = require('chai');
 const { expect } = chai;
 const bcrypt = require('bcrypt');
+const supertest = require('supertest');
 
 describe('Seller receiving money after product purchase', () => {
   let buyer, seller, product;
