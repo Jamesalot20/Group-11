@@ -29,18 +29,13 @@ exports.getOrderById = async (req, res) => {
 
 exports.createOrder = async (req, res) => {
   try {
-    const { buyerId, sellerId, totalAmount } = req.body;
+    const { buyerId, sellerIds, totalAmount, items } = req.body;
 
-    // Retrieve the buyer and the seller
+    // Retrieve the buyer
     const buyer = await User.findById(buyerId);
-    const seller = await User.findById(sellerId);
 
     if (!buyer) {
       return res.status(404).json({ error: 'Buyer not found' });
-    }
-
-    if (!seller) {
-      return res.status(404).json({ error: 'Seller not found' });
     }
 
     // Check if the buyer has enough balance
@@ -48,21 +43,46 @@ exports.createOrder = async (req, res) => {
       return res.status(400).json({ error: 'Insufficient balance' });
     }
 
-    // Deduct the order amount from the buyer's balance and add it to the seller's balance
+    // Deduct the order amount from the buyer's balance
     buyer.balance -= totalAmount;
-    seller.balance += totalAmount;
-
     await buyer.save();
-    await seller.save();
 
-    const order = new Order(req.body);
-    await order.save();
-    res.status(201).json(order);
+    const createdOrders = [];
+
+    // Iterate over the sellerIds and create separate orders
+    for (const sellerId of sellerIds) {
+      const seller = await User.findById(sellerId);
+
+      if (!seller) {
+        console.error(`Seller with ID ${sellerId} not found`);
+        continue;
+      }
+
+      const sellerItems = items.filter(item => item.seller === sellerId);
+      const sellerTotalAmount = sellerItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+      // Add the order amount to the seller's balance
+      seller.balance += sellerTotalAmount;
+      await seller.save();
+
+      const order = new Order({
+        items: sellerItems,
+        total: sellerTotalAmount,
+        totalPrice: sellerTotalAmount,
+        buyer: buyerId,
+        seller: sellerId,
+      });
+      await order.save();
+      createdOrders.push(order);
+    }
+
+    res.status(201).json(createdOrders);
   } catch (error) {
     console.error('Error creating order:', error);
     res.status(500).json({ error: 'An error occurred while creating the order.' });
   }
 };
+
 
 exports.updateOrder = async (req, res) => {
   try {

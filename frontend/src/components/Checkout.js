@@ -27,15 +27,18 @@ const handleSubmit = async (e) => {
     name: product.name,
     price: product.price,
     quantity: item.quantity,
+    seller: product.seller,
   };
 }).filter(item => item !== null);
 
-  const orderData = {
+const sellerIds = [...new Set(items.map(item => item.seller))];
+const orderData = {
+  buyerId: localStorage.getItem('userId'),
+  sellerIds,
+  totalAmount: totalPrice,
   items,
-  total: totalPrice,
-  totalPrice,
-  buyer: localStorage.getItem('userId'), // Make sure this key matches the one you used when storing the user ID
 };
+
 
   try {
     await createOrder(orderData);
@@ -51,7 +54,7 @@ async function createOrder(orderData) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
       },
       body: JSON.stringify(orderData),
     });
