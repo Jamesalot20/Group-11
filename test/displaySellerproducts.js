@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../server/server');
 const chai = require('chai');
 const { expect } = chai;
-
+const bcrypt = require('bcrypt');
 describe('Get seller products', () => {
   let sellerToken;
 
