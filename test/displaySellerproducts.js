@@ -46,7 +46,7 @@ describe('Get seller products', () => {
 
   it('Seller can get their products', async () => {
     const getProductsResponse = await request(app)
-      .get('/api/products/my-products')
+      .get('/api/users/my-products')
       .set('Authorization', `Bearer ${sellerToken}`);
 
     expect(getProductsResponse.status).to.equal(200);
