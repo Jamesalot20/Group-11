@@ -9,57 +9,11 @@ const supertest = require('supertest');
 
 const request = supertest(app);
 
-let buyerToken, sellerToken;
+let buyerToken, sellerToken, buyer, seller;
 
 describe('Seller receiving money after product purchase', () => {
   before(async () => {
-  // Create a buyer with an initial balance and hashed password
-  const buyerPassword = await bcrypt.hash('BuyerPassword123', 10);
-  buyer = new User({
-    email: 'buyer32@example.com',
-    password: buyerPassword,
-    role: 'buyer',
-    balance: 50,
-  });
-  await buyer.save();
-
-  // Create a seller with an initial balance and hashed password
-  const sellerPassword = await bcrypt.hash('SellerPassword123', 10);
-  seller = new User({
-    email: 'seller32@example.com',
-    password: sellerPassword,
-    role: 'seller',
-    balance: 0,
-  });
-  await seller.save();
-
-  // Login as a buyer to obtain the authorization token
-  const buyerCredentials = {
-    email: 'buyer32@example.com',
-    password: 'BuyerPassword123'
-  };
-
-  const buyerRes = await request
-    .post('/api/users/login')
-    .send(buyerCredentials);
-
-  buyerToken = buyerRes.body.token;
-
-  // Login as a seller to obtain the authorization token
-  const sellerCredentials = {
-    email: 'seller32@example.com',
-    password: 'SellerPassword123'
-  };
-
-  const sellerRes = await request
-    .post('/api/users/login')
-    .send(sellerCredentials);
-
-  sellerToken = sellerRes.body.token;
-});
-  
-  beforeEach(async () => {
-    // Create a buyer with an initial balance
+    // Create a buyer with an initial balance and hashed password
     const buyerPassword = await bcrypt.hash('BuyerPassword123', 10);
     buyer = new User({
       email: 'buyer32@example.com',
@@ -69,7 +23,7 @@ describe('Seller receiving money after product purchase', () => {
     });
     await buyer.save();
 
-    // Create a seller with an initial balance
+    // Create a seller with an initial balance and hashed password
     const sellerPassword = await bcrypt.hash('SellerPassword123', 10);
     seller = new User({
       email: 'seller32@example.com',
@@ -79,6 +33,32 @@ describe('Seller receiving money after product purchase', () => {
     });
     await seller.save();
 
+    // Login as a buyer to obtain the authorization token
+    const buyerCredentials = {
+      email: 'buyer32@example.com',
+      password: 'BuyerPassword123'
+    };
+
+    const buyerRes = await request
+      .post('/api/users/login')
+      .send(buyerCredentials);
+
+    buyerToken = buyerRes.body.token;
+
+    // Login as a seller to obtain the authorization token
+    const sellerCredentials = {
+      email: 'seller32@example.com',
+      password: 'SellerPassword123'
+    };
+
+    const sellerRes = await request
+      .post('/api/users/login')
+      .send(sellerCredentials);
+
+    sellerToken = sellerRes.body.token;
+  });
+
+  beforeEach(async () => {
     // Create a product with the seller as the owner
     product = new Product({
       name: 'Test Product',
@@ -98,7 +78,7 @@ describe('Seller receiving money after product purchase', () => {
     await Order.deleteMany({});
   });
 
-    it('Seller receives money after buyer purchases product', async () => {
+  it('Seller receives money after buyer purchases product', async () => {
     // Simulate the buyer purchasing the product
     const items = [
       {
