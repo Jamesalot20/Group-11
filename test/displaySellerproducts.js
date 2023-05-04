@@ -14,7 +14,7 @@ describe('Get seller products', () => {
   const hashedPassword = await bcrypt.hash('SellerPassword123', salt);
     const sellerUser = new User({
       email: 'seller50@example.com',
-      password: 'SellerPassword123',
+      password: hashedPassword,
       role: 'seller',
     });
 
