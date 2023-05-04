@@ -15,7 +15,7 @@ describe('Seller receiving money after product purchase', () => {
   before(async () => {
     // Login as a buyer to obtain the authorization token
     const buyerCredentials = {
-      email: 'buyer@example.com',
+      email: 'buyer32@example.com',
       password: 'BuyerPassword123'
     };
 
@@ -27,7 +27,7 @@ describe('Seller receiving money after product purchase', () => {
 
     // Login as a seller to obtain the authorization token
     const sellerCredentials = {
-      email: 'seller@example.com',
+      email: 'seller32@example.com',
       password: 'SellerPassword123'
     };
 
@@ -42,7 +42,7 @@ describe('Seller receiving money after product purchase', () => {
     // Create a buyer with an initial balance
     const buyerPassword = await bcrypt.hash('BuyerPassword123', 10);
     buyer = new User({
-      email: 'buyer@example.com',
+      email: 'buyer32@example.com',
       password: buyerPassword,
       role: 'buyer',
       balance: 50,
@@ -52,7 +52,7 @@ describe('Seller receiving money after product purchase', () => {
     // Create a seller with an initial balance
     const sellerPassword = await bcrypt.hash('SellerPassword123', 10);
     seller = new User({
-      email: 'seller@example.com',
+      email: 'seller32@example.com',
       password: sellerPassword,
       role: 'seller',
       balance: 0,
@@ -72,8 +72,8 @@ describe('Seller receiving money after product purchase', () => {
 
   afterEach(async () => {
     // Clean up the test users and product
-    await User.deleteOne({ email: 'buyer@example.com' });
-    await User.deleteOne({ email: 'seller@example.com' });
+    await User.deleteOne({ email: 'buyer32@example.com' });
+    await User.deleteOne({ email: 'seller32@example.com' });
     await Product.deleteOne({ name: 'Test Product' });
     await Order.deleteMany({});
   });
