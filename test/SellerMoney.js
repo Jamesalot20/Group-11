@@ -7,8 +7,36 @@ const { expect } = chai;
 const bcrypt = require('bcrypt');
 const supertest = require('supertest');
 
+const request = supertest(app);
+
+let buyerToken, sellerToken;
+
 describe('Seller receiving money after product purchase', () => {
-  let buyer, seller, product;
+  before(async () => {
+    // Login as a buyer to obtain the authorization token
+    const buyerCredentials = {
+      email: 'buyer@example.com',
+      password: 'BuyerPassword123'
+    };
+
+    const buyerRes = await request
+      .post('/api/users/login')
+      .send(buyerCredentials);
+
+    buyerToken = buyerRes.body.token;
+
+    // Login as a seller to obtain the authorization token
+    const sellerCredentials = {
+      email: 'seller@example.com',
+      password: 'SellerPassword123'
+    };
+
+    const sellerRes = await request
+      .post('/api/users/login')
+      .send(sellerCredentials);
+
+    sellerToken = sellerRes.body.token;
+  });
 
   beforeEach(async () => {
     // Create a buyer with an initial balance
@@ -73,7 +101,7 @@ describe('Seller receiving money after product purchase', () => {
     const response = await request
       .post('/api/orders')
       .set('Content-Type', 'application/json')
-      .set('Authorization', `Bearer YOUR_TEST_AUTH_TOKEN`)
+      .set('Authorization', `Bearer ${buyerToken}`)
       .send(orderData);
 
     expect(response.status).toBe(201);
